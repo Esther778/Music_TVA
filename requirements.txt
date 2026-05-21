@@ -1,0 +1,6 @@
+msaf>=0.1.80
+numpy>=1.23
+scipy>=1.10
+scikit-learn>=1.3
+soundfile>=0.12
+requests>=2.31

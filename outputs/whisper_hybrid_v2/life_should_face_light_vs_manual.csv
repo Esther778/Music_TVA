@@ -1,0 +1,16 @@
+manual_id,manual_start,manual_end,manual_label,best_auto_id,auto_start,auto_end,auto_label,overlap_seconds,label_match
+1,0:00.00,0:14.00,Intro,1,0:00.00,0:15.00,Intro,14.0,True
+2,0:14.00,0:28.00,Verse,2,0:15.00,0:50.00,Verse,13.0,True
+3,0:28.00,0:43.00,Verse,2,0:15.00,0:50.00,Verse,15.0,True
+4,0:43.00,0:57.00,Pre-chorus,2,0:15.00,0:50.00,Verse,7.0,False
+5,0:57.00,1:25.00,Chorus,4,0:57.20,1:24.80,Chorus,27.6,True
+6,1:25.00,1:40.00,Bridge,5,1:24.80,1:41.00,Bridge,15.0,True
+7,1:40.00,1:54.00,Verse,6,1:41.00,2:16.00,Verse,13.0,True
+8,1:54.00,2:08.00,Verse,6,1:41.00,2:16.00,Verse,14.0,True
+9,2:08.00,2:23.00,Pre-chorus,6,1:41.00,2:16.00,Verse,8.0,False
+10,2:23.00,2:53.00,Chorus,8,2:23.20,2:50.80,Chorus,27.6,True
+11,2:53.00,3:06.00,Bridge,9,2:50.80,3:06.00,Bridge,13.0,True
+12,3:06.00,3:20.00,Verse,10,3:06.00,3:33.80,Chorus,14.0,False
+13,3:20.00,3:34.00,Chorus,10,3:06.00,3:33.80,Chorus,13.8,True
+14,3:34.00,3:51.00,Outro,11,3:33.80,3:59.60,Bridge,17.0,False
+15,3:51.00,4:02.27,Outro,11,3:33.80,3:59.60,Bridge,8.6,False

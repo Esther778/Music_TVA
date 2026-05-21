@@ -1,0 +1,5 @@
+song_id,region_index,start_time,end_time,duration,reason,threshold
+life_should_face_light,1,0:00.00,0:14.86,0:14.86,low separated-vocal RMS,0.02317874
+life_should_face_light,2,1:27.93,1:40.73,0:12.80,low separated-vocal RMS,0.02317874
+life_should_face_light,3,2:54.92,3:05.71,0:10.79,low separated-vocal RMS,0.02317874
+life_should_face_light,4,3:50.41,4:02.25,0:11.84,low separated-vocal RMS,0.02317874

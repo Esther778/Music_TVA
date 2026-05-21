@@ -1,0 +1,14 @@
+boundary_time,left_type,right_type,semantic_score,acoustic_score,novelty_score,timbre_score,chroma_score,onset_score,rms_score,vocal_activity_score,override_by_acoustic,decision,reason
+0:26.00,intro,verse,0.8,0.22,0.24,0.051,0.08,0.079,0.227,1.0,false,lyric_kept,声学证据不足以推翻语义切分
+0:35.00,verse,pre_chorus,0.65,0.1,0.285,0.046,0.098,0.029,0.002,0.0,false,lyric_kept,声学证据不足以推翻语义切分
+0:57.00,pre_chorus,chorus,0.65,0.09,0.312,0.007,0.029,0.005,0.004,0.0,false,lyric_kept,声学证据不足以推翻语义切分
+1:29.00,chorus,verse,0.65,0.09,0.226,0.088,0.015,0.025,0.076,0.0,false,lyric_kept,声学证据不足以推翻语义切分
+1:38.00,verse,bridge,0.8,0.28,0.344,0.1,0.11,0.03,0.44,1.0,false,lyric_kept,声学证据不足以推翻语义切分
+1:55.00,bridge,verse,0.8,0.19,0.216,0.022,0.096,0.055,0.004,1.0,false,lyric_kept,声学证据不足以推翻语义切分
+2:05.00,verse,pre_chorus,0.65,0.14,0.385,0.082,0.077,0.011,0.062,0.0,false,lyric_kept,声学证据不足以推翻语义切分
+2:26.00,pre_chorus,chorus,0.65,0.09,0.331,0.015,0.024,0.003,0.024,0.0,false,lyric_kept,声学证据不足以推翻语义切分
+2:51.00,chorus,verse,0.65,0.1,0.308,0.003,0.08,0.025,0.075,0.0,false,lyric_kept,声学证据不足以推翻语义切分
+2:55.00,verse,pre_chorus,0.65,0.11,0.3,0.035,0.082,0.021,0.035,0.0,false,lyric_kept,声学证据不足以推翻语义切分
+3:16.00,pre_chorus,chorus,0.65,0.09,0.297,0.008,0.032,0.003,0.043,0.0,false,lyric_kept,声学证据不足以推翻语义切分
+3:40.00,chorus,verse,0.65,0.11,0.276,0.054,0.042,0.029,0.19,0.0,false,lyric_kept,声学证据不足以推翻语义切分
+3:59.00,verse,outro,0.8,0.25,0.318,0.079,0.081,0.048,0.355,1.0,false,lyric_kept,声学证据不足以推翻语义切分

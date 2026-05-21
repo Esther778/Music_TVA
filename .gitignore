@@ -1,0 +1,17 @@
+.DS_Store
+.pycache/
+__pycache__/
+*.py[cod]
+
+.venv/
+.vscode/
+
+songs/*.mp3
+outputs/vocal_separation/
+outputs/**/*.wav
+outputs/**/*.mp3
+outputs/**/*.npy
+outputs/**/*.npz
+outputs/**/*.pkl
+
+lyrics_only/

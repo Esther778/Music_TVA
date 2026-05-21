@@ -1,0 +1,11 @@
+section_index,old_type,new_type,lyric_function_score,repetition_score,position_score,neighbor_score,acoustic_profile_score,template_score,final_score,reason
+1,intro,intro,0.85,0.45,0.75,0.55,0.55,0.55,0.67,早段主歌前无完整歌词器乐，按 intro 处理
+2,verse,verse,0.8,0.45,0.65,0.55,0.55,0.55,0.63,保留原类型：全局结构未提供更强反证
+3,pre-chorus,pre-chorus,0.65,0.45,0.55,0.55,0.55,0.55,0.57,保留原类型：全局结构未提供更强反证
+4,chorus,chorus,0.8,0.7,0.55,0.55,0.55,0.65,0.67,保留 chorus：hook/final chorus/coda 功能优先
+5,bridge,bridge,0.65,0.45,0.7,0.55,0.55,0.55,0.59,中段无完整歌词，标 bridge
+6,pre-chorus,pre-chorus,0.65,0.45,0.55,0.55,0.55,0.55,0.57,保留原类型：全局结构未提供更强反证
+7,chorus,chorus,0.8,0.7,0.55,0.55,0.55,0.65,0.67,保留 chorus：hook/final chorus/coda 功能优先
+8,bridge,bridge,0.65,0.45,0.7,0.75,0.7,0.55,0.63,保留原类型：全局结构未提供更强反证
+9,chorus,chorus,0.8,0.7,0.55,0.65,0.55,0.65,0.69,保留 chorus：hook/final chorus/coda 功能优先
+10,outro,outro,0.85,0.45,0.75,0.55,0.55,0.55,0.67,无完整歌词且在结尾，标 outro

@@ -1,0 +1,4 @@
+song_id,region_index,start_time,end_time,duration,reason,threshold
+time_flood,1,0:00.00,0:16.25,0:16.25,low separated-vocal RMS,0.03692135
+time_flood,2,1:45.40,2:00.56,0:15.16,low separated-vocal RMS,0.03692135
+time_flood,3,3:49.88,4:11.19,0:21.31,low separated-vocal RMS,0.03692135

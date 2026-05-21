@@ -1,0 +1,10 @@
+song_id,section_index,start_time,end_time,duration,section_type,structure_label,lyric_evidence,vocal_evidence,acoustic_evidence,boundary_confidence,type_confidence,need_human_review
+life_should_face_light,1,0:00.00,0:15.00,0:15.00,intro,A,无完整歌词/氛围引入,主唱未正式进入,建立氛围；边界靠首次主唱/稳定伴奏进入,0.67,0.78,false
+life_should_face_light,2,0:15.00,0:42.80,0:27.80,verse,B,低重复叙事推进,完整主唱叙事,稳定主歌伴奏；声学边界较弱,0.64,0.7,true
+life_should_face_light,3,0:42.80,0:57.20,0:14.40,pre-chorus,C,位于 Verse 和 Chorus 之间，歌词功能偏蓄力/过渡,主唱连续，预备进入 hook,进入副歌前变化；声学边界较弱；能量较高；onset/鼓点活跃,0.64,0.62,true
+life_should_face_light,4,0:57.20,1:41.00,0:43.80,chorus,D,重复歌词或核心 hook 候选,完整主唱；通常承担主题释放,副歌候选；声学边界较弱；能量较高,0.67,0.68,false
+life_should_face_light,5,1:41.00,2:08.80,0:27.80,verse,B,低重复叙事推进,完整主唱叙事,稳定主歌伴奏；声学边界较弱；能量较高,0.67,0.7,false
+life_should_face_light,6,2:08.80,2:23.20,0:14.40,pre-chorus,C,位于 Verse 和 Chorus 之间，歌词功能偏蓄力/过渡,主唱连续，预备进入 hook,进入副歌前变化；声学边界较弱；能量较高；onset/鼓点活跃,0.61,0.62,true
+life_should_face_light,7,2:23.20,3:50.00,1:26.80,chorus,D,重复歌词或核心 hook 候选,完整主唱；通常承担主题释放,副歌候选；声学边界较弱；能量较高,0.66,0.68,true
+life_should_face_light,8,3:50.00,3:59.60,0:09.60,bridge,E,长时间无主唱/无完整歌词，作为桥段或器乐桥段候选,可能为新视角、转折或无主唱器乐段,对比段候选；声学边界较弱,0.69,0.6,true
+life_should_face_light,9,3:59.60,4:02.27,0:02.67,outro,A,尾句重复/收束,主唱退出或弱化,歌曲尾部材料；需检查是否只是最后副歌延展,0.52,0.72,true

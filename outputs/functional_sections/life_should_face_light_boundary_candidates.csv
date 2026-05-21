@@ -1,0 +1,19 @@
+candidate_time,source,confidence,reason
+0:00.33,acoustic_novelty,0.95,频谱/节奏/音色综合 novelty 峰值
+0:10.19,acoustic_novelty,0.61,频谱/节奏/音色综合 novelty 峰值
+0:15.00,acoustic_novelty+vocal_enter,0.95,第一次完整主唱进入；频谱/节奏/音色综合 novelty 峰值
+0:48.20,acoustic_novelty,0.95,频谱/节奏/音色综合 novelty 峰值
+1:07.50,acoustic_novelty,0.95,频谱/节奏/音色综合 novelty 峰值
+1:37.27,acoustic_novelty,0.53,频谱/节奏/音色综合 novelty 峰值
+1:40.61,acoustic_novelty,0.95,频谱/节奏/音色综合 novelty 峰值
+2:55.84,acoustic_novelty,0.55,频谱/节奏/音色综合 novelty 峰值
+2:59.42,acoustic_novelty,0.59,频谱/节奏/音色综合 novelty 峰值
+3:01.67,acoustic_novelty,0.62,频谱/节奏/音色综合 novelty 峰值
+3:09.75,acoustic_novelty,0.95,频谱/节奏/音色综合 novelty 峰值
+3:35.27,acoustic_novelty,0.54,频谱/节奏/音色综合 novelty 峰值
+3:38.41,acoustic_novelty,0.89,频谱/节奏/音色综合 novelty 峰值
+3:42.03,acoustic_novelty,0.81,频谱/节奏/音色综合 novelty 峰值
+3:46.23,acoustic_novelty,0.54,频谱/节奏/音色综合 novelty 峰值
+3:50.00,acoustic_novelty+lyric_gap,0.95,频谱/节奏/音色综合 novelty 峰值；连续歌词之间出现长无歌词空隙
+3:52.41,acoustic_novelty,0.6,频谱/节奏/音色综合 novelty 峰值
+3:59.60,vocal_reenter,0.76,长空隙后主唱重新进入
