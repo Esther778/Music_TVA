@@ -1,9 +1,0 @@
-song_id,section_index,start_time,end_time,duration,section_type,structure_label,lyric_evidence,vocal_evidence,acoustic_evidence,boundary_confidence,type_confidence,need_human_review
-life_should_face_light,1,0:15.00,0:42.80,0:27.80,verse,B,歌词语义/重复关系形成的初稿段落,完整主唱句组,尚未声学复核,0.0,0.0,false
-life_should_face_light,2,0:42.80,0:57.20,0:14.40,pre_chorus,C,歌词语义/重复关系形成的初稿段落,完整主唱句组,尚未声学复核,0.0,0.0,false
-life_should_face_light,3,0:57.20,1:41.00,0:43.80,chorus,D,歌词语义/重复关系形成的初稿段落,完整主唱句组,尚未声学复核,0.0,0.0,false
-life_should_face_light,4,1:41.00,2:08.80,0:27.80,verse,B,歌词语义/重复关系形成的初稿段落,完整主唱句组,尚未声学复核,0.0,0.0,false
-life_should_face_light,5,2:08.80,2:23.20,0:14.40,pre_chorus,C,歌词语义/重复关系形成的初稿段落,完整主唱句组,尚未声学复核,0.0,0.0,false
-life_should_face_light,6,2:23.20,3:49.00,1:25.80,chorus,D,歌词语义/重复关系形成的初稿段落,完整主唱句组,尚未声学复核,0.0,0.0,false
-life_should_face_light,7,3:49.00,3:50.00,0:01.00,verse,B,歌词语义/重复关系形成的初稿段落,完整主唱句组,尚未声学复核,0.0,0.0,false
-life_should_face_light,8,3:59.60,4:00.60,0:01.00,verse,B,歌词语义/重复关系形成的初稿段落,完整主唱句组,尚未声学复核,0.0,0.0,false

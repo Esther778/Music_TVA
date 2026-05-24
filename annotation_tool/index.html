@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Section Annotation Console</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div>
+            <h1>Section QA</h1>
+            <p>Supabase annotation console</p>
+          </div>
+          <button id="refreshButton" title="刷新">↻</button>
+        </div>
+        <div class="summary-grid">
+          <div><span id="songCount">0</span><label>songs</label></div>
+          <div><span id="reviewCount">0</span><label>review</label></div>
+        </div>
+        <label class="field-label" for="songSearch">搜索</label>
+        <input id="songSearch" class="text-input" placeholder="title / artist / id" />
+        <div id="songList" class="song-list"></div>
+      </aside>
+
+      <main class="workspace">
+        <section class="topbar">
+          <div>
+            <h2 id="songTitle">选择一首歌</h2>
+            <p id="songMeta">等待 Supabase 数据</p>
+          </div>
+          <div class="toolbar">
+            <select id="reviewFilter">
+              <option value="review">只看需质检</option>
+              <option value="all">全部 sections</option>
+              <option value="approved">已有人工标注</option>
+            </select>
+            <button id="approveAllVisible">批准当前可见</button>
+          </div>
+        </section>
+
+        <section class="audio-panel">
+          <audio id="audioPlayer" controls preload="metadata"></audio>
+          <div id="timeline" class="timeline"></div>
+        </section>
+
+        <section class="details-grid">
+          <section class="panel">
+            <div class="panel-head">
+              <h3>Sections</h3>
+              <span id="runMeta"></span>
+            </div>
+            <div id="sectionList" class="section-list empty">选择歌曲后显示模型结果</div>
+          </section>
+
+          <section class="panel inspector">
+            <div class="panel-head">
+              <h3>Inspector</h3>
+              <span id="selectedBadge">未选择</span>
+            </div>
+            <form id="editForm" class="edit-form">
+              <label>Section type</label>
+              <select id="editType">
+                <option value="intro">intro</option>
+                <option value="verse">verse</option>
+                <option value="pre_chorus">pre_chorus</option>
+                <option value="chorus">chorus</option>
+                <option value="bridge">bridge</option>
+                <option value="outro">outro</option>
+              </select>
+              <div class="form-row">
+                <div>
+                  <label>Start</label>
+                  <input id="editStart" type="number" step="0.01" />
+                </div>
+                <div>
+                  <label>End</label>
+                  <input id="editEnd" type="number" step="0.01" />
+                </div>
+              </div>
+              <label>Reviewer confidence</label>
+              <input id="editConfidence" type="range" min="0" max="1" step="0.05" value="1" />
+              <label>Comment</label>
+              <textarea id="editComment" rows="4" placeholder="可写边界/type 的判断依据"></textarea>
+              <div class="form-actions">
+                <button type="button" id="seekStart">跳到开头</button>
+                <button type="submit" id="saveEdit">保存人工标注</button>
+                <button type="button" id="markUnsure">标记 unsure</button>
+              </div>
+            </form>
+            <div class="evidence">
+              <h4>Model evidence</h4>
+              <dl>
+                <dt>Boundary confidence</dt><dd id="boundaryConfidence">-</dd>
+                <dt>Type confidence</dt><dd id="typeConfidence">-</dd>
+                <dt>Review flag</dt><dd id="reviewFlag">-</dd>
+                <dt>Lyric</dt><dd id="lyricEvidence">-</dd>
+                <dt>Vocal</dt><dd id="vocalEvidence">-</dd>
+                <dt>Acoustic</dt><dd id="acousticEvidence">-</dd>
+              </dl>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

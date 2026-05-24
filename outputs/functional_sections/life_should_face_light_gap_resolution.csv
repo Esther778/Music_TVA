@@ -1,4 +1,0 @@
-start_time,end_time,duration,decision,assigned_to,reason,previous_similarity,next_similarity
-0:00.00,0:15.00,0:15.00,new_section,intro,开头无歌词音乐,1.0,0.0
-3:50.00,3:59.60,0:09.60,new_section,bridge,中间长无歌词音乐，独立为 bridge,0.0,0.0
-4:00.60,4:02.27,0:01.67,new_section,outro,结尾无歌词音乐,0.0,1.0

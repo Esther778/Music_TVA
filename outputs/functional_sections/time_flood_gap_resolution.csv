@@ -1,6 +1,0 @@
-start_time,end_time,duration,decision,assigned_to,reason,previous_similarity,next_similarity
-0:00.00,0:16.00,0:16.00,new_section,intro,开头无歌词音乐,1.0,0.0
-1:15.00,1:16.00,0:01.00,absorb,previous,短无歌词间隙与前一段声学更相似或差异不显著,0.82,0.751
-1:45.00,2:00.00,0:15.00,new_section,bridge,中间长无歌词音乐，独立为 bridge,0.0,0.0
-2:30.00,2:31.00,0:01.00,absorb,previous,短无歌词间隙与前一段声学更相似或差异不显著,0.959,0.942
-3:01.00,3:12.00,0:11.00,new_section,bridge,中间长无歌词音乐，独立为 bridge,0.0,0.0

@@ -32,7 +32,7 @@ def refine_section_types(sections: list[pipeline.SectionCandidate], duration: fl
         previous_sung_type = previous_sung_core_type(sections, index)
         next_sung_type = next_sung_core_type(sections, index)
         position = section.start / total
-        has_lyrics = bool(section.text or "完整主唱" in section.vocal_evidence or "主唱" in section.vocal_evidence and "退出" not in section.vocal_evidence)
+        has_lyrics = has_complete_lyrics(section)
 
         new_type, reason = choose_type(
             section,
@@ -201,6 +201,19 @@ def next_sung_core_type(sections: list[pipeline.SectionCandidate], index: int) -
 
 
 def has_complete_lyrics(section: pipeline.SectionCandidate) -> bool:
+    evidence = f"{section.lyric_evidence} {section.vocal_evidence} {section.acoustic_evidence}"
+    no_complete_lyrics_markers = (
+        "无歌词",
+        "第一句歌词前",
+        "主唱未正式进入",
+        "主唱退出",
+        "低人声",
+        "弱主唱",
+        "器乐",
+        "instrumental",
+    )
+    if any(marker in evidence for marker in no_complete_lyrics_markers):
+        return False
     return bool(
         section.text
         or "完整主唱" in section.vocal_evidence

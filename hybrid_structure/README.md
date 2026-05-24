@@ -89,7 +89,7 @@ This format intentionally does not pretend the automatic result is final. It
 exports a candidate section boundary, candidate type, evidence, confidence, and
 review flag.
 
-The agentic command also writes intermediate CSV files by default:
+The agentic command can write intermediate CSV files:
 
 ```text
 <song_id>_sentence_segments.csv
@@ -98,7 +98,9 @@ The agentic command also writes intermediate CSV files by default:
 <song_id>_acoustic_validation.csv
 ```
 
-These files are the main debugging surface. The intended order is:
+These files are debugging surfaces. Keep them only while diagnosing a specific
+song; they are reproducible and should not be treated as the latest review CSV.
+The intended order is:
 
 ```text
 sentence_segments -> lyric_draft_sections -> gap_resolution -> acoustic_validation -> final sections
@@ -115,16 +117,10 @@ type_refinement -> final sections
 Latest generated files:
 
 ```text
+outputs/functional_sections/anohana_acoustic_first_sections.csv
+outputs/functional_sections/time_flood_acoustic_first_sections.csv
 outputs/functional_sections/life_should_face_light_agentic_sections.csv
-outputs/functional_sections/anohana_agentic_sections.csv
-outputs/functional_sections/time_flood_agentic_sections.csv
-outputs/functional_sections/life_should_face_light_boundary_candidates.csv
-outputs/functional_sections/anohana_boundary_candidates.csv
-outputs/functional_sections/time_flood_boundary_candidates.csv
-outputs/functional_sections/life_should_face_light_sentence_segments.csv
-outputs/functional_sections/anohana_sentence_segments.csv
-outputs/functional_sections/time_flood_sentence_segments.csv
-outputs/functional_sections/anohana_type_refinement.csv
+outputs/functional_sections/i_only_care_about_you_agentic_sections.csv
 ```
 
 Supporting transcripts:
@@ -133,6 +129,7 @@ Supporting transcripts:
 outputs/functional_sections/周深-生活总该迎着光亮_whisper_segments.csv
 outputs/functional_sections/周深-一期一会《未闻花名》_whisper_segments.csv
 outputs/functional_sections/程响-时光洪流_whisper_segments.csv
+outputs/functional_sections/邓丽君-我只在乎你_whisper_segments.csv
 ```
 
 ## Core Logic

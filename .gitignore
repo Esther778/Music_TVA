@@ -1,17 +1,31 @@
+# macOS / editor
 .DS_Store
-.pycache/
-__pycache__/
-*.py[cod]
-
-.venv/
 .vscode/
 
-songs/*.mp3
-outputs/vocal_separation/
-outputs/**/*.wav
-outputs/**/*.mp3
-outputs/**/*.npy
-outputs/**/*.npz
-outputs/**/*.pkl
+# Python
+.venv/
+__pycache__/
+.pycache/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Downloaded source data and generated lyrics
+songs/
 lyrics_only/
+
+# Pipeline outputs and generated artifacts
+outputs/
+*.wav
+*.mp3
+*.npy
+*.npz
+*.pkl
+*.log

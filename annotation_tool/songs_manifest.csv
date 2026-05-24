@@ -1,0 +1,5 @@
+id,title,artist,audio_path,sections_csv,lyrics_csv,pipeline_version
+anohana,一期一会《未闻花名》,周深,/songs/周深-一期一会《未闻花名》.mp3,outputs/functional_sections/anohana_acoustic_first_sections.csv,outputs/functional_sections/周深-一期一会《未闻花名》_whisper_segments.csv,acoustic_first_prechorus_v1
+time_flood,时光洪流,程响,/songs/程响-时光洪流.mp3,outputs/functional_sections/time_flood_acoustic_first_sections.csv,outputs/functional_sections/程响-时光洪流_whisper_segments.csv,acoustic_first_prechorus_v1
+life_should_face_light,生活总该迎着光亮,周深,/songs/周深-生活总该迎着光亮.mp3,outputs/functional_sections/life_should_face_light_agentic_sections.csv,outputs/functional_sections/周深-生活总该迎着光亮_whisper_segments.csv,agentic_nlp_acoustic
+i_only_care_about_you,我只在乎你,邓丽君,/songs/邓丽君-我只在乎你.mp3,outputs/functional_sections/i_only_care_about_you_agentic_sections.csv,outputs/functional_sections/邓丽君-我只在乎你_whisper_segments.csv,agentic_nlp_acoustic

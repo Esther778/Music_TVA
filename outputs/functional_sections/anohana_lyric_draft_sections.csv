@@ -1,4 +1,0 @@
-song_id,section_index,start_time,end_time,duration,section_type,structure_label,lyric_evidence,vocal_evidence,acoustic_evidence,boundary_confidence,type_confidence,need_human_review
-anohana,1,0:00.10,0:18.67,0:18.57,pre_chorus,C,歌词语义/重复关系形成的初稿段落,完整主唱句组,尚未声学复核,0.0,0.0,false
-anohana,2,0:18.67,0:54.74,0:36.07,chorus,D,歌词语义/重复关系形成的初稿段落,完整主唱句组,尚未声学复核,0.0,0.0,false
-anohana,3,0:54.74,4:50.89,3:56.15,verse,B,歌词语义/重复关系形成的初稿段落,完整主唱句组,尚未声学复核,0.0,0.0,false
