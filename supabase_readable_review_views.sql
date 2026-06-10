@@ -1,7 +1,8 @@
 -- Run this in Supabase SQL Editor.
 -- Keep only one readable inspection view: public.human_annotations_readable.
 -- This does not delete source tables. It only drops extra readable views and
--- recreates human_annotations_readable for all section-level human QC results.
+-- recreates human_annotations_readable as the readable mirror of every
+-- section-level result submitted from the QC desk.
 
 drop view if exists public.review_activity_latest;
 drop view if exists public.section_reviews_readable;

@@ -157,16 +157,13 @@ reliable path.
 - `section_review_queue`: view for joined review context.
 - `human_annotations_readable`: readable view for Supabase inspection. Keep this
   as the only extra human-readable annotation view unless a new one is
-  explicitly required. It should show only songs whose whole-song QC was
-  completed (`songs.status = reviewed`). Put song title, artist, and section
-  fields first. Rows are ordered by whole-song reviewed timestamp descending,
-  then by section start time within each song.
-- `human_annotations_readable` is the section-level visible source of truth:
-  every submitted section should appear there, including songs that are still
-  `in_review`.
-- The QC dashboard's reviewed-song count must match the subset of
-  `human_annotations_readable` where `song_status = reviewed`. A song is
-  displayed as `已质检` only when reviewed readable rows exist for that song;
+  explicitly required. It is the section-level visible source of truth: every
+  submitted section should appear there, including songs that are still
+  `in_review`. Put song title, artist, and section fields first. Rows are
+  ordered by whole-song reviewed timestamp descending, then by section start
+  time within each song.
+- The QC dashboard's reviewed-song count must match `human_annotations_readable`.
+  A song is displayed as `已质检` only when readable rows exist for that song;
   `songs.status = reviewed` alone is not sufficient because it can drift from
   the final annotation rows.
 

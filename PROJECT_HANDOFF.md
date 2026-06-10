@@ -250,18 +250,15 @@ Per-section submit:
   immediately and must read back successfully before the UI shows success.
   Deleted machine sections are persisted as `section_reviews.action = delete`
   tombstones and restored from those tombstones on reload.
-- `human_annotations_readable` is the visual inspection view for reviewed
-  content. It must expose song title, artist, whole-song reviewed timestamp,
-  song status, and section rows, with song title, artist, and section fields at
-  the front. It is the only readable inspection view and must show only
-  whole-song completed QC results (`songs.status = reviewed`). Sort by
-  whole-song reviewed timestamp descending; inside each song, sort sections by
-  playback time.
-- `human_annotations_readable` is the section-level visible source of truth:
-  every submitted section should appear there, including songs that are still
-  `in_review`.
-- The QC dashboard reviewed-song count and `已质检` labels must match the
-  subset of `human_annotations_readable` where `song_status = reviewed`. Do not
+- `human_annotations_readable` is the visual inspection view for QC desk output.
+  It must expose song title, artist, whole-song reviewed timestamp, song status,
+  and section rows, with song title, artist, and section fields at the front. It
+  is the only readable inspection view and is the section-level visible source
+  of truth: every submitted section must appear there, including songs that are
+  still `in_review`. Sort by whole-song reviewed timestamp descending; inside
+  each song, sort sections by playback time.
+- The QC dashboard reviewed-song count and `已质检` labels must match
+  `human_annotations_readable`. Do not
   use `songs.status = reviewed` alone to mark a song reviewed in the frontend;
   status can drift from actual final annotation rows.
 - Dragging or using up/down buttons changes frontend order only. It must not
