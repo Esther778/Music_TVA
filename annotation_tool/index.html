@@ -3,53 +3,61 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Section Annotation Console</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <title>歌曲 Section 人工质检台</title>
+    <link rel="stylesheet" href="./styles.css?v=20260610-section-write1" />
   </head>
   <body>
     <div class="app-shell">
       <aside class="sidebar">
         <div class="brand">
           <div>
-            <h1>Section QA</h1>
-            <p>Supabase annotation console</p>
+            <h1>Section 质检台</h1>
+            <p>确认机器切分，修正错误段落，写入 Supabase</p>
           </div>
-          <button id="refreshButton" title="刷新">↻</button>
+          <button id="refreshButton" title="刷新 Supabase 数据" aria-label="刷新 Supabase 数据" data-tooltip="刷新 Supabase 数据">↻</button>
         </div>
         <div class="summary-grid">
-          <div><span id="songCount">0</span><label>songs</label></div>
-          <div><span id="reviewCount">0</span><label>review</label></div>
+          <button type="button" class="summary-card active" data-song-filter="all"><span id="songCount">0</span><label>全部歌曲</label></button>
+          <button type="button" class="summary-card" data-song-filter="pending"><span id="pendingCount">0</span><label>未质检</label></button>
+          <button type="button" class="summary-card" data-song-filter="reviewed"><span id="reviewedCount">0</span><label>已质检</label></button>
+          <div><span id="actionCount">0/0</span><label>当前歌曲质检</label></div>
         </div>
-        <label class="field-label" for="songSearch">搜索</label>
-        <input id="songSearch" class="text-input" placeholder="title / artist / id" />
-        <div id="songList" class="song-list"></div>
+        <div id="selectedSongCard" class="selected-song-card">未选择歌曲</div>
+        <label class="field-label" for="songPicker">选择需要质检的歌曲</label>
+        <input id="songPicker" class="text-input" list="songOptions" placeholder="输入歌名 / 歌手 / id 搜索" />
+        <datalist id="songOptions"></datalist>
+        <input id="statusFilter" type="hidden" value="all" />
+        <input id="reviewFilter" type="hidden" value="all" />
+        <button id="songDirectoryTitle" type="button" class="directory-title">全部歌曲目录</button>
+        <div id="songDirectory" class="song-directory"></div>
       </aside>
 
       <main class="workspace">
-        <section class="topbar">
-          <div>
-            <h2 id="songTitle">选择一首歌</h2>
-            <p id="songMeta">等待 Supabase 数据</p>
-          </div>
-          <div class="toolbar">
-            <select id="reviewFilter">
-              <option value="review">只看需质检</option>
-              <option value="all">全部 sections</option>
-              <option value="approved">已有人工标注</option>
-            </select>
-            <button id="approveAllVisible">批准当前可见</button>
-          </div>
-        </section>
-
         <section class="audio-panel">
-          <audio id="audioPlayer" controls preload="metadata"></audio>
+          <audio id="audioPlayer" preload="metadata"></audio>
+          <div class="transport">
+            <button id="playToggle" type="button" title="播放/暂停">▶</button>
+            <time id="currentTimeText">0:00:00</time>
+            <input id="progressRange" type="range" min="0" max="0" step="0.01" value="0" aria-label="播放进度" />
+            <time id="durationText">0:00:00</time>
+            <button id="speedToggle" type="button" class="speed-toggle" title="切换播放倍速">1x</button>
+          </div>
           <div id="timeline" class="timeline"></div>
+          <div class="timeline-tools">
+            <button id="zoomOut" type="button">缩小</button>
+            <input id="zoomRange" type="range" min="1" max="8" step="0.5" value="1" aria-label="时间轴缩放" />
+            <button id="zoomIn" type="button">放大</button>
+          </div>
+          <div class="lyrics-shell">
+            <button id="lyricsExpand" type="button" class="lyrics-expand" title="放大歌词" aria-label="放大歌词">□</button>
+            <div id="lyricsViewport" class="lyrics-viewport">选择歌曲后显示歌词</div>
+          </div>
         </section>
 
         <section class="details-grid">
           <section class="panel">
             <div class="panel-head">
-              <h3>Sections</h3>
+              <h3>机器结果 / 当前最终结果</h3>
               <span id="runMeta"></span>
             </div>
             <div id="sectionList" class="section-list empty">选择歌曲后显示模型结果</div>
@@ -57,37 +65,34 @@
 
           <section class="panel inspector">
             <div class="panel-head">
-              <h3>Inspector</h3>
+              <h3>校准当前section</h3>
               <span id="selectedBadge">未选择</span>
             </div>
             <form id="editForm" class="edit-form">
+              <div id="finalResultSummary" class="final-summary">选择左侧 section 后编辑</div>
               <label>Section type</label>
-              <select id="editType">
-                <option value="intro">intro</option>
-                <option value="verse">verse</option>
-                <option value="pre_chorus">pre_chorus</option>
-                <option value="chorus">chorus</option>
-                <option value="bridge">bridge</option>
-                <option value="outro">outro</option>
-              </select>
+              <div id="typeQuickButtons" class="type-buttons"></div>
+              <input id="editType" type="hidden" value="intro" />
               <div class="form-row">
                 <div>
                   <label>Start</label>
-                  <input id="editStart" type="number" step="0.01" />
+                  <input id="editStart" type="text" inputmode="numeric" placeholder="2:45:00" />
                 </div>
                 <div>
                   <label>End</label>
-                  <input id="editEnd" type="number" step="0.01" />
+                  <input id="editEnd" type="text" inputmode="numeric" placeholder="3:12:56" />
                 </div>
               </div>
-              <label>Reviewer confidence</label>
-              <input id="editConfidence" type="range" min="0" max="1" step="0.05" value="1" />
-              <label>Comment</label>
-              <textarea id="editComment" rows="4" placeholder="可写边界/type 的判断依据"></textarea>
               <div class="form-actions">
                 <button type="button" id="seekStart">跳到开头</button>
-                <button type="submit" id="saveEdit">保存人工标注</button>
-                <button type="button" id="markUnsure">标记 unsure</button>
+                <button type="button" id="useModel">恢复机器</button>
+                <button type="button" id="addSection">新增 Section</button>
+                <button type="button" id="deleteSection">删除段落</button>
+                <button type="button" id="resetCurrentSection">重置当前section</button>
+                <button type="button" id="resetSong">重置整首歌</button>
+                <button type="submit" id="saveEdit">提交本段</button>
+                <button type="button" id="finishReview">提交整首歌</button>
+                <button type="button" id="markPendingReview">标为未质检</button>
               </div>
             </form>
             <div class="evidence">
@@ -106,8 +111,34 @@
       </main>
     </div>
 
+    <div id="lyricsModal" class="lyrics-modal" aria-hidden="true">
+      <div class="lyrics-modal-panel">
+        <div class="lyrics-modal-head">
+          <h3>整首歌词校准</h3>
+          <div class="lyrics-modal-head-actions">
+            <button id="lyricsModalPlay" type="button" title="播放/暂停">▶</button>
+            <button id="lyricsModalClose" type="button">关闭</button>
+          </div>
+        </div>
+        <div id="lyricsBulkList" class="lyrics-bulk-list"></div>
+        <div class="lyrics-modal-actions">
+          <span>可修改时间和歌词，也可新增或删除行。</span>
+          <button id="lyricsBulkAdd" type="button">新增歌词行</button>
+          <button id="lyricsBulkSave" type="button">保存歌词</button>
+        </div>
+        <div id="lyricsModalResize" class="lyrics-modal-resize" aria-hidden="true"></div>
+      </div>
+    </div>
+
     <div id="toast" class="toast"></div>
+    <div id="bottomPlayer" class="bottom-player" aria-hidden="true">
+      <button id="bottomPlayToggle" type="button" title="播放/暂停">▶</button>
+      <time id="bottomCurrentTimeText">0:00:00</time>
+      <input id="bottomProgressRange" type="range" min="0" max="0" step="0.01" value="0" aria-label="底部播放进度" />
+      <time id="bottomDurationText">0:00:00</time>
+      <button id="bottomSpeedToggle" type="button" class="speed-toggle" title="切换播放倍速">1x</button>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./app.js"></script>
+    <script src="./app.js?v=20260610-section-write1"></script>
   </body>
 </html>
