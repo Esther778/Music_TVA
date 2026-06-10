@@ -156,7 +156,7 @@ async function loadSongs() {
       .order("title", { ascending: true }),
     client.from("model_runs").select("song_id"),
     client.from("songs").select("id,status"),
-    client.from("human_annotations_readable").select("song_id,human_annotation_id"),
+    client.from("human_annotations_readable").select("song_id,song_status,human_annotation_id"),
   ]);
   if (error) throw error;
   if (runError) throw runError;
@@ -165,9 +165,11 @@ async function loadSongs() {
   const readySongIds = new Set((runs || []).map((run) => run.song_id));
   const statusBySongId = new Map((songStatuses || []).map((song) => [song.id, song.status]));
   const readableSectionCountBySongId = new Map();
+  const reviewedReadableSectionCountBySongId = new Map();
   for (const row of readableRows || []) {
     if (!row.song_id || !row.human_annotation_id) continue;
     readableSectionCountBySongId.set(row.song_id, (readableSectionCountBySongId.get(row.song_id) || 0) + 1);
+    reviewedReadableSectionCountBySongId.set(row.song_id, (reviewedReadableSectionCountBySongId.get(row.song_id) || 0) + 1);
   }
   state.songs = (data || [])
     .filter((song) => readySongIds.has(song.id))
@@ -175,6 +177,7 @@ async function loadSongs() {
       ...song,
       status: statusBySongId.get(song.id) || song.status,
       readable_section_count: readableSectionCountBySongId.get(song.id) || 0,
+      reviewed_readable_section_count: reviewedReadableSectionCountBySongId.get(song.id) || 0,
     }));
   if (state.selectedSong) {
     const updated = state.songs.find((song) => song.id === state.selectedSong.id);
@@ -326,11 +329,12 @@ function renderSelectedSongCard() {
 }
 
 function selectedSongCounts(song) {
+  const reviewedReadableSectionCount = Number(song.reviewed_readable_section_count || 0);
   const readableSectionCount = Number(song.readable_section_count || 0);
-  const reviewedByReadable = readableSectionCount > 0;
+  const reviewedByReadable = reviewedReadableSectionCount > 0;
   const backendHumanCount = Number(song.human_annotation_count || 0);
   const backendAutoCount = Number(song.auto_section_count || 0);
-  const backendTotal = reviewedByReadable ? readableSectionCount : Math.max(backendAutoCount, backendHumanCount);
+  const backendTotal = reviewedByReadable ? reviewedReadableSectionCount : Math.max(readableSectionCount, backendAutoCount, backendHumanCount);
   const actions = Number(song.review_action_count || 0);
   if (reviewedByReadable) {
     return { total: backendTotal, actions, reviewedSections: backendTotal, isReviewed: backendTotal > 0 };
@@ -516,16 +520,13 @@ function confirmedSectionStorageKey(songId) {
 }
 
 function loadConfirmedSectionIds(songId) {
-  try {
-    return new Set(JSON.parse(localStorage.getItem(confirmedSectionStorageKey(songId)) || "[]"));
-  } catch {
-    return new Set();
-  }
+  localStorage.removeItem(confirmedSectionStorageKey(songId));
+  return new Set();
 }
 
 function persistConfirmedSectionIds() {
   if (!state.selectedSong) return;
-  localStorage.setItem(confirmedSectionStorageKey(state.selectedSong.id), JSON.stringify([...state.confirmedSectionIds]));
+  localStorage.removeItem(confirmedSectionStorageKey(state.selectedSong.id));
 }
 
 function clearConfirmedSectionIds() {
@@ -536,7 +537,7 @@ function clearConfirmedSectionIds() {
 
 function markSectionSubmitted(section) {
   if (!section) return;
-  state.confirmedSectionIds.add(section.id);
+  state.confirmedSectionIds.delete(section.id);
   persistConfirmedSectionIds();
 }
 
@@ -570,7 +571,6 @@ function manualReviewCount() {
 }
 
 function isSectionSubmitted(section) {
-  if (state.confirmedSectionIds.has(section.id)) return true;
   const annotation = latestAnnotation(section);
   if (annotation) return true;
   return false;
@@ -1326,6 +1326,17 @@ async function verifyReadableAnnotation(annotationId) {
   throw new Error("数据库已写入，但 human_annotations_readable 还没有读到对应 section，请刷新 Supabase 视图后再继续");
 }
 
+async function verifyReadableAnnotations(writtenAnnotations) {
+  const annotationIds = [
+    ...new Set(
+      writtenAnnotations
+        .map((item) => item?.annotation?.id)
+        .filter(Boolean),
+    ),
+  ];
+  await Promise.all(annotationIds.map((annotationId) => verifyReadableAnnotation(annotationId)));
+}
+
 async function verifyAnnotationWrite(annotationId, expected = null) {
   if (!annotationId) throw new Error("缺少提交校验所需的 human_annotation_id");
   for (let attempt = 0; attempt < 4; attempt += 1) {
@@ -1390,6 +1401,19 @@ async function verifyReadableSong(songId, expectedSectionCount) {
   throw new Error(
     `整首歌已提交但可视化视图未校验通过：human_annotations_readable 行数不足，预期 ${expectedSectionCount} 段`,
   );
+}
+
+async function verifyNoReadableSongRows(songId) {
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    const { data, error } = await withSubmitTimeout(
+      client.from("human_annotations_readable").select("human_annotation_id").eq("song_id", songId),
+      "可视化视图清空校验",
+    );
+    if (error) throw error;
+    if (!(data || []).some((row) => row.human_annotation_id)) return true;
+    await wait(350);
+  }
+  throw new Error("数据库清空校验失败：human_annotations_readable 仍能读到这首歌的 section");
 }
 
 async function verifyDeletedSectionReview(context, autoSectionId) {
@@ -1514,6 +1538,7 @@ async function saveAnnotation(action = "edit", options = {}) {
     if (nextSync) writtenAnnotations.push(nextSync);
     submitFailureLabel = "本段可视化校验失败";
     await Promise.all(writtenAnnotations.map(({ annotation, expected: itemExpected }) => verifyAnnotationWrite(annotation.id, itemExpected)));
+    await verifyReadableAnnotations(writtenAnnotations);
     markSectionSubmitted(section);
     renderSections();
     if (isCurrentSongComplete()) {
@@ -1828,6 +1853,7 @@ async function resetWholeSong() {
     showToast("整首歌重置正在提交", false, { persistent: true });
     await deleteReviewsBySong(songId);
     await deleteHumanAnnotationsBySong(songId);
+    await verifyNoReadableSongRows(songId);
     state.annotations = [];
     state.reviews = [];
     state.deletedSectionIds = new Set();
@@ -1857,8 +1883,17 @@ async function markSongPendingReviewOnly() {
   try {
     setWholeSongSubmitBusy(true);
     showToast("状态改为未质检正在提交", false, { persistent: true });
+    await deleteReviewsBySong(songId);
+    await deleteHumanAnnotationsBySong(songId);
+    await verifyNoReadableSongRows(songId);
+    state.annotations = [];
+    state.reviews = [];
+    state.deletedSectionIds = new Set();
+    persistDeletedSectionIds();
     clearConfirmedSectionIds();
     state.pendingSectionOrderChange = false;
+    state.sections = state.sections.filter((section) => !section.isLocal);
+    renumberSections();
     await updateSongStatus("pending_review", songId);
     await withSubmitTimeout(loadSongs(), "刷新提交结果");
     await withSubmitTimeout(selectSong(songId, { allowDuringSubmit: true }), "刷新提交结果");
@@ -2031,6 +2066,7 @@ async function addSectionAfterCurrent() {
       runId: context.runId,
       autoSectionId: null,
     });
+    await verifyReadableAnnotation(annotation.id);
     await updateSongStatus("in_review", context.songId);
     markSectionSubmitted(section);
     pushUndoEntry({
@@ -2285,7 +2321,7 @@ async function recordDeletedSectionReviews(autoSectionIds, context) {
     action: "delete",
     reviewer: "local_reviewer",
     before_json: state.sections.find((section) => section.id === autoSectionId) || null,
-    after_json: null,
+    after_json: { deleted: true },
   }));
   const { data, error } = await withSubmitTimeout(client.from("section_reviews").insert(rows).select(), "删除记录提交");
   if (error) throw error;

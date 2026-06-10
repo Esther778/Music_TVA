@@ -134,8 +134,8 @@ reliable path.
   `auto_sections.section_index`, so frontend display matches backend state.
 - Deleting a section writes immediately. It writes any required adjacent
   boundary sync, deletes the removed section's final annotation, writes a
-  `section_reviews.action = delete` tombstone, verifies the database readback,
-  and only then hides the section in the UI.
+  `section_reviews.action = delete` tombstone with non-null `after_json`,
+  verifies the database readback, and only then hides the section in the UI.
 - Existing machine sections can still be submitted with adjusted start/end
   boundaries; submission automatically syncs the adjacent section boundary.
 - Locally added sections cannot be submitted if they leave an empty time gap
@@ -161,8 +161,12 @@ reliable path.
   completed (`songs.status = reviewed`). Put song title, artist, and section
   fields first. Rows are ordered by whole-song reviewed timestamp descending,
   then by section start time within each song.
-- The QC dashboard's reviewed-song count must match `human_annotations_readable`.
-  A song is displayed as `已质检` only when readable rows exist for that song;
+- `human_annotations_readable` is the section-level visible source of truth:
+  every submitted section should appear there, including songs that are still
+  `in_review`.
+- The QC dashboard's reviewed-song count must match the subset of
+  `human_annotations_readable` where `song_status = reviewed`. A song is
+  displayed as `已质检` only when reviewed readable rows exist for that song;
   `songs.status = reviewed` alone is not sufficient because it can drift from
   the final annotation rows.
 
