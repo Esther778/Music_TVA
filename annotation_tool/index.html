@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>歌曲 Section 人工质检台</title>
     <link rel="stylesheet" href="./styles.css?v=20260610-delete-readable2" />
+    <style>
+      .timeline-segment {
+        box-sizing: border-box;
+        contain: layout paint;
+      }
+
+      .timeline-segment-label {
+        display: block;
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+        padding: 0 8px;
+        pointer-events: none;
+        text-overflow: ellipsis;
+      }
+
+      .timeline-segment.compact .timeline-segment-label {
+        display: none;
+      }
+
+      .timeline-playhead {
+        z-index: 2;
+      }
+    </style>
   </head>
   <body>
     <div class="app-shell">

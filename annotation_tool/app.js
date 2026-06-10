@@ -42,6 +42,7 @@ const state = {
   confirmedSectionIds: new Set(),
   pendingSectionOrderChange: false,
   isSubmittingSong: false,
+  manualWholeSongSubmitActive: false,
   toastTimer: null,
   selectionToken: 0,
   undoStack: [],
@@ -890,6 +891,7 @@ function renderTimeline() {
   const sections = state.sections.filter((section) => !state.deletedSectionIds.has(section.id));
   if (!sections.length) return;
   const total = sectionTotalDuration();
+  const timelineWidth = els.timeline.clientWidth || els.timeline.getBoundingClientRect().width || 0;
   const track = document.createElement("div");
   track.className = "timeline-track";
   track.style.width = `${state.zoom * 100}%`;
@@ -900,9 +902,15 @@ function renderTimeline() {
     seg.dataset.type = final.section_type;
     const start = timeToSeconds(final.start_time_sec, 0);
     const end = timeToSeconds(final.end_time_sec, start);
+    const widthPercent = ((end - start) / total) * 100;
+    const visualWidthPx = (widthPercent / 100) * timelineWidth * state.zoom;
+    if (visualWidthPx < 44) seg.classList.add("compact");
     seg.style.left = `${(start / total) * 100}%`;
-    seg.style.width = `${((end - start) / total) * 100}%`;
-    seg.textContent = final.section_type.replace("_", " ");
+    seg.style.width = `${widthPercent}%`;
+    const label = document.createElement("span");
+    label.className = "timeline-segment-label";
+    label.textContent = final.section_type.replace(/_/g, " ");
+    seg.appendChild(label);
     seg.title = `${displayRange(final)} ${final.section_type}`;
     seg.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -1330,6 +1338,11 @@ async function upsertAnnotation(section, payload, action, context = null) {
     }
   }
 
+  Object.defineProperty(data, "_review_id", {
+    value: reviewData.id,
+    enumerable: false,
+    configurable: true,
+  });
   state.annotations = [
     data,
     ...state.annotations.filter((item) => {
@@ -1374,9 +1387,21 @@ async function verifyReadableAnnotations(writtenAnnotations) {
   await Promise.all(annotationIds.map((annotationId) => verifyReadableAnnotation(annotationId)));
 }
 
-async function verifyAnnotationWrite(annotationId, expected = null) {
+async function verifyAnnotationWrite(annotationId, expected = null, reviewId = null) {
   if (!annotationId) throw new Error("缺少提交校验所需的 human_annotation_id");
   for (let attempt = 0; attempt < 4; attempt += 1) {
+    const reviewQuery = reviewId
+      ? client
+          .from("section_reviews")
+          .select("id,song_id,run_id,auto_section_id,human_annotation_id")
+          .eq("id", reviewId)
+          .limit(1)
+      : client
+          .from("section_reviews")
+          .select("id,song_id,run_id,auto_section_id,human_annotation_id")
+          .eq("human_annotation_id", annotationId)
+          .order("created_at", { ascending: false })
+          .limit(10);
     const [{ data: annotations, error: annotationError }, { data: reviews, error: reviewError }] = await Promise.all([
       withSubmitTimeout(
         client
@@ -1386,14 +1411,7 @@ async function verifyAnnotationWrite(annotationId, expected = null) {
           .limit(1),
         "人工标注写入校验",
       ),
-      withSubmitTimeout(
-        client
-          .from("section_reviews")
-          .select("id,song_id,run_id,auto_section_id,human_annotation_id")
-          .eq("human_annotation_id", annotationId)
-          .limit(1),
-        "质检记录写入校验",
-      ),
+      withSubmitTimeout(reviewQuery, "质检记录写入校验"),
     ]);
     if (annotationError) throw annotationError;
     if (reviewError) throw reviewError;
@@ -1415,7 +1433,11 @@ async function verifyAnnotationWrite(annotationId, expected = null) {
     if (annotationMatches && matchingReview) return true;
     await wait(350);
   }
-  throw new Error("数据库写入校验失败：human_annotations 或 section_reviews 没有读到对应记录");
+  throw new Error(
+    reviewId
+      ? `数据库写入校验失败：没有读到刚写入的 section_reviews 记录 ${reviewId}`
+      : "数据库写入校验失败：human_annotations 或 section_reviews 没有读到对应记录",
+  );
 }
 
 async function verifyReadableSong(songId, expectedSectionCount) {
@@ -1573,8 +1595,13 @@ async function saveAnnotation(action = "edit", options = {}) {
     const nextSync = await syncNextSectionStart(section, end, context);
     if (previousSync) writtenAnnotations.push(previousSync);
     if (nextSync) writtenAnnotations.push(nextSync);
+    submitFailureLabel = "本段数据库校验失败";
+    await Promise.all(
+      writtenAnnotations.map(({ annotation, expected: itemExpected }) =>
+        verifyAnnotationWrite(annotation.id, itemExpected, annotation._review_id),
+      ),
+    );
     submitFailureLabel = "本段可视化校验失败";
-    await Promise.all(writtenAnnotations.map(({ annotation, expected: itemExpected }) => verifyAnnotationWrite(annotation.id, itemExpected)));
     await verifyReadableAnnotations(writtenAnnotations);
     markSectionSubmitted(section);
     renderSections();
@@ -1759,6 +1786,9 @@ function sectionCommentForAction(section, action, values = null) {
 
 async function writeSections(sections, finalStatus, context = null) {
   if (!state.selectedSong || !state.run) throw new Error("先选择一首有模型结果的歌");
+  if (finalStatus === "reviewed" && !state.manualWholeSongSubmitActive) {
+    throw new Error("整首歌 reviewed 状态只能通过提交整首歌按钮写入");
+  }
   const submitContext = context || createSubmitContext(sections);
   const sectionPlans = sections.map((section) => {
     const final = finalResult(section);
@@ -1793,7 +1823,7 @@ async function writeSections(sections, finalStatus, context = null) {
   for (const plan of sectionPlans) {
     assertSubmitContext(submitContext);
     const annotation = await upsertAnnotation(plan.section, plan.payload, plan.action, submitContext);
-    await verifyAnnotationWrite(annotation.id, plan.expected);
+    await verifyAnnotationWrite(annotation.id, plan.expected, annotation._review_id);
     writtenAnnotations.push({ annotation, expected: plan.expected });
     markSectionSubmitted(plan.section);
   }
@@ -1823,6 +1853,7 @@ async function finishReview() {
   if (continuityIssue) return showToast(continuityIssue, true);
   try {
     setWholeSongSubmitBusy(true);
+    state.manualWholeSongSubmitActive = true;
     showToast("正在提交整首歌", false, { persistent: true });
     const sections = activeSections();
     const context = createSubmitContext(sections);
@@ -1832,6 +1863,7 @@ async function finishReview() {
   } catch (error) {
     showToast(submitErrorMessage(error, "整首歌提交失败"), true);
   } finally {
+    state.manualWholeSongSubmitActive = false;
     setWholeSongSubmitBusy(false);
   }
 }
@@ -2098,7 +2130,7 @@ async function addSectionAfterCurrent() {
       songId: context.songId,
       runId: context.runId,
       autoSectionId: null,
-    });
+    }, annotation._review_id);
     await verifyReadableAnnotation(annotation.id);
     await updateSongStatus("in_review", context.songId);
     markSectionSubmitted(section);
@@ -2137,7 +2169,7 @@ async function deleteCurrentSection() {
         songId: context.songId,
         runId: context.runId,
         autoSectionId: fallbackSection?.isLocal ? null : fallbackSection?.id,
-      });
+      }, boundarySync.annotation._review_id);
     }
     if (section.isLocal) {
       if (section.saved_annotation_id) {
