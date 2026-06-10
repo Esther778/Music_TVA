@@ -161,6 +161,10 @@ reliable path.
   completed (`songs.status = reviewed`). Put song title, artist, and section
   fields first. Rows are ordered by whole-song reviewed timestamp descending,
   then by section start time within each song.
+- The QC dashboard's reviewed-song count must match `human_annotations_readable`.
+  A song is displayed as `已质检` only when readable rows exist for that song;
+  `songs.status = reviewed` alone is not sufficient because it can drift from
+  the final annotation rows.
 
 ## Important Current Caveats
 

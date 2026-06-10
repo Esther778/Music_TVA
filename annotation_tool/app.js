@@ -143,7 +143,12 @@ function renderTypeButtons() {
 }
 
 async function loadSongs() {
-  const [{ data, error }, { data: runs, error: runError }, { data: songStatuses, error: statusError }] = await Promise.all([
+  const [
+    { data, error },
+    { data: runs, error: runError },
+    { data: songStatuses, error: statusError },
+    { data: readableRows, error: readableError },
+  ] = await Promise.all([
     client
       .from("song_review_summary")
       .select("*")
@@ -151,17 +156,25 @@ async function loadSongs() {
       .order("title", { ascending: true }),
     client.from("model_runs").select("song_id"),
     client.from("songs").select("id,status"),
+    client.from("human_annotations_readable").select("song_id,human_annotation_id"),
   ]);
   if (error) throw error;
   if (runError) throw runError;
   if (statusError) throw statusError;
+  if (readableError) throw readableError;
   const readySongIds = new Set((runs || []).map((run) => run.song_id));
   const statusBySongId = new Map((songStatuses || []).map((song) => [song.id, song.status]));
+  const readableSectionCountBySongId = new Map();
+  for (const row of readableRows || []) {
+    if (!row.song_id || !row.human_annotation_id) continue;
+    readableSectionCountBySongId.set(row.song_id, (readableSectionCountBySongId.get(row.song_id) || 0) + 1);
+  }
   state.songs = (data || [])
     .filter((song) => readySongIds.has(song.id))
     .map((song) => ({
       ...song,
       status: statusBySongId.get(song.id) || song.status,
+      readable_section_count: readableSectionCountBySongId.get(song.id) || 0,
     }));
   if (state.selectedSong) {
     const updated = state.songs.find((song) => song.id === state.selectedSong.id);
@@ -313,7 +326,15 @@ function renderSelectedSongCard() {
 }
 
 function selectedSongCounts(song) {
-  const reviewedByStatus = song?.status ? song.status === "reviewed" : Boolean(song?.is_reviewed);
+  const readableSectionCount = Number(song.readable_section_count || 0);
+  const reviewedByReadable = readableSectionCount > 0;
+  const backendHumanCount = Number(song.human_annotation_count || 0);
+  const backendAutoCount = Number(song.auto_section_count || 0);
+  const backendTotal = reviewedByReadable ? readableSectionCount : Math.max(backendAutoCount, backendHumanCount);
+  const actions = Number(song.review_action_count || 0);
+  if (reviewedByReadable) {
+    return { total: backendTotal, actions, reviewedSections: backendTotal, isReviewed: backendTotal > 0 };
+  }
   if (state.selectedSong?.id === song.id && state.sections.length) {
     const sections = state.sections.filter((section) => !state.deletedSectionIds.has(section.id));
     const total = sections.length;
@@ -321,17 +342,15 @@ function selectedSongCounts(song) {
     const actions = manualReviewCount();
     return { total, actions, reviewedSections, isReviewed: total > 0 && reviewedSections >= total };
   }
-  const total = Math.max(Number(song.auto_section_count || 0), Number(song.human_annotation_count || 0));
-  const actions = Number(song.review_action_count || 0);
-  const reviewedSections = reviewedByStatus ? total : Number(song.human_annotation_count || 0);
+  const total = backendTotal;
+  const reviewedSections = backendHumanCount;
   return { total, actions, reviewedSections, isReviewed: total > 0 && reviewedSections >= total };
 }
 
 function isSongReviewed(song) {
+  if (Number(song?.readable_section_count || 0) > 0) return true;
   if (state.selectedSong?.id === song?.id && state.pendingSectionOrderChange) return false;
-  if (state.selectedSong?.id === song?.id && state.sections.length) return selectedSongCounts(song).isReviewed;
-  if (song?.status) return song.status === "reviewed";
-  return Boolean(song?.is_reviewed || selectedSongCounts(song).isReviewed);
+  return false;
 }
 
 async function selectSong(songId, options = {}) {

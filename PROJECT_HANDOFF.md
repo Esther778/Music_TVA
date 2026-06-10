@@ -257,6 +257,10 @@ Per-section submit:
   whole-song completed QC results (`songs.status = reviewed`). Sort by
   whole-song reviewed timestamp descending; inside each song, sort sections by
   playback time.
+- The QC dashboard reviewed-song count and `已质检` labels must match
+  `human_annotations_readable`. Do not use `songs.status = reviewed` alone to
+  mark a song reviewed in the frontend; status can drift from actual final
+  annotation rows.
 - Dragging or using up/down buttons changes frontend order only. It must not
   write Supabase until the reviewer clicks `提交整首歌`.
 - Dragging remaps section functions into the reordered chronological slots.
