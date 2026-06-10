@@ -120,8 +120,8 @@ reliable path.
   selection, refresh, or model_run changes during submit, the submit must stop.
 - `提交整首歌` must upsert every active section into `human_annotations` in the
   current UI order before updating `songs.status = reviewed`. Deleted machine
-  sections are persisted as `section_reviews.action = delete` tombstones when
-  the delete operation is performed and are excluded on the next load. Only
+  sections are persisted as `section_reviews.action = edit` rows with
+  `after_json.deleted = true` when the delete operation is performed and are excluded on the next load. Only
   after the final database writes and reload succeed may the UI show
   `整首歌提交成功`.
 - `提交本段` must read back `human_annotations` and `section_reviews` before
@@ -134,7 +134,7 @@ reliable path.
   `auto_sections.section_index`, so frontend display matches backend state.
 - Deleting a section writes immediately. It writes any required adjacent
   boundary sync, deletes the removed section's final annotation, writes a
-  `section_reviews.action = delete` tombstone with non-null `after_json`,
+  `section_reviews` tombstone with `after_json.deleted = true`,
   verifies the database readback, and only then hides the section in the UI.
 - Existing machine sections can still be submitted with adjusted start/end
   boundaries; submission automatically syncs the adjacent section boundary.
@@ -174,7 +174,7 @@ reliable path.
 - New/delete section editing writes immediately. Locally added sections persist
   into `human_annotations` with no `source_auto_section_id`; deleted machine sections are excluded
   from the current review result, their matching human annotations are removed on delete, and
-  a `section_reviews.action = delete` tombstone is written so reloads can preserve the deletion.
+  a `section_reviews` tombstone with `after_json.deleted = true` is written so reloads can preserve the deletion.
 - For long audio, timeline zoom exists, but true drag-resize section boundaries is still a next step.
 - When the Codex sandbox cannot reach Supabase/Netlify because of DNS, do not
   keep retrying. Give the user the exact terminal command to run outside the

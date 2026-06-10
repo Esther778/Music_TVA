@@ -248,8 +248,8 @@ Per-section submit:
   `songs.status = reviewed` while any active section remains green.
 - Add/delete operations are committed operations. They write Supabase
   immediately and must read back successfully before the UI shows success.
-  Deleted machine sections are persisted as `section_reviews.action = delete`
-  tombstones and restored from those tombstones on reload.
+  Deleted machine sections are persisted as `section_reviews.action = edit`
+  rows with `after_json.deleted = true` and restored from those tombstones on reload.
 - `human_annotations_readable` is the visual inspection view for QC desk output.
   It must expose song title, artist, whole-song reviewed timestamp, song status,
   and section rows, with song title, artist, and section fields at the front. It
