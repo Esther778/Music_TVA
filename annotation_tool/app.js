@@ -505,7 +505,8 @@ function deletedSectionIdsFromReviews(reviews) {
     const autoSectionId = review.auto_section_id;
     if (!autoSectionId || seen.has(autoSectionId)) continue;
     seen.add(autoSectionId);
-    if (review.action === "delete") deleted.add(autoSectionId);
+    const after = reviewAfterJson(review);
+    if (after?.deleted === true) deleted.add(autoSectionId);
   }
   return deleted;
 }
@@ -1421,16 +1422,16 @@ async function verifyDeletedSectionReview(context, autoSectionId) {
     const { data, error } = await withSubmitTimeout(
       client
         .from("section_reviews")
-        .select("id,song_id,run_id,auto_section_id,action")
+        .select("id,song_id,run_id,auto_section_id,action,after_json")
         .eq("song_id", context.songId)
         .eq("run_id", context.runId)
         .eq("auto_section_id", autoSectionId)
-        .eq("action", "delete")
-        .limit(1),
+        .order("created_at", { ascending: false })
+        .limit(5),
       "删除记录回读校验",
     );
     if (error) throw error;
-    if ((data || []).length > 0) return true;
+    if ((data || []).some((review) => reviewAfterJson(review)?.deleted === true)) return true;
     await wait(350);
   }
   throw new Error("数据库写入校验失败：没有读到 section 删除记录");
@@ -2140,8 +2141,28 @@ async function deleteCurrentSection() {
       renderSections();
     }
     showToast("删除 section 已写入数据库");
+    finalizeAfterSectionDeletionIfComplete();
   };
   removeSectionAfterExit(section.id, removeSection);
+}
+
+async function finalizeAfterSectionDeletionIfComplete() {
+  if (!areAllSectionsSubmitted()) return;
+  const continuityIssue = wholeSongContinuityIssue();
+  if (continuityIssue) {
+    showToast(`删除 section 已写入数据库，整首歌未提交：${continuityIssue}`, true);
+    return;
+  }
+  try {
+    setWholeSongSubmitBusy(true);
+    showToast("剩余 section 已全部质检，正在提交整首歌", false, { persistent: true });
+    await finalizeWholeSongReview();
+    showToast("删除 section 已写入数据库，整首歌提交成功");
+  } catch (error) {
+    showToast(submitErrorMessage(error, "整首歌提交失败"), true);
+  } finally {
+    setWholeSongSubmitBusy(false);
+  }
 }
 
 function startSectionDrag(event, sectionId) {
@@ -2318,7 +2339,7 @@ async function recordDeletedSectionReviews(autoSectionIds, context) {
     run_id: runId,
     auto_section_id: autoSectionId,
     human_annotation_id: null,
-    action: "delete",
+    action: "edit",
     reviewer: "local_reviewer",
     before_json: state.sections.find((section) => section.id === autoSectionId) || null,
     after_json: { deleted: true },
