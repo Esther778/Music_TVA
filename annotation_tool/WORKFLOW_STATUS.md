@@ -125,7 +125,9 @@ reliable path.
   after the final database writes and reload succeed may the UI show
   `整首歌提交成功`.
 - `提交本段` must read back `human_annotations` and `section_reviews` before
-  showing success.
+  showing success. Submitting the final unfinished section must keep the song in
+  `in_review`; it must not automatically submit the whole song or update
+  `songs.status = reviewed`. The reviewer must click `提交整首歌` manually.
 - `提交整首歌` must read back `human_annotations_readable` before showing
   success. If the readable view is not updated, show an error instead of a
   success toast.

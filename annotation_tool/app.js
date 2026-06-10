@@ -841,7 +841,7 @@ function renderSections() {
           <time>${displayRange(final)}</time>
         </div>
       </div>
-      <button type="button" class="section-submit ${submitted ? "submitted" : ""} ${isSubmitting ? "submitting" : ""}" ${submitted || isSubmitting ? "disabled" : ""}>${isSubmitting ? "提交中" : submitted ? "已提交" : "提交"}</button>
+      <button type="button" class="section-submit ${submitted ? "submitted" : ""} ${isSubmitting ? "submitting" : ""}" ${submitted || isSubmitting ? "disabled" : ""}>${isSubmitting ? "正在提交" : submitted ? "已提交" : "提交"}</button>
     `;
     row.querySelector(".section-submit").addEventListener("click", (event) => {
       event.stopPropagation();
@@ -1564,7 +1564,7 @@ async function saveAnnotation(action = "edit", options = {}) {
   try {
     state.submittingSectionIds.add(section.id);
     renderSections();
-    showToast("提交中", false, { persistent: true });
+    showToast("正在提交本段", false, { persistent: true });
     const writtenAnnotations = [];
     if (shouldPersistHumanAnnotation(section, { start, end, type })) {
       writtenAnnotations.push({ annotation: await upsertAnnotation(section, payload, action, context), expected });
@@ -1578,26 +1578,22 @@ async function saveAnnotation(action = "edit", options = {}) {
     await verifyReadableAnnotations(writtenAnnotations);
     markSectionSubmitted(section);
     renderSections();
-    if (isCurrentSongComplete()) {
-      const continuityIssue = wholeSongContinuityIssue();
+    const isCompleteAfterSectionSubmit = isCurrentSongComplete();
+    const continuityIssue = isCompleteAfterSectionSubmit ? wholeSongContinuityIssue() : "";
+    submitFailureLabel = "歌曲状态更新失败";
+    await updateSongStatus("in_review", context.songId);
+    await withSubmitTimeout(loadSongs(), "刷新提交结果");
+    if (isCompleteAfterSectionSubmit) {
       if (continuityIssue) {
-        await updateSongStatus("in_review", context.songId);
-        await withSubmitTimeout(loadSongs(), "刷新提交结果");
         showToast(`本段提交成功，整首歌未提交：${continuityIssue}`, true);
         renderSections();
         return;
       }
-      setWholeSongSubmitBusy(true);
-      submitFailureLabel = "整首歌状态提交失败";
-      showToast("正在标记整首歌已质检", false, { persistent: true });
-      await finalizeWholeSongReview();
-      showToast("整首歌提交成功");
+      showToast("本段提交成功，请手动提交整首歌");
     } else {
-      await updateSongStatus("in_review", context.songId);
-      await withSubmitTimeout(loadSongs(), "刷新提交结果");
       showToast("本段提交成功");
-      renderSections();
     }
+    renderSections();
   } catch (error) {
     showToast(submitErrorMessage(error, submitFailureLabel), true);
   } finally {
@@ -1735,16 +1731,16 @@ async function connectAroundDeletedSection(section, context = null) {
 
 function setSubmitBusy(isBusy) {
   els.saveEdit.disabled = isBusy;
-  els.saveEdit.textContent = isBusy ? "提交中..." : "提交本段";
+  els.saveEdit.textContent = isBusy ? "正在提交..." : "提交本段";
 }
 
 function setWholeSongSubmitBusy(isBusy) {
   state.isSubmittingSong = isBusy;
   els.finishReview.disabled = isBusy;
-  els.finishReview.textContent = isBusy ? "提交中..." : "提交整首歌";
+  els.finishReview.textContent = isBusy ? "正在提交..." : "提交整首歌";
   if (els.markPendingReview) {
     els.markPendingReview.disabled = isBusy;
-    els.markPendingReview.textContent = isBusy ? "提交中..." : "标为未质检";
+    els.markPendingReview.textContent = isBusy ? "正在提交..." : "标为未质检";
   }
 }
 
@@ -2177,28 +2173,8 @@ async function deleteCurrentSection() {
       renderSections();
     }
     showToast("删除 section 已写入数据库");
-    finalizeAfterSectionDeletionIfComplete();
   };
   removeSectionAfterExit(section.id, removeSection);
-}
-
-async function finalizeAfterSectionDeletionIfComplete() {
-  if (!areAllSectionsSubmitted()) return;
-  const continuityIssue = wholeSongContinuityIssue();
-  if (continuityIssue) {
-    showToast(`删除 section 已写入数据库，整首歌未提交：${continuityIssue}`, true);
-    return;
-  }
-  try {
-    setWholeSongSubmitBusy(true);
-    showToast("剩余 section 已全部质检，正在提交整首歌", false, { persistent: true });
-    await finalizeWholeSongReview();
-    showToast("删除 section 已写入数据库，整首歌提交成功");
-  } catch (error) {
-    showToast(submitErrorMessage(error, "整首歌提交失败"), true);
-  } finally {
-    setWholeSongSubmitBusy(false);
-  }
 }
 
 function startSectionDrag(event, sectionId) {

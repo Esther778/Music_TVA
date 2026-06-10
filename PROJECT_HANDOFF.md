@@ -246,6 +246,9 @@ Per-section submit:
 - A green `提交` button is the source of truth for incomplete UI work. The
   current song must not display as `已质检` and `提交整首歌` must not write
   `songs.status = reviewed` while any active section remains green.
+- Submitting the last green section only writes that section and keeps the song
+  in `in_review`. It must not automatically submit the whole song; the reviewer
+  must click `提交整首歌` manually.
 - Add/delete operations are committed operations. They write Supabase
   immediately and must read back successfully before the UI shows success.
   Deleted machine sections are persisted as `section_reviews.action = edit`
@@ -278,10 +281,12 @@ Per-section submit:
 - After a full-song submit, reload the current song from Supabase. Refresh
   display must use latest `human_annotations.section_index` before falling back
   to original `auto_sections.section_index`, so frontend and backend match.
-- Section submits must verify `human_annotations` and `section_reviews` before
-  showing a success toast. Whole-song submits must verify
+- Section submits must show an in-progress state immediately, verify
+  `human_annotations` and `section_reviews`, and only then show a success toast.
+  Whole-song submits must show an in-progress state immediately and verify
   `human_annotations_readable` before showing a success toast. Database write
-  without the expected readback is not a user-facing success.
+  without the expected readback is not a user-facing success; failures must show
+  the action and the database/readback error.
 
 Reset current section:
 
