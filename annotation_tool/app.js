@@ -348,6 +348,13 @@ function renderSelectedSongCard() {
 }
 
 function selectedSongCounts(song) {
+  if (state.selectedSong?.id === song.id && state.sections.length) {
+    const sections = activeSections();
+    const total = sections.length;
+    const reviewedSections = sections.filter((section) => isSectionSubmitted(section)).length;
+    const actions = manualReviewCount();
+    return { total, actions, reviewedSections, isReviewed: total > 0 && reviewedSections >= total };
+  }
   const submittedReadableSectionCount = Number(song.submitted_readable_section_count || 0);
   const readableSectionCount = Number(song.readable_section_count || 0);
   const backendHumanCount = Number(song.human_annotation_count || 0);
@@ -363,13 +370,6 @@ function selectedSongCounts(song) {
       reviewedSections: submittedReadableSectionCount,
       isReviewed: backendTotal > 0 && submittedReadableSectionCount + deletedSectionCount >= backendAutoCount,
     };
-  }
-  if (state.selectedSong?.id === song.id && state.sections.length) {
-    const sections = state.sections.filter((section) => !state.deletedSectionIds.has(section.id));
-    const total = sections.length;
-    const reviewedSections = sections.filter((section) => isSectionSubmitted(section)).length;
-    const actions = manualReviewCount();
-    return { total, actions, reviewedSections, isReviewed: total > 0 && reviewedSections >= total };
   }
   const total = backendTotal;
   const reviewedSections = backendHumanCount;
@@ -1636,6 +1636,10 @@ function areAllSectionsSubmitted() {
   return sections.length > 0 && sections.every((section) => isSectionSubmitted(section));
 }
 
+function firstUnsubmittedSection() {
+  return activeSections().find((section) => !isSectionSubmitted(section)) || null;
+}
+
 function isCurrentSongComplete() {
   return areAllSectionsSubmitted();
 }
@@ -1848,7 +1852,11 @@ async function finishReview() {
   if (state.isSubmittingSong) return;
   if (!state.selectedSong || !state.run) return showToast("先选择一首有模型结果的歌", true);
   if (!activeSections().length) return showToast("当前歌曲没有可提交的 section", true);
-  if (!areAllSectionsSubmitted()) return showToast("还有 section 未提交，请先点完绿色提交", true);
+  const unsubmittedSection = firstUnsubmittedSection();
+  if (unsubmittedSection) {
+    selectSectionById(unsubmittedSection.id, { scroll: true });
+    return showToast("还有 section 未提交，已跳到第一个未提交 section", true);
+  }
   const continuityIssue = wholeSongContinuityIssue();
   if (continuityIssue) return showToast(continuityIssue, true);
   try {
