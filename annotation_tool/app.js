@@ -230,7 +230,7 @@ async function refreshReviewData() {
 }
 
 function renderSummary() {
-  const reviewed = state.songs.filter((song) => isSongReviewed(song)).length;
+  const reviewed = state.songs.filter((song) => isSongReviewedFromDatabase(song)).length;
   const currentSongCounts = state.selectedSong ? selectedSongCounts(state.selectedSong) : { reviewedSections: 0, total: 0 };
   els.songCount.textContent = state.songs.length;
   els.reviewedCount.textContent = reviewed;
@@ -268,7 +268,7 @@ function directoryTitle(filter) {
 function filteredSongs(filter, query) {
   const text = String(query || "").trim();
   return state.songs.filter((song) => {
-    const reviewed = isSongReviewed(song);
+    const reviewed = isSongReviewedFromDatabase(song);
     if (filter === "reviewed" && !reviewed) return false;
     if (filter === "pending" && reviewed) return false;
     return fuzzySongMatch(song, text);
@@ -298,13 +298,14 @@ function renderSongDirectory(songs) {
   }
   els.songDirectory.innerHTML = "";
   for (const song of songs) {
-    const counts = selectedSongCounts(song);
+    const counts = state.selectedSong?.id === song.id ? selectedSongCounts(song) : databaseSongCounts(song);
+    const reviewed = isSongReviewedFromDatabase(song);
     const item = document.createElement("button");
     item.type = "button";
     item.className = `directory-item ${state.selectedSong?.id === song.id ? "active" : ""}`;
     item.innerHTML = `
       <strong>${escapeHtml(song.title)}</strong>
-      <span>${escapeHtml(song.artist || "unknown")} · ${isSongReviewed(song) ? "已质检" : "未质检"} · ${counts.reviewedSections}/${counts.total} 段</span>
+      <span>${escapeHtml(song.artist || "unknown")} · ${reviewed ? "已质检" : "未质检"} · ${counts.reviewedSections}/${counts.total} 段</span>
     `;
     item.addEventListener("click", () => selectSong(song.id));
     els.songDirectory.appendChild(item);
@@ -355,6 +356,10 @@ function selectedSongCounts(song) {
     const actions = manualReviewCount();
     return { total, actions, reviewedSections, isReviewed: total > 0 && reviewedSections >= total };
   }
+  return databaseSongCounts(song);
+}
+
+function databaseSongCounts(song) {
   const submittedReadableSectionCount = Number(song.submitted_readable_section_count || 0);
   const readableSectionCount = Number(song.readable_section_count || 0);
   const backendHumanCount = Number(song.human_annotation_count || 0);
@@ -374,6 +379,10 @@ function selectedSongCounts(song) {
   const total = backendTotal;
   const reviewedSections = backendHumanCount;
   return { total, actions, reviewedSections, isReviewed: total > 0 && reviewedSections >= total };
+}
+
+function isSongReviewedFromDatabase(song) {
+  return databaseSongCounts(song).isReviewed;
 }
 
 function isSongReviewed(song) {
