@@ -90,6 +90,9 @@ reliable path.
 - Individually submitted human-edited sections can be submitted again; later
   submissions overwrite the prior final annotation for that section.
 - The whole song can be submitted only after every active section is submitted.
+- A song displays as `已质检` only after whole-song submit has set
+  `songs.status = reviewed`; section progress like `10/10` is not itself a
+  reviewed-song state.
 - `重置当前section` deletes that section's human annotation/review records and reloads the current
   song from Supabase. `重置整首歌` deletes the song's human annotations/reviews, resets local UI
   state, and reloads the current song.
@@ -167,10 +170,10 @@ reliable path.
   `in_review`. Put song title, artist, and section fields first. Rows are
   ordered by whole-song reviewed timestamp descending, then by section start
   time within each song.
-- The QC dashboard's reviewed-song count must match `human_annotations_readable`.
-  A song is displayed as `已质检` only when readable rows exist for that song;
-  `songs.status = reviewed` alone is not sufficient because it can drift from
-  the final annotation rows.
+- The QC dashboard's reviewed-song count and `已质检` labels mean whole-song
+  review has been submitted: `songs.status = reviewed`. Section rows in
+  `human_annotations_readable` are the section-level inspection result, not the
+  whole-song reviewed flag by themselves.
 
 ## Important Current Caveats
 

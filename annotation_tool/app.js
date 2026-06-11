@@ -246,7 +246,7 @@ function renderSongPicker() {
   state.songOptionMap.clear();
   els.songOptions.innerHTML = "";
   for (const song of songs) {
-    const status = isSongReviewed(song) ? "已质检" : "未质检";
+    const status = isSongReviewedFromDatabase(song) ? "已质检" : "未质检";
     const label = `${status} | ${song.title} | ${song.artist || "unknown"} | ${song.id}`;
     state.songOptionMap.set(label, song.id);
     const option = document.createElement("option");
@@ -354,7 +354,7 @@ function selectedSongCounts(song) {
     const total = sections.length;
     const reviewedSections = sections.filter((section) => isSectionSubmitted(section)).length;
     const actions = manualReviewCount();
-    return { total, actions, reviewedSections, isReviewed: total > 0 && reviewedSections >= total };
+    return { total, actions, reviewedSections, isReviewed: isSongReviewedFromDatabase(song) };
   }
   return databaseSongCounts(song);
 }
@@ -366,28 +366,30 @@ function databaseSongCounts(song) {
   const backendAutoCount = Number(song.auto_section_count || 0);
   const deletedSectionCount = Number(song.deleted_section_count || 0);
   const activeAutoSectionCount = Math.max(0, backendAutoCount - deletedSectionCount);
-  const backendTotal = Math.max(readableSectionCount, activeAutoSectionCount, backendHumanCount);
+  const backendTotal =
+    song.status === "reviewed" && readableSectionCount > 0
+      ? readableSectionCount
+      : Math.max(readableSectionCount, activeAutoSectionCount, backendHumanCount);
   const actions = Number(song.review_action_count || 0);
   if (submittedReadableSectionCount > 0) {
     return {
       total: backendTotal,
       actions,
       reviewedSections: submittedReadableSectionCount,
-      isReviewed: backendTotal > 0 && submittedReadableSectionCount + deletedSectionCount >= backendAutoCount,
+      isReviewed: isSongReviewedFromDatabase(song),
     };
   }
   const total = backendTotal;
   const reviewedSections = backendHumanCount;
-  return { total, actions, reviewedSections, isReviewed: total > 0 && reviewedSections >= total };
+  return { total, actions, reviewedSections, isReviewed: isSongReviewedFromDatabase(song) };
 }
 
 function isSongReviewedFromDatabase(song) {
-  return databaseSongCounts(song).isReviewed;
+  return song?.status === "reviewed";
 }
 
 function isSongReviewed(song) {
-  const counts = selectedSongCounts(song);
-  if (counts.isReviewed) return true;
+  if (isSongReviewedFromDatabase(song)) return true;
   if (state.selectedSong?.id === song?.id && state.pendingSectionOrderChange) return false;
   return false;
 }
