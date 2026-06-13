@@ -1,0 +1,32 @@
+original_filename,action,final_filename,reason
+0039.吴青峰 - 如果声音不记得.mp3,moved_to_songs,如果声音不记得-吴青峰.mp3,matched_chart_and_tags
+0052.特别的人.mp3,moved_to_songs,特别的人-方大同.mp3,matched_chart_by_title_duration
+0090春娇与志明-街道办GDC_欧阳耀莹.mp3,moved_to_songs,春娇与志明-街道办GDC、欧阳耀莹.mp3,matched_chart_title_duration
+0133Always Online-林俊杰.mp3,moved_to_songs,Always Online-林俊杰.mp3,matched_chart_title_artist_duration_after_download_completed
+0194.奇然&沈谧仁 - 琵琶行.mp3.baiduyun.p.downloading,quarantined,,incomplete_downloading_placeholder
+0194后来的我们-五月天.mp3,moved_to_songs,后来的我们-五月天.mp3,matched_chart_title_artist_duration
+02 阴天.mp3,moved_to_songs,阴天-莫文蔚.mp3,matched_tags_prefer_mo_wenwei
+0279杨丞琳-雨爱.mp3,moved_to_songs,雨爱-杨丞琳.mp3,filled_missing_chart_artist_from_filename
+03 我想.mp3.baiduyun.p.downloading,quarantined,,incomplete_downloading_placeholder
+04 好日子.mp3,quarantined,,mismatched_version_tags_songzu_ying_duration_03_08_expected_iu_03_55
+0496刘大壮-一吻天荒(吉他版).mp3,quarantined,,mismatched_version_liudazhuang_guitar_expected_liuyu_04_16
+06 不说再见(1).mp3,quarantined,,mismatched_version_tags_chenliangyin_duration_04_27_expected_shigeqintian_03_53
+06 不说再见.mp3,quarantined,,mismatched_version_tags_chenliangyin_duration_04_27_expected_shigeqintian_03_53
+06 为爱痴狂(1).mp3.baiduyun.p.downloading,quarantined,,incomplete_downloading_placeholder
+06 为爱痴狂.mp3,quarantined,,mismatched_version_tags_liuruoying_duration_05_05_expected_chart_versions
+0686刘珂矣-半壶纱.mp3,moved_to_songs,半壶纱-刘珂矣.mp3,matched_chart_title_artist_duration
+Easy On Me-Adele.mp3,moved_to_songs,Easy On Me-Adele.mp3,matched_chart_and_tags
+Tiger JK_尹美莱_비지-Angel.mp3,moved_to_songs,ANGEL-尹美莱、Tiger JK、Bizzy.mp3,matched_chart_normalized_artist_names
+Zedd - Ignite.mp3,quarantined,,mismatched_version_zedd_ignite_not_chart_ignite
+主角 - 王菲.mp3,moved_to_songs,主角-王菲.mp3,matched_chart_and_tags
+借过一下-周深.mp3,quarantined,,mismatched_version_zhoushen_not_chart_live_versions
+刘大壮-一吻天荒.mp3.baiduyun.p.downloading,quarantined,,incomplete_downloading_placeholder
+孙燕姿-我怀念的-《第二回合我爱你（幸运日)》电视剧主题曲.mp3,moved_to_songs,我怀念的-孙燕姿.mp3,matched_chart_trimmed_subtitle
+恋人 - 李荣浩.mp3,moved_to_songs,恋人-李荣浩.mp3,matched_chart_and_tags
+杨乃文-推开世界的门.mp3.baiduyun.p.downloading,quarantined,,incomplete_downloading_placeholder
+梦底 - 海来阿木.mp3,quarantined,,mismatched_version_hailaiamu_03_14_expected_zhangbichen_hailaiamu_live_04_37
+爱错 - 王力宏.mp3,moved_to_songs,爱错-王力宏.mp3,matched_chart_and_tags
+程响-完美人生.mp3,quarantined,,mismatched_version_chengxiang_03_50_expected_zhangyanqi_yaoxiaotang_03_10
+那天下雨了 - 周杰伦(1).mp3,quarantined,,duplicate_identity_of_batch_song:那天下雨了-周杰伦.mp3
+那天下雨了 - 周杰伦.mp3,moved_to_songs,那天下雨了-周杰伦.mp3,matched_chart_and_tags
+雨过后的风景 - Dizzy Dizzo (蔡诗芸).mp3,moved_to_songs,雨过后的风景-Dizzy Dizzo（蔡诗芸）.mp3,matched_chart_and_tags
