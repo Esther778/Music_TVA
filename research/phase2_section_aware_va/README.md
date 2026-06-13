@@ -36,8 +36,9 @@ progression, climax organization, and section contrast.
 ```text
 configs/                  experiment configs
 docs/                     design notes and run logs
-scripts/                  Phase 2 scripts, not yet implemented
+scripts/                  manifest, VA prediction, alignment, training scripts
 data/manifests/           reviewed-song lists and train/val/test splits
+data/openl3_features/     expected per-song 512-d OpenL3 features for MLP input
 data/frame_va/            0.5 second frame-level VA predictions
 data/section_va/          frame VA joined with section boundaries/types
 data/training_batches/    batch-by-batch training data snapshots
@@ -47,7 +48,27 @@ outputs/predictions/      final frame-level and section-level predictions
 outputs/plots/            diagnostic plots
 ```
 
-## Do Not Start Yet
+## Current Run State
 
-Code implementation and training should start only after the project folder
-structure has been reviewed and accepted.
+- Supabase input snapshots have been saved in `data/manifests/raw/`.
+- `phase2_initial_70_manifest.csv` and `phase2_initial_70_splits.csv` have
+  been generated.
+- Split counts are train 56, validation 7, test 7.
+- All selected songs have local audio files.
+- The trained Phase 1 MLP model is available and is the required VA predictor.
+- Current blocker: the selected songs do not yet have matching precomputed
+  OpenL3 feature files in `data/openl3_features/`, so MLP inference cannot
+  produce frame-level VA curves yet.
+
+## Script Entry Points
+
+```bash
+.venv/bin/python research/phase2_section_aware_va/scripts/build_manifest.py
+.venv/bin/python research/phase2_section_aware_va/scripts/predict_frame_va.py --features-dir research/phase2_section_aware_va/data/openl3_features
+.venv/bin/python research/phase2_section_aware_va/scripts/align_sections.py
+.venv/bin/python research/phase2_section_aware_va/scripts/train_section_model.py
+```
+
+`predict_frame_va.py` intentionally does not load or install OpenL3 unless
+`--extract-audio` is passed. The normal Phase 2 path is to use existing
+per-song feature files and the trained Phase 1 MLP weights.

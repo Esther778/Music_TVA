@@ -38,6 +38,18 @@ emotion model:
 2. Section-aware layer: combine frame-level VA predictions with section
    boundaries and section types to model full-song emotional structure.
 
+Current Phase 2 run state:
+
+- Supabase reviewed-song and human-annotation snapshots have been saved under
+  `research/phase2_section_aware_va/data/manifests/raw/`.
+- The first 70 reviewed songs have been selected and split 56 / 7 / 7 for
+  train / validation / test.
+- The Phase 2 scripts now use the completed Phase 1 MLP weights for VA
+  prediction.
+- Frame-level VA generation is waiting for per-song 512-dimensional OpenL3
+  feature files. The first 70 reviewed songs currently have no matching
+  precomputed OpenL3 feature files in the Phase 2 feature directory.
+
 Detailed phase notes:
 
 ```text
@@ -170,8 +182,9 @@ Current user-specified rules for the next training task:
 - Train and record metrics in batches of 10 songs.
 - Preserve training data, frame-level VA predictions, section-labeled VA
   tables, split manifests, model checkpoints, metrics, and plots.
-- Before writing training code or starting training, state the estimated runtime
-  and get user approval of the plan.
+- Use the trained Phase 1 MLP model for VA prediction. The MLP requires
+  0.5-second, 512-dimensional OpenL3 features as input; if those features are
+  not already available, frame-level VA cannot be generated from the MLP alone.
 
 ## Documentation Rule
 
