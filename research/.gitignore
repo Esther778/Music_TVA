@@ -1,0 +1,23 @@
+# Phase 1 copied baseline: keep locally, do not commit large data/artifacts.
+phase1_va_prediction/openl3_va_baseline/data/
+phase1_va_prediction/openl3_va_baseline/artifacts/
+phase1_va_prediction/openl3_va_baseline/outputs/
+
+# Phase 2 generated experiment products.
+phase2_section_aware_va/data/
+phase2_section_aware_va/outputs/
+
+# Common local generated files.
+*.pt
+*.pth
+*.npy
+*.npz
+*.pkl
+*.log
+*.png
+*.jpg
+*.jpeg
+*.wav
+*.mp3
+.DS_Store
+__pycache__/
