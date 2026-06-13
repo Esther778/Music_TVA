@@ -1,131 +1,210 @@
-# Music Section Segmenter
+# Music VA Section-Aware Research Project
 
-Python tool for automatic music section segmentation, designed for MER/VA
-emotion trajectory analysis. It outputs structural section boundaries that can
-be aligned with later valence-arousal curves.
+Last updated: 2026-06-13
 
-This version uses MSAF for candidate boundaries, then applies MIR
-post-processing for pop-song section labels. The post-processing uses adaptive
-novelty splitting plus section-level energy, vocal-activity proxy, onset
-strength, optional timestamped lyrics, position, and pop-function logic; it does
-not assume a fixed phrase length.
+This project builds a research and data-production pipeline for complete-song
+music emotion modeling. It combines automatic pop-song section segmentation,
+human QC, Supabase storage, and continuous Valence-Arousal prediction.
 
-## Setup
+The current research direction is section-aware music emotion structure
+modeling: use frame-level VA curves together with reviewed song sections to
+analyze emotional progression, climax organization, and section contrast in
+human music and AIGC music.
 
-```bash
-python3 -m venv .venv
-. .venv/bin/activate
-python -m pip install -r requirements.txt
-```
+## Current Status
 
-## Run
-
-```bash
-python segment_music.py --input songs/song.mp3 --output outputs/sections.csv
-```
-
-The default mode is `mir-pop`, which outputs semantic labels such as `Intro`,
-`Verse`, `Pre-chorus`, `Chorus`, `Bridge`, and `Outro`, plus reusable
-functional labels:
+Phase 1 is complete:
 
 ```text
-A = Intro / Outro
-B = Verse
-C = Pre-chorus
-D = Chorus
-E = Bridge
+research/phase1_va_prediction/openl3_va_baseline
 ```
 
-The JSON file is written next to the CSV by default:
+This is the copied baseline from the previous paper. It uses DEAM annotations
+and OpenL3 audio embeddings to train MLP, BiLSTM, and Transformer continuous
+VA regression models. Treat it as the completed baseline VA prediction
+capability.
+
+Phase 2 is in progress:
 
 ```text
-outputs/sections.json
+research/phase2_section_aware_va
 ```
 
-You can also set it explicitly:
+This phase will generate section-labeled VA data and train a two-layer music
+emotion model:
 
-```bash
-python segment_music.py \
-  --input songs/song.mp3 \
-  --output outputs/sections.csv \
-  --json-output outputs/sections.json
-```
+1. Frame-level layer: predict continuous Valence-Arousal from 0.5 second audio
+   features.
+2. Section-aware layer: combine frame-level VA predictions with section
+   boundaries and section types to model full-song emotional structure.
 
-Optional timestamped lyrics can be used as soft evidence:
-
-```bash
-python segment_music.py \
-  --input songs/song.mp3 \
-  --lyrics lyrics/song.lrc \
-  --output outputs/sections.csv
-```
-
-Lyrics do not create hard section boundaries. A lyric line usually marks vocal
-text onset, while melody, harmony, or arrangement changes may happen slightly
-before or after the lyric. The script therefore boosts nearby acoustic novelty
-peaks within a tolerance window instead of cutting exactly at the lyric time.
-When lyrics are unavailable, the script still uses an audio-derived vocal
-activity proxy to help distinguish instrumental intro/outro/bridge regions from
-vocal narrative and chorus regions.
-
-If an acoustic boundary falls in the gap between two lyric lines, the script
-treats that gap as an ambiguous transition fragment. Short fragments are
-assigned to the neighboring section whose audio material is more similar, so a
-between-line fill, pickup, or breath does not become a separate function label
-by accident.
-
-Supported lyric formats:
+Detailed phase notes:
 
 ```text
-[00:12.80]第一句歌词
-[00:29.50]第二句歌词
+docs/research/PROJECT_PHASES.md
+research/README.md
+research/phase2_section_aware_va/README.md
 ```
 
-or CSV:
+## Project Layout
 
 ```text
-time,text
-0:12.80,第一句歌词
-0:29.50,第二句歌词
+annotation_tool/                  Supabase-backed human QC console
+docs/research/                    research phase documentation
+hybrid_structure/                 current functional section pipeline
+research/                         research workspace
+  phase1_va_prediction/           completed OpenL3 VA baseline
+  phase2_section_aware_va/        current section-aware VA modeling work
+songs/                            local mp3 library, gitignored
+outputs/                          generated transcripts, sections, features, gitignored
+netlify_publish/                  built static QC package, gitignored
 ```
 
-MSAF algorithm choices can be changed:
-
-```bash
-python segment_music.py \
-  --input songs/song.mp3 \
-  --output outputs/sections.csv \
-  --boundaries-id sf \
-  --labels-id fmc2d
-```
-
-To inspect raw MSAF labels without semantic post-processing:
-
-```bash
-python segment_music.py \
-  --input songs/song.mp3 \
-  --output outputs/raw_msaf.csv \
-  --mode raw-msaf
-```
-
-## Output Fields
+Important workflow documents:
 
 ```text
-section_id,start_time,end_time,duration,label,structure_label
-1,0:00.00,0:12.50,0:12.50,Intro,A
-2,0:12.50,0:43.00,0:30.50,Verse,B
-3,0:43.00,1:08.00,0:25.00,Chorus,D
+PROJECT_HANDOFF.md
+NEW_SONG_PIPELINE_WORKFLOW.md
+LYRIC_CALIBRATION_WORKFLOW.md
+NETLIFY_DEPLOY_WORKFLOW.md
+annotation_tool/WORKFLOW_STATUS.md
+annotation_tool/README.md
 ```
 
-Raw MSAF mode preserves repeated labels as `A/B/C/...`.
+## Data And QC Platform
 
-## Tuning
+The QC platform is hosted at:
 
-The experiment harness compares candidate methods against a hand annotation:
+```text
+https://musicva.netlify.app
+```
+
+The annotation tool uses Supabase tables and views for:
+
+```text
+songs
+model_runs
+auto_sections
+lyric_lines
+human_annotations
+section_reviews
+song_review_summary
+section_review_queue
+human_annotations_readable
+```
+
+The current section label taxonomy is:
+
+```text
+intro, verse, pre_chorus, chorus, bridge, interlude, outro
+```
+
+## New Song Pipeline
+
+Newly collected audio files go into:
+
+```text
+songs/songs2
+```
+
+Files in `songs/songs2` may have inconsistent names as long as title and artist
+are present. After validation and dedupe, valid songs are normalized to:
+
+```text
+歌名-歌手.mp3
+```
+
+The pipeline order is:
+
+```text
+inspect and dedupe songs/songs2
+normalize filenames and move valid mp3 files into songs/
+write annotation_tool/today_new_songs_YYYYMMDD.txt
+run annotation_tool/run_model_outputs_for_songs.py
+import generated manifest with annotation_tool/import_local_results.py
+verify Supabase and QC pending_review visibility
+```
+
+Do not insert new songs into Supabase before model output exists.
+
+## Local QC Development
+
+Run the static QC console locally from the repository root:
 
 ```bash
-python experiments/section_tuning.py
+python3 -m http.server 5177
 ```
 
-For the current reference song, the best tested default is `sf/fmc2d` with
-`mir-pop` and `--long-section-factor 1.5`.
+Open:
+
+```text
+http://127.0.0.1:5177/annotation_tool/
+```
+
+Avoid using `file://` for normal QC testing because local audio path behavior
+differs from the HTTP server.
+
+## Netlify Deployment
+
+The user normally performs production deployment from macOS Terminal.
+
+Build and deploy command:
+
+```bash
+cd "/Users/esther/Desktop/New project"
+python3 annotation_tool/build_netlify_publish.py
+npx netlify deploy --prod --dir=netlify_publish
+```
+
+Codex should not run production deployment unless explicitly asked. If a
+frontend/platform change is made, local source files and `netlify_publish/`
+must stay synchronized before deployment.
+
+## Research Phase 2 Initial Rules
+
+Current user-specified rules for the next training task:
+
+- The database currently has 75 reviewed songs.
+- Use the first 70 reviewed songs for the first training pass.
+- Split train / validation / test as 8:1:1.
+- Train and record metrics in batches of 10 songs.
+- Preserve training data, frame-level VA predictions, section-labeled VA
+  tables, split manifests, model checkpoints, metrics, and plots.
+- Before writing training code or starting training, state the estimated runtime
+  and get user approval of the plan.
+
+## Documentation Rule
+
+This README is the top-level project map and must be kept current. During
+future tasks, update this file when project phase boundaries, directory layout,
+major data flow, training workflow, deployment workflow, or database/QC behavior
+changes.
+
+Also update the more specific workflow documents when a change belongs there:
+
+```text
+NEW_SONG_PIPELINE_WORKFLOW.md
+LYRIC_CALIBRATION_WORKFLOW.md
+PROJECT_HANDOFF.md
+NETLIFY_DEPLOY_WORKFLOW.md
+annotation_tool/WORKFLOW_STATUS.md
+research/phase2_section_aware_va/README.md
+```
+
+## Git And Generated Data
+
+Large local data and generated outputs are intentionally gitignored, including:
+
+```text
+songs/
+outputs/
+netlify_publish/
+research/phase1_va_prediction/openl3_va_baseline/data/
+research/phase1_va_prediction/openl3_va_baseline/artifacts/
+research/phase1_va_prediction/openl3_va_baseline/outputs/
+research/phase2_section_aware_va/data/
+research/phase2_section_aware_va/outputs/
+```
+
+Keep commits scoped to the task. Do not mix unrelated dirty files into research
+or QC updates.
