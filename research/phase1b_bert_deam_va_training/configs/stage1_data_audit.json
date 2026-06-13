@@ -1,0 +1,16 @@
+{
+  "source_deam_root": "research/phase1_va_prediction/openl3_va_baseline/data/DEAM",
+  "audio_subdir": "MEMD_audio",
+  "dynamic_annotation_subdir": "annotations/annotations averaged per song/dynamic (per second annotations)",
+  "valence_csv": "valence.csv",
+  "arousal_csv": "arousal.csv",
+  "label_start_ms": 15000,
+  "label_hop_ms": 500,
+  "split_seed": 42,
+  "split_ratio": {
+    "train": 0.8,
+    "val": 0.1,
+    "test": 0.1
+  }
+}
+

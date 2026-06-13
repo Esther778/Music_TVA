@@ -1,0 +1,17 @@
+# Keep small manifests, configs, docs, and scripts in git.
+# Keep heavy generated tensors/checkpoints local.
+data/features_mert/
+data/datasets/
+outputs/models/
+outputs/predictions/
+outputs/plots/
+outputs/cache/
+*.pt
+*.pth
+*.npy
+*.npz
+*.pkl
+*.log
+__pycache__/
+.DS_Store
+

@@ -1,0 +1,19 @@
+{
+  "source_deam_root": "/Users/esther/Desktop/New project/research/phase1_va_prediction/openl3_va_baseline/data/DEAM",
+  "audio_count": 1802,
+  "valence_song_count": 1802,
+  "arousal_song_count": 1802,
+  "common_song_count": 1802,
+  "missing_audio_for_labels": 0,
+  "audio_without_labels": 0,
+  "label_start_ms": 15000,
+  "label_end_ms": 626000,
+  "label_hop_ms": 500,
+  "label_frames": 1223,
+  "split_seed": 42,
+  "split_counts": {
+    "train": 1441,
+    "val": 180,
+    "test": 181
+  }
+}
