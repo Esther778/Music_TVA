@@ -1,6 +1,6 @@
 # Phase 1B Pipeline
 
-Last updated: 2026-06-13
+Last updated: 2026-06-14
 
 ## Objective
 
@@ -154,6 +154,57 @@ Primary metrics:
 - Pearson r for Valence,
 - Pearson r for Arousal.
 
+Stage 3 implementation:
+
+```text
+configs/stage3_training_plan.json
+scripts/build_mert_va_datasets.py
+scripts/train_mert_mlp.py
+scripts/train_mert_sequence.py
+scripts/aggregate_training_results.py
+scripts/training_utils.py
+```
+
+Dataset construction aligns each feature file's `time_sec` values back to the
+DEAM dynamic label columns. Frames with non-finite features or labels are
+dropped before training and counted in `dataset_summary.json`.
+
+Final dataset:
+
+```text
+train_frames=101248
+val_frames=13427
+test_frames=15320
+train_dropped_invalid_frames=1451
+val_dropped_invalid_frames=181
+test_dropped_invalid_frames=182
+feature_dim=768
+```
+
+Training used CPU in this environment. A direct Torch check reported MPS as
+available, but the long-running training script process did not reliably expose
+MPS, so Stage 3 was completed on CPU to preserve a stable training run.
+
+Completed trials:
+
+```text
+MLP: mlp_baseline, mlp_wide, mlp_light_dropout
+BiLSTM: bilstm_baseline, bilstm_deep, bilstm_wide
+Transformer: transformer_baseline, transformer_deep, transformer_wide
+```
+
+Result aggregation command:
+
+```bash
+.venv/bin/python research/phase1b_bert_deam_va_training/scripts/aggregate_training_results.py
+```
+
+Tracked summary:
+
+```text
+docs/STAGE3_RESULTS.md
+```
+
 ## Stage 4: Best Model Selection
 
 Selection priority:
@@ -168,6 +219,19 @@ Outputs:
 outputs/results/model_comparison.csv
 outputs/results/best_model_report.md
 outputs/models/best_va_model.pt
+```
+
+Current Stage 4 candidate from Stage 3:
+
+```text
+model_family=bilstm
+trial_id=bilstm_baseline
+best_epoch=42
+val_rmse=0.219934
+test_rmse=0.202452
+test_pearson_valence=0.511522
+test_pearson_arousal=0.641069
+checkpoint=outputs/models/bilstm/bilstm_baseline_best.pt
 ```
 
 ## Stage 5: Phase 2 Export

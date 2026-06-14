@@ -1,6 +1,6 @@
 # Phase 1B BERT-Style DEAM VA Training
 
-Status: stage 1 complete.
+Status: stage 3 complete; best current VA head is `bilstm_baseline`.
 
 This folder is an independent retraining workspace. It does not modify the
 completed OpenL3 baseline in `research/phase1_va_prediction/openl3_va_baseline`.
@@ -56,7 +56,7 @@ files are 45-second excerpts. The extractor therefore keeps only label frames
 covered by the actual audio. Most excerpt files produce 60 or 61 frames; longer
 files produce more frames.
 
-## Current Stage
+## Current State
 
 Stage 1 created:
 
@@ -78,15 +78,43 @@ Current audit result:
 - Dynamic labels start at 15000 ms and use 500 ms hop.
 - Song-level split: train 1441, validation 180, test 181.
 
-Stage 2 has started. `transformers` is the only missing dependency in the
-current environment.
-
 Stage 2 extraction is now complete:
 
 - MERT feature files: 1802 / 1802
 - Feature dimension: 768
 - Frame count range: 60 to 1223
 - Split coverage: train 1441, validation 180, test 181
+
+Stage 3 training is now complete:
+
+- Dataset after invalid-label filtering: train 101248 frames, validation 13427
+  frames, test 15320 frames.
+- Trained trial count: 9, covering MLP, BiLSTM, and Transformer heads.
+- Current best model by test RMSE: `bilstm_baseline`.
+- Best validation RMSE: 0.219934.
+- Best test RMSE: 0.202452.
+- Test Pearson r: Valence 0.511522, Arousal 0.641069.
+- Best checkpoint is local-only under
+  `outputs/models/bilstm/bilstm_baseline_best.pt`.
+
+Committed result summary:
+
+```text
+docs/STAGE3_RESULTS.md
+```
+
+Local generated outputs:
+
+```text
+data/datasets/mert_va/
+outputs/metrics/
+outputs/models/
+outputs/predictions/
+outputs/results/
+```
+
+These generated outputs are intentionally ignored by git, except for the
+tracked narrative summaries in `docs/`.
 
 ## Important Constraint
 

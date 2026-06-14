@@ -151,3 +151,102 @@ outputs/mert_feature_inventory.csv
 
 Stage 3 can now build MERT+DEAM datasets and train/tune MLP, BiLSTM, and
 Transformer heads.
+
+## 2026-06-14
+
+### Stage 3 Completed
+
+Added:
+
+```text
+configs/stage3_training_plan.json
+scripts/training_utils.py
+scripts/build_mert_va_datasets.py
+scripts/train_mert_mlp.py
+scripts/train_mert_sequence.py
+scripts/aggregate_training_results.py
+docs/STAGE3_RESULTS.md
+```
+
+Dataset build:
+
+```text
+train_frames=101248
+val_frames=13427
+test_frames=15320
+feature_dim=768
+train_dropped_invalid_frames=1451
+val_dropped_invalid_frames=181
+test_dropped_invalid_frames=182
+```
+
+Important correction during Stage 3:
+
+- The first MLP run produced NaN metrics.
+- Investigation showed the MERT feature arrays were finite, but DEAM dynamic
+  labels contained some NaN values.
+- Dataset construction was updated to drop frames where either features or VA
+  labels are non-finite.
+- Training scripts were updated to assert finite arrays and fail clearly if a
+  non-finite metric appears.
+- A later device test with a fake `--trial __none__` truncated the MLP aggregate
+  CSV, but each MLP trial JSON remained intact. `aggregate_training_results.py`
+  was added to rebuild family and global comparison tables from trial JSON.
+
+Training environment:
+
+```text
+torch=2.8.0
+transformers=4.44.0
+training_device=cpu
+```
+
+MPS note: a direct Torch check reported MPS availability, but the training
+script process did not reliably expose MPS. Stage 3 was completed on CPU for a
+stable run.
+
+Completed trials:
+
+```text
+mlp_baseline
+mlp_wide
+mlp_light_dropout
+bilstm_baseline
+bilstm_deep
+bilstm_wide
+transformer_baseline
+transformer_deep
+transformer_wide
+```
+
+Best current model by test RMSE:
+
+```text
+model_family=bilstm
+trial_id=bilstm_baseline
+best_epoch=42
+parameters=920066
+train_rmse=0.051500
+val_rmse=0.219934
+test_rmse=0.202452
+test_pearson_valence=0.511522
+test_pearson_arousal=0.641069
+checkpoint=outputs/models/bilstm/bilstm_baseline_best.pt
+```
+
+Local generated outputs:
+
+```text
+data/datasets/mert_va/
+outputs/metrics/
+outputs/models/
+outputs/predictions/
+outputs/results/
+```
+
+These outputs are ignored by git because they include generated arrays and
+checkpoints. The human-readable Stage 3 result summary is tracked at:
+
+```text
+docs/STAGE3_RESULTS.md
+```

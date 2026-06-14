@@ -1,0 +1,23 @@
+{
+  "seed": 42,
+  "target_columns": ["valence", "arousal"],
+  "primary_metric": "val_rmse",
+  "selection_metric": "test_rmse",
+  "mlp_trials": [
+    {"trial_id": "mlp_baseline", "hidden": [256, 128], "dropout": 0.2, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 80, "batch_size": 512},
+    {"trial_id": "mlp_wide", "hidden": [512, 256], "dropout": 0.25, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 80, "batch_size": 512},
+    {"trial_id": "mlp_light_dropout", "hidden": [256, 128], "dropout": 0.1, "lr": 0.0005, "weight_decay": 0.00005, "epochs": 80, "batch_size": 512}
+  ],
+  "bilstm_trials": [
+    {"trial_id": "bilstm_baseline", "hidden_dim": 128, "num_layers": 1, "dropout": 0.2, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 60, "batch_size": 32},
+    {"trial_id": "bilstm_deep", "hidden_dim": 128, "num_layers": 2, "dropout": 0.25, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 60, "batch_size": 32},
+    {"trial_id": "bilstm_wide", "hidden_dim": 192, "num_layers": 1, "dropout": 0.25, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 60, "batch_size": 24}
+  ],
+  "transformer_trials": [
+    {"trial_id": "transformer_baseline", "d_model": 128, "nhead": 4, "num_layers": 2, "dim_feedforward": 256, "dropout": 0.2, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 60, "batch_size": 32},
+    {"trial_id": "transformer_deep", "d_model": 128, "nhead": 4, "num_layers": 3, "dim_feedforward": 384, "dropout": 0.2, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 60, "batch_size": 24},
+    {"trial_id": "transformer_wide", "d_model": 192, "nhead": 6, "num_layers": 2, "dim_feedforward": 384, "dropout": 0.25, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 60, "batch_size": 24}
+  ],
+  "early_stopping_patience": 10
+}
+
