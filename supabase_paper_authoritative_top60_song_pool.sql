@@ -1,7 +1,9 @@
 -- Run this in the Supabase SQL Editor.
 -- Purpose:
 --   Create a new, clearly separated table for the authoritative paper dataset
---   based on the QQ Music top-60 Chinese-name singer sampling rule.
+--   based on the QQ Music top-60 Huayu/Chinese-artist sampling rule.
+--   English stage names are included when the artist is a Chinese-language
+--   singer/group, for example BY2 and S.H.E.
 --
 -- This does not modify existing QC tables:
 --   public.songs
@@ -28,6 +30,7 @@ create table if not exists public.paper_authoritative_top60_song_pool (
     check (source_status in ('retained_from_old97', 'new_candidate', 'pending_selection', 'excluded')),
 
   ranking_source text not null default 'QQ Music Singer Chart',
+  artist_population_rule text not null default 'QQ Music chart Huayu/Chinese-language artists, including Chinese/Taiwan/Hong Kong/Mainland singers and Chinese-language groups even when the stage name is written in English, such as BY2 and S.H.E.',
   ranking_snapshot_date date,
   selection_rule text not null default 'Ranks 1-10: 3 songs per artist; ranks 11-30: 2 songs per artist; ranks 31-60: 1 song per artist.',
   evidence_url text,
@@ -53,6 +56,13 @@ comment on column public.paper_authoritative_top60_song_pool.song_id is
 
 comment on column public.paper_authoritative_top60_song_pool.source_status is
   'retained_from_old97 for songs kept from the old 97-song analysis; new_candidate for future added songs; pending_selection before final choice; excluded if intentionally not used.';
+
+alter table public.paper_authoritative_top60_song_pool
+  add column if not exists artist_population_rule text not null
+  default 'QQ Music chart Huayu/Chinese-language artists, including Chinese/Taiwan/Hong Kong/Mainland singers and Chinese-language groups even when the stage name is written in English, such as BY2 and S.H.E.';
+
+comment on column public.paper_authoritative_top60_song_pool.artist_population_rule is
+  'Defines the ranked artist population. English stage names are included when the artist is a Huayu/Chinese-language artist, for example BY2 and S.H.E.';
 
 create index if not exists paper_authoritative_top60_song_pool_song_id_idx
   on public.paper_authoritative_top60_song_pool(song_id);
