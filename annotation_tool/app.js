@@ -1548,7 +1548,6 @@ async function saveAnnotation(action = "edit", options = {}) {
   if (!section || !state.selectedSong || !state.run) return showToast("先选择一个 section", true);
   if (state.isSubmittingSong) return showToast("整首歌正在提交中");
   if (state.submittingSectionIds.has(section.id)) return showToast("本段正在提交中");
-  if (state.pendingSectionOrderChange) return showToast("有未提交的排序改动，请提交整首歌", true);
   setSubmitBusy(true);
   let start;
   let end;
