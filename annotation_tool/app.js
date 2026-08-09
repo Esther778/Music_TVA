@@ -1998,11 +1998,11 @@ function humanAnnotationIdsForSection(section) {
 }
 
 function setResetBusy(isBusy) {
-  for (const button of [els.resetCurrentSection, els.resetSong]) {
+  for (const button of [els.resetCurrentSection, els.resetSong].filter(Boolean)) {
     button.disabled = isBusy;
   }
-  els.resetCurrentSection.textContent = isBusy ? "提交中..." : "重置当前section";
-  els.resetSong.textContent = isBusy ? "提交中..." : "重置整首歌";
+  if (els.resetCurrentSection) els.resetCurrentSection.textContent = isBusy ? "提交中..." : "重置当前section";
+  if (els.resetSong) els.resetSong.textContent = isBusy ? "提交中..." : "重置整首歌";
 }
 
 async function deleteHumanAnnotationsByAutoSection(autoSectionId, songId = state.selectedSong?.id) {
@@ -3366,11 +3366,11 @@ els.reviewFilter.addEventListener("change", renderSections);
 els.finishReview.addEventListener("click", finishReview);
 els.prevSection?.addEventListener("click", () => selectRelativeSection(-1));
 els.nextSection?.addEventListener("click", () => selectRelativeSection(1));
-els.useModel.addEventListener("click", restoreModelValues);
+els.useModel?.addEventListener("click", restoreModelValues);
 els.addSection.addEventListener("click", addSectionAfterCurrent);
 els.deleteSection.addEventListener("click", deleteCurrentSection);
-els.resetCurrentSection.addEventListener("click", resetCurrentSection);
-els.resetSong.addEventListener("click", resetWholeSong);
+els.resetCurrentSection?.addEventListener("click", resetCurrentSection);
+els.resetSong?.addEventListener("click", resetWholeSong);
 els.markPendingReview?.addEventListener("click", markSongPendingReviewOnly);
 els.seekStart.addEventListener("click", () => {
   if (!state.selectedSection) return;
