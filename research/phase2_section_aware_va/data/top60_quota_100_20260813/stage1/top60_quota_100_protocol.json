@@ -1,0 +1,17 @@
+{
+  "created_at": "2026-08-13T23:09:46+08:00",
+  "protocol": "Top60 quota 100-song VA Teacher frozen inputs",
+  "songs": 100,
+  "sections": 1046,
+  "source_song_manifest": "research/phase2_section_aware_va/data/manifests/top60_quota_100_reviewed_manifest_20260813.csv",
+  "source_section_manifest": "research/phase2_section_aware_va/data/manifests/top60_quota_100_human_annotations_readable_20260813.csv",
+  "source_song_manifest_sha256": "e95570e54e664c43c5b24ac0ac6c8f43ed7d4d6899a5b01ac3be10b02085451b",
+  "source_section_manifest_sha256": "c6b2da59104e0750fed0d22ba597d942c21e25232aeb00b807bfd765565e2020",
+  "manifest_sha256": "92bca8224515b766289a53764113bc511535da88983158afb2d63a731e423503",
+  "manifest_canonical_sha256": "d014573c6e129cea6b1f7f9fe01bbee092df59bc6ef6280a4c4535e17f6f7881",
+  "boundaries_sha256": "7eae67c2f0b3274ba34f3e6c0f2cb2c8ea91e4d4f04aef6df3ab0c9099764561",
+  "boundaries_canonical_sha256": "69d7cc8d54b83d1a5eafca8c305fd4b7aae0d0fc8542b58cdbe0aa69a19518a9",
+  "section_types_frozen": true,
+  "human_emotion_answers_read": false,
+  "old_97_99_outputs_modified": false
+}

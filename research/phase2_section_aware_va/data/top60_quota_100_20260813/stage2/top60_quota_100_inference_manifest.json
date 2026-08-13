@@ -1,0 +1,1035 @@
+{
+  "created_at": "2026-08-14T00:01:39+08:00",
+  "protocol": "Top60 quota 100-song audio-only inference with frozen final clean VA teachers",
+  "songs": 100,
+  "reused_full_corpus_99": 37,
+  "new_inference": 63,
+  "frames": 51448,
+  "elapsed_sec": 3038.868,
+  "source_manifest": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage1/top60_quota_100_manifest.csv",
+  "source_manifest_sha256": "92bca8224515b766289a53764113bc511535da88983158afb2d63a731e423503",
+  "teacher_hashes": {
+    "config": "cb32a52d4b7c90f3b41aca17f82ab66cde8d33634497d6862bf0b6ab2b8288a1",
+    "valence_model": "6cddf9ce3f12f341dac5d53b99c108675fdac9c8c17e323164f77388d88918ae",
+    "arousal_model": "aba66d037ec8f4c30917a67dbb9d97f0dfc2fc781fa4191d4202812051c368bb",
+    "valence_normalizer": "bd86da37db97976e606ab77dfc8a322a84ec13c1ab687037d860496798de54f3",
+    "arousal_normalizer": "bd86da37db97976e606ab77dfc8a322a84ec13c1ab687037d860496798de54f3",
+    "opensmile_feature_norm": "d6666011894440a392f0410d0c1f401d1e895bcde17eb56a28ba7bbeeba1fbb3"
+  },
+  "model_ids": {
+    "valence": "pmemo_final_clean_valence_teacher_v1",
+    "arousal": "pmemo_final_clean_arousal_teacher_v1"
+  },
+  "feature_backbone": "MERT-v1-95M hidden-6 + PMEmo-style OpenSMILE ComParE_2016 dynamic 260d",
+  "frame_hop_sec": 0.5,
+  "teacher_window_sec": 30.0,
+  "teacher_stride_sec": 15.0,
+  "teacher_window_blend": "Hann weighted overlap-add",
+  "section_boundaries_read": false,
+  "human_va_answers_read": false,
+  "combined_output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/top60_quota_100_frame_va.csv",
+  "combined_output_sha256": "41ba2fed1785053f9c726d5808b3f55bae7496eb8836e372a1ca5d40b3d310e5",
+  "reuse_audit": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/reuse_audit.csv",
+  "completed": [
+    {
+      "song_id": "local_3913ac8a270a",
+      "title": "稻香",
+      "frames": 446,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_3913ac8a270a_frame_va.csv",
+      "output_sha256": "73d7a906497ba0deb32207359d70de62ef11677df0898091453b9a1298be5d90",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_3913ac8a270a.npz",
+      "feature_sha256": "9ca957f5885dbc26cd0c0c726cdd222cfb98c5c2ea63424de9c25ad6883f0206",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_bf2276532948",
+      "title": "我是如此相信",
+      "frames": 532,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_bf2276532948_frame_va.csv",
+      "output_sha256": "d2d06d4a67e02592f23ff3121f070b844175897b007e9b3e31e02e1c35b109d5",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_bf2276532948.npz",
+      "feature_sha256": "efa810e45ef8d215e03aac52e83b610fb6fe51e5bf99fdcd9ae24a2bd53a91ee",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_f425a141ec65",
+      "title": "Always Online",
+      "frames": 450,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_f425a141ec65_frame_va.csv",
+      "output_sha256": "a5fad6be16d2ab3f4d4a60a829d69716f94a22a5787ad21a52fb1b83e73db64f",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_f425a141ec65.npz",
+      "feature_sha256": "3d783c820d46b1733d3507ec9598b2072485f9e4f9f2f72e46b40d44ddac38a2",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_11bd834f0931",
+      "title": "不为谁而作的歌",
+      "frames": 531,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_11bd834f0931_frame_va.csv",
+      "output_sha256": "1ef59c9de10facf3afab3f853da803398d5734f52635082f89b0303f8f33e6c4",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_11bd834f0931.npz",
+      "feature_sha256": "558f7c65d61a465de35926f49551787dee50d62d4d643e29ed184981c74a4a5e",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_23b8c1a97ca9",
+      "title": "修炼爱情",
+      "frames": 573,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_23b8c1a97ca9_frame_va.csv",
+      "output_sha256": "a667bdd626aebbfe6d068fa5923c827d83e59fccbcdd51f2fe2a7eb97efcbaf4",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_23b8c1a97ca9.npz",
+      "feature_sha256": "18788236f4c0030ff63340562cddb48137bd87c06ec29c09cc8e2607424e6f65",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_e46cad906ab3",
+      "title": "因为爱情",
+      "frames": 433,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_e46cad906ab3_frame_va.csv",
+      "output_sha256": "d4a55151830f6d3b2e882dd5f523b71d3682125b90b1087a727a5d0cd81efce0",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_e46cad906ab3.npz",
+      "feature_sha256": "85b86c626c011c8b27989b01d623726e94f61f0d111294289cf43b65cf942f5c",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_46b9402546e5",
+      "title": "爱情转移",
+      "frames": 519,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_46b9402546e5_frame_va.csv",
+      "output_sha256": "c7892ae4ac12eba0e1f619a405b9a7fbb8aeb56a732cb9d06e7659543fd2ea01",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_46b9402546e5.npz",
+      "feature_sha256": "1df5464505cb11df075e1640690eb1ce645a3379e1c1145a05fd630ef0f5a76f",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_00db930e5d96",
+      "title": "十年",
+      "frames": 409,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_00db930e5d96_frame_va.csv",
+      "output_sha256": "5666e0789201c51a4518cfb0e0e470756d41938e1d6434a37be89c65f569020e",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_00db930e5d96.npz",
+      "feature_sha256": "f12333736fe3679b75a8cb91b7b2c74cb78f8dbe960c1c2eed47bbb582baa5ce",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_2995d2fa80bb",
+      "title": "天外来物",
+      "frames": 514,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_2995d2fa80bb_frame_va.csv",
+      "output_sha256": "15894a4bc55972d8503a8c3649e2280c55943f6a8872a7e7bc59ffe77176cdbd",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_2995d2fa80bb.npz",
+      "feature_sha256": "982a8d9019ee9124a02c992953e7db89ec03530c259447bca0a21b10fd547c66",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_1e0b3f9bee7e",
+      "title": "演员",
+      "frames": 522,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_1e0b3f9bee7e_frame_va.csv",
+      "output_sha256": "546461b6939354264a92c1d3b165b12cd01d619ffe1c2c741dd52de4ae8dddd5",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_1e0b3f9bee7e.npz",
+      "feature_sha256": "846fd3bc3e7173a1b31fe5eb2ffbc97e1c68ee756401c90b561ab8946907e716",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_ff4673d96609",
+      "title": "爱错",
+      "frames": 477,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_ff4673d96609_frame_va.csv",
+      "output_sha256": "ede39ad7527a87d29d4c7a0afca11858a3430746662738f1e112f5ba67f53d82",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_ff4673d96609.npz",
+      "feature_sha256": "8eabbd3cc827fbb428d40222a8aea7b7bfad96353538b4127d18e03624130688",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_5dcf400d29b1",
+      "title": "来自天堂的魔鬼",
+      "frames": 490,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_5dcf400d29b1_frame_va.csv",
+      "output_sha256": "157fee065e246d1563e0288823eaca55acfeb2b0d5b1e9e9def302b98ebe2e16",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_5dcf400d29b1.npz",
+      "feature_sha256": "cb600d47e48e93cba6f4713f1081fdb4d15a6c73b40eed3b067b1f5065145a02",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_105ab4011af8",
+      "title": "倒数",
+      "frames": 458,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_105ab4011af8_frame_va.csv",
+      "output_sha256": "0f55cd2ac11af64a5855a758a033ac96bdaf3fb643ded77d0777f6757d128d34",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_105ab4011af8.npz",
+      "feature_sha256": "518a738d4d04ddf11fca2c86e9ab1d06b2c0d6f262bef9be0a9d61eaaba1ddf8",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_963a6186bd26",
+      "title": "我怀念的",
+      "frames": 578,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_963a6186bd26_frame_va.csv",
+      "output_sha256": "54b7e002e2340607dac523d25eb05fd55e7abc19e68a2218c0418cabba0031f0",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_963a6186bd26.npz",
+      "feature_sha256": "f8c3d5ec16d2cd02a82c88c08cb4eeec6af1dd3621bd749b1fcd99dd235beb15",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_ef6d5a9855b1",
+      "title": "遇见",
+      "frames": 422,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_ef6d5a9855b1_frame_va.csv",
+      "output_sha256": "64147cebb40f2f5f9f91a556bab45826d04ad780dce610bf00f6ef10fa8da87e",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_ef6d5a9855b1.npz",
+      "feature_sha256": "ead414dc53a5c4cc1a7a94587c375ce906b03dfec3cff725b10032163199279f",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_dbc77a11fac5",
+      "title": "恋人",
+      "frames": 551,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_dbc77a11fac5_frame_va.csv",
+      "output_sha256": "174464e630e838fed2565932ab50dc4faef71734ac49f04697111dbf2214a10d",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_dbc77a11fac5.npz",
+      "feature_sha256": "8ddd71575470dced5f8f5aedcf24484b25d4a1de6f9685830c4243aceeedb3c9",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "life_should_face_light",
+      "title": "生活总该迎着光亮",
+      "frames": 484,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/life_should_face_light_frame_va.csv",
+      "output_sha256": "c1834a5fc0e7a456df818e4cc83acb209874bbffdc38e87aeeef7c4c84b98157",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/life_should_face_light.npz",
+      "feature_sha256": "2ad1f0cbd642be72fb56b059b92a302cbf19730a71cbe74a9112180e0961156b",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_db974f892f9b",
+      "title": "花开忘忧",
+      "frames": 505,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_db974f892f9b_frame_va.csv",
+      "output_sha256": "56409228922403a27441f6622473502c440f955ba8eaca3a3cdb4892784b55d4",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_db974f892f9b.npz",
+      "feature_sha256": "5eeeced75d758d6021f953ce6107c2258c66f0882b3cc549be5e470f8caf1caa",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_7c3286a38f8f",
+      "title": "逆战",
+      "frames": 462,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_7c3286a38f8f_frame_va.csv",
+      "output_sha256": "8884afcf69c805900521cf324922708aa1ca1bbf30de272996ea005f208f0899",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_7c3286a38f8f.npz",
+      "feature_sha256": "36c959c7b079b1406ea63765cc99f586c6d6990544a7b87b3f881ab1d07bef9c",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_2053cafba7d8",
+      "title": "特别的人",
+      "frames": 518,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_2053cafba7d8_frame_va.csv",
+      "output_sha256": "f06c7eb0c34f659bd86395b77e3046e8203d466c8e60b0c60064df8e07ea2427",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_2053cafba7d8.npz",
+      "feature_sha256": "098e3044253f459d4d95d74a28e6aee057580f9d721c99f2301b82fa5eb45140",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_de1d1e9e4570",
+      "title": "勇气",
+      "frames": 478,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_de1d1e9e4570_frame_va.csv",
+      "output_sha256": "b966a624194e8d6eedf620df4acf7bc2f47e054800eb27a9743e2d9bf1fe8953",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_de1d1e9e4570.npz",
+      "feature_sha256": "fafc8e95085dbbc8576682545d1c81f49f2e5130a81c5b5afe2b2c90af784522",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_42f647302ce2",
+      "title": "情歌",
+      "frames": 520,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_42f647302ce2_frame_va.csv",
+      "output_sha256": "23cddd58d95a55f962a19c81ddf2e40946c16374e17b4562df25ec836ee6fc3d",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_42f647302ce2.npz",
+      "feature_sha256": "906716fdc458a2a5bececfca3d956c4d6c95b19ec659980f2a11486b761d533b",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_37130d1bbf12",
+      "title": "如愿",
+      "frames": 530,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_37130d1bbf12_frame_va.csv",
+      "output_sha256": "0e36dcf2fb5aa5572c2605b643376dcff4470e2414c050fcde42eecadb85e372",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_37130d1bbf12.npz",
+      "feature_sha256": "57f13fb6d0a2fe48ed9e9a8766d2f36fd813d6bf07038005b70d4f1d1e31af53",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_715bd8149a37",
+      "title": "红豆",
+      "frames": 512,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_715bd8149a37_frame_va.csv",
+      "output_sha256": "39754ab088a34ba81e50c1b3b9067828224755313dd311fbdf2e9c485a8d4e3a",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_715bd8149a37.npz",
+      "feature_sha256": "26c919910c214cf9aca4329d8cc7acaef17521faadb3863447da7f2247601966",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_eb95c3935b89",
+      "title": "倔强",
+      "frames": 523,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_eb95c3935b89_frame_va.csv",
+      "output_sha256": "d2b950db4d58082b4054cbc241d90871b22d864337c0c25ab23e29f37f8e0354",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_eb95c3935b89.npz",
+      "feature_sha256": "8119e99f3c9535cb9b2e78ad48a2ae64ee103a292e08afe96b6c14f1b54b8cfa",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_6bf8cd1adeaf",
+      "title": "后来的我们",
+      "frames": 692,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_6bf8cd1adeaf_frame_va.csv",
+      "output_sha256": "3a9237f8b645c4cf957303ebdbd1f8adb8f925d00b344cf3cffdf3a24763d4c3",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_6bf8cd1adeaf.npz",
+      "feature_sha256": "bd5d6758c1057cf5eca3d227eb84fd934483b39b099a4b93b3a107c9f9d69f95",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_d6d63a144a77",
+      "title": "阴天",
+      "frames": 483,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_d6d63a144a77_frame_va.csv",
+      "output_sha256": "2c8f08623bf5eec15e7704c9475cfcd8e9056f29bec4b3ea5c7c4dc84e405de9",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_d6d63a144a77.npz",
+      "feature_sha256": "1b3e3b6637a0caabbde5bf65f823ad8f595f322e4e02fa5e4129c4385aac190f",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_9517e7e8877a",
+      "title": "雨爱",
+      "frames": 521,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_9517e7e8877a_frame_va.csv",
+      "output_sha256": "cb324cc0874d1dbdf7a3a167c819fff46a64cbae3cea5935b9e1b9494af8d1ac",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_9517e7e8877a.npz",
+      "feature_sha256": "829836cbaeb749d1bc85d6263105814ce1cb5aebf86603f4dc054a52d56a7507",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_52fb89921d0f",
+      "title": "海阔天空",
+      "frames": 651,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_52fb89921d0f_frame_va.csv",
+      "output_sha256": "8bad407bf208646344e245589fccda555897638c6d89bfedc83f5cac9e53f205",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_52fb89921d0f.npz",
+      "feature_sha256": "897ef03c0240867878ec9790e454799f2034445fe80f1868eedf850d1ec4d7fa",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_a9bdb83ab132",
+      "title": "红色高跟鞋",
+      "frames": 413,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_a9bdb83ab132_frame_va.csv",
+      "output_sha256": "bd00e64935b1bf6e1a5cfc0c6d09d05b6d98fdfbf51cbcc0cb61f2a8bc8a74fb",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_a9bdb83ab132.npz",
+      "feature_sha256": "6817cd4f409ad4d6b41610134a297d1ffbc69d48579b548eaeab81525e911bcc",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_d8999279ff23",
+      "title": "消愁",
+      "frames": 358,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_d8999279ff23_frame_va.csv",
+      "output_sha256": "7e042b21fb14bc42e6b0150eeb84f25e962a297c4d027148ccd7209e1d34457f",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_d8999279ff23.npz",
+      "feature_sha256": "6577b321faf89ab98abfb7865fb0eaaf77e87115bbe25f07665ac8dcd0ea66c6",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_45d9f925671d",
+      "title": "野心家",
+      "frames": 565,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_45d9f925671d_frame_va.csv",
+      "output_sha256": "f4b240afb3b7e242ccfeafddba4ad04cad5a833ae7787fd257caea9918a779e9",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_45d9f925671d.npz",
+      "feature_sha256": "a0eda557a4d421be2d7772087fc880fe4395f8b0a492728bcfd9fd57d5408d02",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_13a41709cc04",
+      "title": "年轮",
+      "frames": 549,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_13a41709cc04_frame_va.csv",
+      "output_sha256": "c3c6627fb99ea0cb66f0c67da28d2f5d65c3e65149fccc68bf664b74cf9b38f5",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_13a41709cc04.npz",
+      "feature_sha256": "bc5a7482e8c3bdd37c01d189a758503c47bf0d74f99960ab614d292ee1be829a",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_e58fa63d10ee",
+      "title": "永不失联的爱",
+      "frames": 527,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_e58fa63d10ee_frame_va.csv",
+      "output_sha256": "449cac69fb67555e1b2bcea66413f1ced8c375f952f58fb036cd3e2a1b3fab92",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_e58fa63d10ee.npz",
+      "feature_sha256": "c77c9c1867af32b9f72568a193ca0088789a966c16f05ed8358a0c23364b79fb",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_dee323b18c24",
+      "title": "爱你",
+      "frames": 439,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_dee323b18c24_frame_va.csv",
+      "output_sha256": "e535ffbe5b89c30880432fab5b5ca8504de878f0fae05020c388521d2d1f27dd",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_dee323b18c24.npz",
+      "feature_sha256": "880b53af2e709d984798de95a410efcf95778e9d871bae79d5c8feb6503f5f38",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_6fb6f4f11f98",
+      "title": "星辰大海",
+      "frames": 415,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_6fb6f4f11f98_frame_va.csv",
+      "output_sha256": "3dc637a63e3ae837be98809432a6dfa7f71ab3c7a96d93b8b03be71eaa62d48d",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_6fb6f4f11f98.npz",
+      "feature_sha256": "5458d908212a877458eb09f9435419c7c35ea2abe983071810062b292636f9bc",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_f686db670651",
+      "title": "凉凉",
+      "frames": 666,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_f686db670651_frame_va.csv",
+      "output_sha256": "f84166bdc6bded533eed031d4a9e5a1d24546e04be19d40458bae4b97570b821",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_f686db670651.npz",
+      "feature_sha256": "cec31b0527363aa357048c83c15605381f8e8e800a1b20aeeeaa05d2774f497f",
+      "source": "reused_full_corpus_99"
+    },
+    {
+      "song_id": "local_7e1a11565a8f",
+      "title": "青花瓷",
+      "frames": 474,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_7e1a11565a8f_frame_va.csv",
+      "output_sha256": "bfdf118af5bc7a1f3aac27a66f7d0d39dae839a0a46391794f025673c6fd0c1c",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_7e1a11565a8f.npz",
+      "feature_sha256": "83e7a269bd9447469888d759a7e3030f530d89f48bcfd096f709593475c5910d",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_8b9f5f89ce5f",
+      "title": "意外",
+      "frames": 575,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_8b9f5f89ce5f_frame_va.csv",
+      "output_sha256": "5b6f50ee1a7b697e7156fcdca174de72855a2f4a0ca06630bf49780bf73f509b",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_8b9f5f89ce5f.npz",
+      "feature_sha256": "98994d08ae8ce045e00f356bcdb4d97d944c5b51c97dc41d38f1ed495d11a2f4",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_476e2c2f7f42",
+      "title": "你不知道的事",
+      "frames": 558,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_476e2c2f7f42_frame_va.csv",
+      "output_sha256": "a58179663a5a30db30fe20ffdd27d7ff6fd9f17192ec7b3630e387ce73a41ce1",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_476e2c2f7f42.npz",
+      "feature_sha256": "3a7ad386b0347cc32d8baa983ed079ea4c9986981555ae2e02a53b03e61fa5cd",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_3b8854dcdc3f",
+      "title": "缘分一道桥",
+      "frames": 492,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_3b8854dcdc3f_frame_va.csv",
+      "output_sha256": "d036f34484ff6682972ebf327855e4374868674eab9c516b9aff4e7544983bb2",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_3b8854dcdc3f.npz",
+      "feature_sha256": "b8bbf5a96716c1195be984ae7c1d0ff866b3529603c82ac20513824acce4548a",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_d32f43d88039",
+      "title": "一笑倾城",
+      "frames": 463,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_d32f43d88039_frame_va.csv",
+      "output_sha256": "7bc72ad3115a9a76a1be5c1378179722166ee72cb6f46fa755c969f3b2973b97",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_d32f43d88039.npz",
+      "feature_sha256": "2f4af3acd7679474565a3409b2d4692a194ddc03a63549c30cf870fac3dbb0ae",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_2e0359669613",
+      "title": "像晴天像雨天",
+      "frames": 473,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_2e0359669613_frame_va.csv",
+      "output_sha256": "2a354a77954af94cb453886336fb914f00394b688cbd5f8752080b4e54c6ae04",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_2e0359669613.npz",
+      "feature_sha256": "ec7e01be88b7e06c0b9e1d1a5651b3f8c6f550adc1e58a67ccd94c56b83b5eac",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_30f69e050afb",
+      "title": "让你知道",
+      "frames": 479,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_30f69e050afb_frame_va.csv",
+      "output_sha256": "c99926542ea2a44c3a256e15a546e404cd70f319ac702c9c764f539a97dece14",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_30f69e050afb.npz",
+      "feature_sha256": "045efeff37669362f7c7a6f01ca6784d6455ebd1b2536a427f309ab7c40f0a49",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_065cd61136c6",
+      "title": "泡沫",
+      "frames": 517,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_065cd61136c6_frame_va.csv",
+      "output_sha256": "2d7571877c35a9395574e8ad5a4a5a02b5804a18086dedaacf0fa0d7adf9da29",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_065cd61136c6.npz",
+      "feature_sha256": "b5c998ba314b760e17b884b645ed1caaf1a4d611765a6115e908251a1e81f7cc",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_8a5d8c9cbf89",
+      "title": "惊鸿一面",
+      "frames": 512,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_8a5d8c9cbf89_frame_va.csv",
+      "output_sha256": "e853318b60e38eea20158d248c46570ad58b4cab88062ad8c0808ef433afaa64",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_8a5d8c9cbf89.npz",
+      "feature_sha256": "6c8b54d6d9ae2cf42b6cb7b047bdffbae4ce030b7932e60d16783b76385541c8",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_7645ea6903f1",
+      "title": "洛阳纸",
+      "frames": 589,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_7645ea6903f1_frame_va.csv",
+      "output_sha256": "420678ad8cd4fa0f54892db4d112e28ef167ea77eab313368c5d59769fbf52f3",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_7645ea6903f1.npz",
+      "feature_sha256": "87a58c37091899d19ae106c35a95f649714da7ddd49341132fc43ce9a695bc09",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_0f36bb5bfed0",
+      "title": "素颜",
+      "frames": 481,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_0f36bb5bfed0_frame_va.csv",
+      "output_sha256": "42a76384169c3792b2bffcabe17871c7cb798d0a312d1a0a033027eb31759fc5",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_0f36bb5bfed0.npz",
+      "feature_sha256": "7ecd363e8f2e6b490dcf41054f14c12dd876e061624b3e4bf5a7df2798f7da26",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_674129e043b0",
+      "title": "第一天",
+      "frames": 507,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_674129e043b0_frame_va.csv",
+      "output_sha256": "fd267891424c257d2d4981aab1a08aca47c71ba379d2bddf84c1d0fce6f1e605",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_674129e043b0.npz",
+      "feature_sha256": "248648b2f24aec98986a3f069024af5be643f2495e97a78b547a8ebc38115565",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_0cca37fe67cb",
+      "title": "城北的花 (Live)",
+      "frames": 426,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_0cca37fe67cb_frame_va.csv",
+      "output_sha256": "1f172c44dbb81199d70cb4c01895d8a07697fd42d1816e29e9e007bd68abc177",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_0cca37fe67cb.npz",
+      "feature_sha256": "015273258d6cd8f0d8866c1715b2856900657c60a9ea039bb6e9ea6a6279664f",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_65bf4ab4b8c1",
+      "title": "流星也为你落下来了",
+      "frames": 359,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_65bf4ab4b8c1_frame_va.csv",
+      "output_sha256": "f5e6871271806765c621b00a3d4062dc3f88e65776d5c560751b83c2dfd5a592",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_65bf4ab4b8c1.npz",
+      "feature_sha256": "69514132535d1d917fea703e96c0e5c4b72e8135f660ffb7b65734c90c859ecb",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_f0af9b9f99c3",
+      "title": "骄傲",
+      "frames": 507,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_f0af9b9f99c3_frame_va.csv",
+      "output_sha256": "05cd1c3a43e42fa64a0561e9b0ad2bdcfe4f985af94605a9ec9f6aed82e25278",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_f0af9b9f99c3.npz",
+      "feature_sha256": "36800a30a0d1021bcf08ad033d2716b90d25b1609ed3dff186c5ff76399775e6",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_7435c20c7747",
+      "title": "不将就",
+      "frames": 625,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_7435c20c7747_frame_va.csv",
+      "output_sha256": "3fb794612eee78bb925b54900bc722a1feefb769b1ed927a634dcc508957a625",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_7435c20c7747.npz",
+      "feature_sha256": "2a3d524470df817986b429890a2a4c243e6372da726fb18bc22e5f1a6daa0739",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_8348b6ef6c1d",
+      "title": "找自己(Rain)",
+      "frames": 613,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_8348b6ef6c1d_frame_va.csv",
+      "output_sha256": "dc2f6ef7495e9a72a3e3abe5353a94d4bcec608b1c6511e57d88e0c9f5518ceb",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_8348b6ef6c1d.npz",
+      "feature_sha256": "5acba4346337f0b10cbd8b1fed276ba3f2fd2acb3e46f2f3578689cf7da0176b",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_60d4dcae693c",
+      "title": "爱，很简单",
+      "frames": 538,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_60d4dcae693c_frame_va.csv",
+      "output_sha256": "1eef3dbd1c5acb58bd958d9efc4c7c2eb3d7d0cd47bc4918c96bccce7da35a9b",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_60d4dcae693c.npz",
+      "feature_sha256": "8ecc16cf42b170e0031c0c35e7cea9c03b89fb93ccb7fb0fb1f9563ebb7825a7",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_ede298e653ad",
+      "title": "这就是爱",
+      "frames": 584,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_ede298e653ad_frame_va.csv",
+      "output_sha256": "fcf5fbbc485ba2834aeb6b3bfee583e4252bcb655df81357fb5df916b0b6aa55",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_ede298e653ad.npz",
+      "feature_sha256": "8b49c1800e0cae3375b8796651ca3abd20aee1a249bfe52f799964c7cd5928fe",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_25be9001d74e",
+      "title": "三人游",
+      "frames": 474,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_25be9001d74e_frame_va.csv",
+      "output_sha256": "7019167e775edc3f28209acf618bc4b8437e1293fa0d7fc5cdffc2fb827094e8",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_25be9001d74e.npz",
+      "feature_sha256": "b5d8bbb062c9c9692e2fba44e5e6364dc7bced1ace0f6452272eaf2cf98f51f8",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_daa027563621",
+      "title": "慢慢喜欢你",
+      "frames": 442,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_daa027563621_frame_va.csv",
+      "output_sha256": "d3a733cc171dc4fc098c4b0a92fce392a5ac3adaa1b052cc97116d3784be148b",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_daa027563621.npz",
+      "feature_sha256": "cf77958e27f94683f98ddc6f7a81831654a1eef570298ba3400aaa53d61b27d3",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_13bf600bc963",
+      "title": "年轮说",
+      "frames": 532,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_13bf600bc963_frame_va.csv",
+      "output_sha256": "9544656e5f675ae0dcec7222a2cfca39dcd52f8f64ba00b046f840fef6f13fbe",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_13bf600bc963.npz",
+      "feature_sha256": "d684b8bd500dc3702f100f7877f3b3db5dc0b0869475bddaeaf6909d28daacba",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_caacbb224529",
+      "title": "真的爱你",
+      "frames": 556,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_caacbb224529_frame_va.csv",
+      "output_sha256": "6de232871806b39f2844f5387fa986ce83f19acbc3de0e7b741e76a8de1c1d84",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_caacbb224529.npz",
+      "feature_sha256": "3382760282694e1608cb79840f70d195e26eb6d95486516e83577c835c93b091",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_5610e5fedb22",
+      "title": "坠落",
+      "frames": 500,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_5610e5fedb22_frame_va.csv",
+      "output_sha256": "2c3e24fcba7611b2d07aa86f588aa66b5e815345907e4563b738f00d26deb189",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_5610e5fedb22.npz",
+      "feature_sha256": "2fb6b727d4047bd528267a590cddb1bbb793ecf1bb8e0a07e5c0439792d9ea03",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_1f04339e5b36",
+      "title": "呓语",
+      "frames": 542,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_1f04339e5b36_frame_va.csv",
+      "output_sha256": "50fc57f91ed2881b97b168fc124d683cbfef1275a0d2d8e85e5c4a74e1ed403f",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_1f04339e5b36.npz",
+      "feature_sha256": "c87033b97412b75295072acf2d00da9c2e5e06b82a46277824937a1acf8ee6b8",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_91c9bad0bd45",
+      "title": "飞鸟和蝉",
+      "frames": 592,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_91c9bad0bd45_frame_va.csv",
+      "output_sha256": "43a0860903fc30d72cf46b619f4683cc9d8ada14d42451cda5e014f435c1b05e",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_91c9bad0bd45.npz",
+      "feature_sha256": "41c1d348ac487a9bfbba1aa78e318c24a0c132fa75e67b7132c14b3ddc598c90",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_ead1d2e78700",
+      "title": "空空如也",
+      "frames": 427,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_ead1d2e78700_frame_va.csv",
+      "output_sha256": "23a665e087e7b527c446492829221d4c4a6514d5e7a1cdf2fee42df8b2686b83",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_ead1d2e78700.npz",
+      "feature_sha256": "5f322b9c9eca5195d899dc6cea00f459126e78f0f8b530648088dafcd491ea43",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_fccfaf6215e4",
+      "title": "心引力",
+      "frames": 515,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_fccfaf6215e4_frame_va.csv",
+      "output_sha256": "6a98ab0ae562399013094551ee33ff70fce2b249eef9c9aa4e4ed70cb1ec3e15",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_fccfaf6215e4.npz",
+      "feature_sha256": "9d4bbd88c86548569674289af6161bd58f95c670bcbbcb9992ad49e677f13d85",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_6dc92bbdaad5",
+      "title": "今天你要嫁给我",
+      "frames": 544,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_6dc92bbdaad5_frame_va.csv",
+      "output_sha256": "c47b92f320f57b49ed275725a6d06f316bace27c5fd9e4dab8e3a94966bbde8c",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_6dc92bbdaad5.npz",
+      "feature_sha256": "84901b801ec0ee27247851b3892c9e0083d0b49a7ff93d8bd5908e549bc9321a",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_eaa64fa1957d",
+      "title": "成都",
+      "frames": 656,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_eaa64fa1957d_frame_va.csv",
+      "output_sha256": "f5ab86ede8b3c9e2b760537dfa35e1f9f9a64527916eda38b5656741bb327ea8",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_eaa64fa1957d.npz",
+      "feature_sha256": "49a446d656c171878616ab31bd424ad8e7dbdc061a7e77ba6967eb113508067f",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_ce6817b4f3d3",
+      "title": "我们的时光",
+      "frames": 541,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_ce6817b4f3d3_frame_va.csv",
+      "output_sha256": "2d41ed356857771fd0b7d59c246499302c076ddb0545345ce33e5c353da7a604",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_ce6817b4f3d3.npz",
+      "feature_sha256": "7c4086e19a0563f471ddda9bd2387fb98f0f8938a4250fbbf755f9d937a8816e",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_f125d0c81f42",
+      "title": "小半",
+      "frames": 594,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_f125d0c81f42_frame_va.csv",
+      "output_sha256": "3033f7448f1440fd337192b89bcc3ab22809bb0b062527793f3df5d1e16132ba",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_f125d0c81f42.npz",
+      "feature_sha256": "50d4b8fafec9d4f4fcffab8a04423674c8cc2f2b7c3b72389d581a7128d7cf5d",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_f5ce7b30ab48",
+      "title": "果实",
+      "frames": 523,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_f5ce7b30ab48_frame_va.csv",
+      "output_sha256": "1798ee0fd9966ee0f254a2503cf07ce367ca1ece94e73e11f9d8b691389d6518",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_f5ce7b30ab48.npz",
+      "feature_sha256": "6f216f778ebfa5f0f9ad17b0df1b1ca64c4017909ce3cdfa6d5bb51eeb98a3d4",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_def4e6e96d8e",
+      "title": "如果这就是爱情",
+      "frames": 565,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_def4e6e96d8e_frame_va.csv",
+      "output_sha256": "249a31490a9d1c9dd290d9c33096776d7b3038b036ef35b19153e265b7c21891",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_def4e6e96d8e.npz",
+      "feature_sha256": "5ef3eb6a05f8a78bbb4f3c25be434c317fe6be00c5f80834dd9986506f3d41cd",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_dcdc363933c4",
+      "title": "隐形的翅膀",
+      "frames": 444,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_dcdc363933c4_frame_va.csv",
+      "output_sha256": "ceb062ea2b8551d8f632a7438cbf0c0413bda5471a7b8b39cd4e0345f47bb119",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_dcdc363933c4.npz",
+      "feature_sha256": "e65e14fc5d59d226641bcba59695040e957514234ed9eb901a47b3aab8226911",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_251b40807abd",
+      "title": "如果的事",
+      "frames": 453,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_251b40807abd_frame_va.csv",
+      "output_sha256": "f924e51398c8762bcb6c33cb7b1e3061c8f47ea942563a91a405c5da96fcecb4",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_251b40807abd.npz",
+      "feature_sha256": "7712c787027d9fed96f67389a98f0f63e5dcf17da632f1fb0ede3792406f2b51",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_bd9bd3a59238",
+      "title": "笼",
+      "frames": 561,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_bd9bd3a59238_frame_va.csv",
+      "output_sha256": "9346dd07cc25dd6a134c6dd9d969cef9da5a939565e02890a73d59c5960f209a",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_bd9bd3a59238.npz",
+      "feature_sha256": "6685b6d811ddf6ca377277d6ad89c1d83f67957f5a9d844f516a04634137dd54",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_4defbd21b6a6",
+      "title": "天若有情",
+      "frames": 514,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_4defbd21b6a6_frame_va.csv",
+      "output_sha256": "21d956c9fbcf1157b63e8ec2e7c49c53234201034b3238060cf502b28b6d7db7",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_4defbd21b6a6.npz",
+      "feature_sha256": "89db30454eaabae14c790fe33c01bf61d4d04b93ed461b56dec5c487f47372cd",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_72613f77ee43",
+      "title": "我只能离开",
+      "frames": 459,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_72613f77ee43_frame_va.csv",
+      "output_sha256": "cbdb00a1a08358eb92229e554ecfb26506695f3fdcd7df84a008ab2838868bcd",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_72613f77ee43.npz",
+      "feature_sha256": "ee3cd3331c2631c7e919cd0dbf5fcb6f9ff3b0744ff0284b1df5a5259e5ae959",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_375528bbd50c",
+      "title": "一千个伤心的理由",
+      "frames": 551,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_375528bbd50c_frame_va.csv",
+      "output_sha256": "4fb04505fb5d95a9c1e268d98a5b8a10026d9a15d699d4449b3de84df756e47f",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_375528bbd50c.npz",
+      "feature_sha256": "d892bc7d91e922cd2f99dd55b58bdb4d21e3cdde29db464927b17d46cd6949d3",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_9a60244d408b",
+      "title": "身骑白马",
+      "frames": 626,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_9a60244d408b_frame_va.csv",
+      "output_sha256": "bc10e70ef6807845943af122acc3e957edc0dbb0e702fc8e3eee77ca7c28f83b",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_9a60244d408b.npz",
+      "feature_sha256": "5d5f49a6a04e37ddc5d0ed128ab71f7dac91856e38e7ffa7779ac342fd2ba6ac",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_61bd4b8fa6f2",
+      "title": "黄昏",
+      "frames": 687,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_61bd4b8fa6f2_frame_va.csv",
+      "output_sha256": "50c60a9850689ed4c05ecc722816e967d08634b50bcfd1e11a6c8f295479f82e",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_61bd4b8fa6f2.npz",
+      "feature_sha256": "5f96591dc1955be575821a4e7f12d1f9ef36d76259d10594b44c9b3c13476a93",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_f19b60fc6965",
+      "title": "坏女孩",
+      "frames": 493,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_f19b60fc6965_frame_va.csv",
+      "output_sha256": "9c069768460c0fc245c0c03fc3384fb66a4751414f1515f82bc6705b6d623be8",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_f19b60fc6965.npz",
+      "feature_sha256": "e6ba4b9f09d7be45f692265ce4b3e80e55e7c2d90ce1061aaf95d3665a6c2476",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_c594dbedc80d",
+      "title": "想念 (Rehearsal Version)",
+      "frames": 793,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_c594dbedc80d_frame_va.csv",
+      "output_sha256": "62831678d87c76a6593b56a32df205964286877b10442253435b4d7d2b5c4935",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_c594dbedc80d.npz",
+      "feature_sha256": "fd1482755447a2bfc30fdc0e76ad456cb5809a6d76140aa48df96713fbb790c0",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_024a07ad4d3e",
+      "title": "不浪漫罪名",
+      "frames": 574,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_024a07ad4d3e_frame_va.csv",
+      "output_sha256": "45a12d47519a194807562caa62c952503cf02d549eabb60a1500d4faed21a8b1",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_024a07ad4d3e.npz",
+      "feature_sha256": "ba820b6a720db59372f533b7a135d80183ff74a0a1872d0813d9783a16601dda",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_8533434fedaf",
+      "title": "从前那个女孩 (Live)",
+      "frames": 489,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_8533434fedaf_frame_va.csv",
+      "output_sha256": "7520fc5ea658c9d5202d8f9563b3468024e5a8fb171196e27c01b1c3d428a9fe",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_8533434fedaf.npz",
+      "feature_sha256": "581a9e523fbbdaddf9245b887e83dc2309d0b8460a9a33bb6ba1ed25858d71b6",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_37132b35e403",
+      "title": "别让爱凋落 (Live版)",
+      "frames": 414,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_37132b35e403_frame_va.csv",
+      "output_sha256": "b6b9eee33f595064970b461ad8321aba4000fdb0d873e6a6903140dde1b96415",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_37132b35e403.npz",
+      "feature_sha256": "40a4f66e5bed3b619be5294b89a522d8b5e4c9581a07556d8c7d099cc5d86615",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_10e420feed7e",
+      "title": "无人乐园",
+      "frames": 401,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_10e420feed7e_frame_va.csv",
+      "output_sha256": "9f4c1972def7a3f68b85accf9138a144306d28a2cb32037f5bb3fb736b2e1251",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_10e420feed7e.npz",
+      "feature_sha256": "cf5c49f1aaf5a7cadeb641d680957c03e373cd7aaec7df6a96384a0617bf5320",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_f36e550b4878",
+      "title": "爱就一个字",
+      "frames": 548,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_f36e550b4878_frame_va.csv",
+      "output_sha256": "21ddc824506ecc5acb7c78f24d2deafd03681599330309fd10ba2f8eff4f0701",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_f36e550b4878.npz",
+      "feature_sha256": "9f4b9a1942505929af552b20147cae9581e7013644b8fc9e8c882b72c5a597d0",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_2f40a920454d",
+      "title": "听海",
+      "frames": 637,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_2f40a920454d_frame_va.csv",
+      "output_sha256": "27d03d77fb6d9aadafa4b0c087e55f62bef372c5f85e67bd4d2fa855c79e0d45",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_2f40a920454d.npz",
+      "feature_sha256": "b83e5e0dc960fba2d8c5b5bf2331929d570e4774a3414675beebeef238eda214",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_7370708530d5",
+      "title": "你要的全拿走",
+      "frames": 598,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_7370708530d5_frame_va.csv",
+      "output_sha256": "9717a652c348904c9e6db9e1a83ad629bba12360e0697dc4a43f6f373af5ddc8",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_7370708530d5.npz",
+      "feature_sha256": "1a07d11eb1a185cc3cb58dbe6a2c76eed71ff11abdf1675637ef709c3aaca40a",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_4487932ce19e",
+      "title": "勋章",
+      "frames": 427,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_4487932ce19e_frame_va.csv",
+      "output_sha256": "6c9098bbd6ccfc3453fde21a011e6b16fdbe4050c098a73083dc30c96e2af411",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_4487932ce19e.npz",
+      "feature_sha256": "9d31affe556a6b45efad956e921e1fa51dbdf21744230087f019ef0aabb83fc9",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_bd5e40a5b8af",
+      "title": "爱丫爱丫",
+      "frames": 463,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_bd5e40a5b8af_frame_va.csv",
+      "output_sha256": "7c07c1aac78ac39b8ec370b3f2e5f4dc9304e70f155aaee287efa77c3b33f54b",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_bd5e40a5b8af.npz",
+      "feature_sha256": "5b8d82ba1b4f4f108d96e876a84e29a1a03fb8fe604a25c08f7466cdef702b3e",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_e36578d6886a",
+      "title": "心淡",
+      "frames": 497,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_e36578d6886a_frame_va.csv",
+      "output_sha256": "cd2f80af8da68d0300a29a923b9ecb4f823f9ae32daad57242b0be3e62b15eb5",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_e36578d6886a.npz",
+      "feature_sha256": "5a5d0ba977fe9da8ab0f1faea26040f6f71879176b82fe35fd62bff4a8a81b4e",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_e7e68ee7e1c9",
+      "title": "练习",
+      "frames": 520,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_e7e68ee7e1c9_frame_va.csv",
+      "output_sha256": "c9b977c212e376b4ce2ca4b7efecb47e28f7ec570e20e2eeb9113f04dc2cb6a8",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_e7e68ee7e1c9.npz",
+      "feature_sha256": "4b9344440992e2fdd2d73d5bc7b1ecdff81584e4a03a91ece4d3410663684e6b",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_a7445ac22ee5",
+      "title": "突然想起你",
+      "frames": 459,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_a7445ac22ee5_frame_va.csv",
+      "output_sha256": "d4e45c9c3760b0183cd4b0a3f91c320ca5aee046ba02907de35096b1878d6aa7",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_a7445ac22ee5.npz",
+      "feature_sha256": "dbdf8a39fa5d8227f752ae8015eb1b523837003e99a230d1110be05554fe2a91",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_50a8afb8839b",
+      "title": "Super Star",
+      "frames": 382,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_50a8afb8839b_frame_va.csv",
+      "output_sha256": "f4ed0caaea5c252715f8aec1db9f30c7934d570ce0f08f4c9668bbcdc8d304bc",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_50a8afb8839b.npz",
+      "feature_sha256": "0701b6f8757d4f37fda7998ca30a12c592cac5d1429cfdad4d2fbd47d05b0ef0",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_f73233949f3f",
+      "title": "至少还有你",
+      "frames": 549,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_f73233949f3f_frame_va.csv",
+      "output_sha256": "4f43957ab550cf71b63c5ebaed1c210576cf7823b05e22caefed75c7771be7fd",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_f73233949f3f.npz",
+      "feature_sha256": "6ac0a2c525d0721bae07f9123702d1b4734ec54a52f089b57445cc5d853b9ec5",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_a6c7468c6edb",
+      "title": "庙堂之外",
+      "frames": 564,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_a6c7468c6edb_frame_va.csv",
+      "output_sha256": "315485063e7c9ddf780b77894a5a19475ec56f52e99c21041f5059449347a9d2",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_a6c7468c6edb.npz",
+      "feature_sha256": "9645af7d3154069d7fcc30a8c43ae856852a57ee59985aebf45317bf1f488585",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_ae9a3f886481",
+      "title": "他不爱我 (Live版)",
+      "frames": 543,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_ae9a3f886481_frame_va.csv",
+      "output_sha256": "8cda0f8e061dede4234039c08b86e26f1c47d02788c3cc2aa845644e20ec1074",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_ae9a3f886481.npz",
+      "feature_sha256": "8a4128452eec6487baf3d0b52135e3e99b543c7f481c611f1fe3ea0618de5751",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_1f6e3c43a3a7",
+      "title": "一天",
+      "frames": 430,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_1f6e3c43a3a7_frame_va.csv",
+      "output_sha256": "c7de4e8a2583760dec4d932095eaa9eba9da3ec7b7be3b0db0e82c7d06456f08",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_1f6e3c43a3a7.npz",
+      "feature_sha256": "8602609293d929258db81d2ed97166bcf57bbfe1e42dd071886b4a54a12f29d8",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_bb71aef5a593",
+      "title": "凄美地",
+      "frames": 501,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_bb71aef5a593_frame_va.csv",
+      "output_sha256": "455054858dbdf3c09e4f8e4cc5ffb28a4521cb714c19a92e500e1b04cbb2c5d9",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_bb71aef5a593.npz",
+      "feature_sha256": "fe65d3a4d423fc7dbf1c81aae03794b99e8cf1f537fa6f620a07c9124ce6a90c",
+      "source": "new_inference"
+    },
+    {
+      "song_id": "local_c1b9b4933cc0",
+      "title": "渐暖",
+      "frames": 380,
+      "output": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/frame_va/local_c1b9b4933cc0_frame_va.csv",
+      "output_sha256": "df6c494ef4a18fc21131e128447dd6f94d7d02abeeeffbe5c3c5f51fc3d27b05",
+      "feature": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/features/local_c1b9b4933cc0.npz",
+      "feature_sha256": "27276d74c60f34fa68d12a204ff900d3f7946615b2be9021f8a4057dfb021986",
+      "source": "new_inference"
+    }
+  ]
+}
