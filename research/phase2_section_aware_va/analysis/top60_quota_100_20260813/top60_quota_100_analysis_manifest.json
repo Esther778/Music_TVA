@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-08-13T22:50:41+08:00",
+  "status": "pass",
+  "errors": [],
+  "input_manifest": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/manifests/top60_quota_100_reviewed_manifest_20260813.csv",
+  "input_annotations": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/manifests/top60_quota_100_human_annotations_readable_20260813.csv",
+  "songs": 100,
+  "sections": 1046,
+  "unique_artists_by_quota": 60,
+  "mean_sections_per_song": 10.46,
+  "median_sections_per_song": 10.0,
+  "section_type_counts": {
+    "chorus": 362,
+    "verse": 246,
+    "interlude": 121,
+    "outro": 102,
+    "intro": 93,
+    "pre_chorus": 77,
+    "bridge": 45
+  },
+  "outputs": {
+    "song_structure_summary": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/top60_quota_100_song_structure_summary.csv",
+    "section_type_summary": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/top60_quota_100_section_type_summary.csv",
+    "artist_summary": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/top60_quota_100_artist_summary.csv",
+    "repeated_section_summary": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/top60_quota_100_repeated_section_summary.csv",
+    "transition_summary": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/top60_quota_100_transition_summary.csv",
+    "continuity_issues": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/top60_quota_100_continuity_issues.json"
+  },
+  "note": "This analysis uses reviewed human section boundaries/types only; it does not run or reuse frame-level VA prediction."
+}
