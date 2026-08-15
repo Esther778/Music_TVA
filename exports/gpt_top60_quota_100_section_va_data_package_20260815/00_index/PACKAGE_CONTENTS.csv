@@ -1,0 +1,11 @@
+directory,category,description
+00_index,index,"Package scope, contents, schemas, and file manifest"
+02_corpus_inventory,corpus,"100-song top60 quota manifest, boundaries, protocol, artist coverage"
+03_frame_level_va,frame_va,Teacher frame-level valence/arousal predictions
+04_frame_section_alignment,alignment,Frame rows aligned to human-QC section boundaries
+05_section_level,section,Section-level VA and transition-local features
+06_song_level,song,Song-level VA and structure features
+07_paper_statistics,paper_stats,Paper-oriented MIR/statistical tables and notes
+08_analysis_ready,analysis_ready,Clean merged GPT-ready tables and normalized trajectories
+09_derived_tables,derived,"VA/MIR/MER derived tables, transitions, sequences, repeated sections, peaks"
+10_protocols_and_audits,provenance,"Teacher, alignment, Supabase, and audit manifests"

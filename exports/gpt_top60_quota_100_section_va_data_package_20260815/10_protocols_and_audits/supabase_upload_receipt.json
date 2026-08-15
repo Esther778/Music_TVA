@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-08-14T00:10:47+08:00",
+  "dataset_version": "qq_music_top60_100_20260813",
+  "run_label": "top60_quota_100_teacher_v1_20260814",
+  "run_id": "d438082a-37bd-4eac-a541-b85e474883ab",
+  "frames_inserted": 51448,
+  "sections_inserted": 1046,
+  "songs_inserted": 100,
+  "target_tables": [
+    "paper_top60_quota_100_va_runs",
+    "paper_top60_quota_100_va_frames",
+    "paper_top60_quota_100_section_va",
+    "paper_top60_quota_100_song_va"
+  ]
+}

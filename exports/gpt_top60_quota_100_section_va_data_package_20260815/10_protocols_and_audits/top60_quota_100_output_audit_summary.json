@@ -1,0 +1,16 @@
+{
+  "manifest_songs": 100,
+  "audited_songs": 100,
+  "passed_songs": 100,
+  "failed_songs": 0,
+  "collapse_warnings": 0,
+  "combined_rows": 51448,
+  "rebuilt_rows": 51448,
+  "combined_matches_manifest_order_concat": true,
+  "combined_numeric_max_abs_diff": 2.980194091506405e-08,
+  "combined_numeric_tolerance": 5e-08,
+  "combined_sha256": "41ba2fed1785053f9c726d5808b3f55bae7496eb8836e372a1ca5d40b3d310e5",
+  "audit_csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage2/top60_quota_100_output_audit.csv",
+  "audit_csv_sha256": "197801d1edf846582923b17fd664b7b6ef087c2d598f21dfae316dae5464a41f",
+  "overall_status": "pass"
+}

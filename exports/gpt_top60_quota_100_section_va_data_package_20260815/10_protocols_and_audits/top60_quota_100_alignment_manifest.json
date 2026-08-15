@@ -1,0 +1,27 @@
+{
+  "created_at": "2026-08-14T00:04:15+08:00",
+  "protocol": "Top60 quota 100-song frame-to-section alignment",
+  "status": "pass",
+  "errors": [],
+  "songs": 100,
+  "sections": 1046,
+  "frames": 51448,
+  "assigned_frames": 51444,
+  "unassigned_frames": 4,
+  "trailing_unassigned_frames_excluded": 4,
+  "trailing_unassigned_max_overrun_sec": 0.5,
+  "overlap_frames": 0,
+  "sections_without_frames": 0,
+  "final_boundary_frames_included": 10,
+  "interval_rule": "internal sections [start,end); final section [start,end]",
+  "frozen_boundaries_canonical_sha256": "69d7cc8d54b83d1a5eafca8c305fd4b7aae0d0fc8542b58cdbe0aa69a19518a9",
+  "frame_va_sha256": "41ba2fed1785053f9c726d5808b3f55bae7496eb8836e372a1ca5d40b3d310e5",
+  "section_features_sha256": "6773977bd1d0dd51bce2ca6ce2dd8e302a8c005ba486689e1fdddaa1d9d51cb8",
+  "song_features_sha256": "c80fe5f980f11518850069ed3683ae9620887c693953e78243a14ffe8e42d82a",
+  "outputs": {
+    "frame_section_alignment": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage3/top60_quota_100_frame_section_alignment.csv",
+    "section_features": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage3/top60_quota_100_section_features.csv",
+    "song_structure_features": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage3/top60_quota_100_song_structure_features.csv",
+    "alignment_audit": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/stage3/top60_quota_100_alignment_audit.csv"
+  }
+}

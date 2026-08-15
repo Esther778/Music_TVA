@@ -1,0 +1,13 @@
+{
+  "package_id": "gpt_top60_quota_100_section_va_data_package_20260815",
+  "created_at": "2026-08-15T12:12:09+08:00",
+  "headline": "GPT-readable data package for the 100-song top60 quota VA/MIR/MER corpus",
+  "recommended_start_files": [
+    "00_index/PACKAGE_SCOPE.json",
+    "00_index/PACKAGE_CONTENTS.csv",
+    "08_analysis_ready/song_analysis_ready.csv",
+    "08_analysis_ready/section_analysis_ready.csv",
+    "09_derived_tables/TOP60_QUOTA_100_VA_MUSIC_FINDINGS_ZH.md",
+    "07_paper_statistics/PAPER_STATISTICS_SUMMARY_ZH.md"
+  ]
+}

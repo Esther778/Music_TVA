@@ -1,0 +1,27 @@
+{
+  "package_id": "gpt_top60_quota_100_section_va_data_package_20260815",
+  "created_at": "2026-08-15T12:12:09+08:00",
+  "purpose": "data-only export for independent GPT-assisted analysis",
+  "corpus": "QQ Music top60 quota 100-song Chinese pop corpus",
+  "song_count": 100,
+  "section_count": 1046,
+  "frame_count": 51448,
+  "frame_hop_sec": 0.5,
+  "primary_analysis_scope": "100 songs selected under rank quota rule: ranks 1-10 target 3 songs, 11-30 target 2 songs, 31-60 target 1 song",
+  "not_included": [
+    "audio files",
+    "intermediate .npz feature caches",
+    "Supabase SQL batch fallback files"
+  ],
+  "teacher_models": [
+    "pmemo_final_clean_valence_teacher_v1",
+    "pmemo_final_clean_arousal_teacher_v1"
+  ],
+  "supabase_tables": [
+    "paper_top60_quota_100_va_runs",
+    "paper_top60_quota_100_va_frames",
+    "paper_top60_quota_100_section_va",
+    "paper_top60_quota_100_song_va"
+  ],
+  "source_commit": "99f4d244f287db72776ca445762277829399a1e7"
+}

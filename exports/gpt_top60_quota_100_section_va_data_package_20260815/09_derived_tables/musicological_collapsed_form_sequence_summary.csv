@@ -1,0 +1,51 @@
+collapsed_sequence,song_count,example_song_id,example_title,example_artist,mean_collapsed_section_count
+intro > verse > chorus > interlude > verse > chorus > bridge > chorus > outro,12,local_ff4673d96609,爱错,王力宏,9.0
+intro > verse > chorus > interlude > verse > chorus > outro,12,local_7e1a11565a8f,青花瓷,周杰伦,7.0
+intro > verse > chorus > interlude > verse > chorus > interlude > chorus > outro,10,local_476e2c2f7f42,你不知道的事,王力宏,9.0
+intro > verse > pre_chorus > chorus > interlude > verse > pre_chorus > chorus > outro,7,local_8b9f5f89ce5f,意外,薛之谦,9.0
+intro > verse > pre_chorus > chorus > interlude > verse > pre_chorus > chorus > interlude > chorus > outro,6,local_bf2276532948,我是如此相信,周杰伦,11.0
+intro > verse > chorus > verse > chorus > outro,3,local_46b9402546e5,爱情转移,陈奕迅,6.0
+intro > verse > chorus > interlude > chorus > outro,2,local_d8999279ff23,消愁,毛不易,6.0
+intro > verse > chorus > interlude > verse > chorus > interlude > bridge > chorus > outro,2,local_52fb89921d0f,海阔天空,Beyond,10.0
+intro > verse > chorus > verse > chorus > interlude > chorus > outro,2,local_f425a141ec65,Always Online,林俊杰,8.0
+intro > verse > pre_chorus > chorus > interlude > verse > pre_chorus > chorus > bridge > chorus > outro,2,local_dbc77a11fac5,恋人,李荣浩,11.0
+intro > verse > pre_chorus > chorus > verse > pre_chorus > chorus > bridge > chorus > outro,2,local_11bd834f0931,不为谁而作的歌,林俊杰,10.0
+intro > verse > pre_chorus > chorus > verse > pre_chorus > chorus > interlude > chorus > outro,2,local_f5ce7b30ab48,果实,陈粒,10.0
+intro > chorus > intro > verse > pre_chorus > chorus > verse > pre_chorus > chorus > outro,1,local_45d9f925671d,野心家,张靓颖,10.0
+intro > verse > chorus > bridge > chorus > outro,1,local_0cca37fe67cb,城北的花 (Live),王源、王宇宙Leto,6.0
+intro > verse > chorus > bridge > chorus > verse > outro,1,local_65bf4ab4b8c1,流星也为你落下来了,王源,7.0
+intro > verse > chorus > bridge > verse > chorus > bridge > outro,1,local_a6c7468c6edb,庙堂之外,陈楚生,8.0
+intro > verse > chorus > interlude > chorus > verse > interlude > outro,1,local_ce6817b4f3d3,我们的时光,赵雷,8.0
+intro > verse > chorus > interlude > verse > bridge > chorus > outro,1,local_3913ac8a270a,稻香,周杰伦,8.0
+intro > verse > chorus > interlude > verse > chorus > bridge > outro,1,local_a7445ac22ee5,突然想起你,萧亚轩,8.0
+intro > verse > chorus > interlude > verse > interlude > bridge > chorus > outro,1,local_37132b35e403,别让爱凋落 (Live版),王赫野、喻言,9.0
+intro > verse > chorus > interlude > verse > interlude > bridge > chorus > verse > outro,1,local_d6d63a144a77,阴天,莫文蔚,10.0
+intro > verse > chorus > verse > chorus > bridge > chorus > outro,1,local_2053cafba7d8,特别的人,方大同,8.0
+intro > verse > chorus > verse > chorus > bridge > interlude > chorus > outro,1,local_60d4dcae693c,爱，很简单,陶喆,9.0
+intro > verse > chorus > verse > chorus > bridge > verse > chorus > outro,1,local_50a8afb8839b,Super Star,S.H.E,9.0
+intro > verse > chorus > verse > chorus > interlude > chorus > interlude > bridge > outro,1,local_c594dbedc80d,想念 (Rehearsal Version),梁博,10.0
+intro > verse > chorus > verse > chorus > interlude > verse > chorus > interlude > chorus > outro,1,local_8348b6ef6c1d,找自己(Rain),陶喆,11.0
+intro > verse > chorus > verse > interlude > chorus > bridge > interlude > verse > outro,1,local_db974f892f9b,花开忘忧,周深,10.0
+intro > verse > interlude > chorus > interlude > verse > chorus > interlude > chorus > outro,1,local_bd9bd3a59238,笼,张碧晨,10.0
+intro > verse > interlude > verse > chorus > interlude > verse > chorus > interlude > chorus > outro,1,local_ef6d5a9855b1,遇见,孙燕姿,11.0
+intro > verse > pre_chorus > chorus > bridge > pre_chorus > chorus > interlude > chorus > outro,1,local_ae9a3f886481,他不爱我 (Live版),李玖哲、陈楚生、宝石Gem,10.0
+intro > verse > pre_chorus > chorus > interlude > bridge > pre_chorus > chorus > interlude > chorus > outro,1,local_c1b9b4933cc0,渐暖,时代少年团,11.0
+intro > verse > pre_chorus > chorus > interlude > pre_chorus > chorus > bridge > chorus > outro,1,local_9a60244d408b,身骑白马,徐佳莹,10.0
+intro > verse > pre_chorus > chorus > interlude > pre_chorus > chorus > interlude > chorus > outro,1,local_6fb6f4f11f98,星辰大海,黄霄雲,10.0
+intro > verse > pre_chorus > chorus > interlude > pre_chorus > chorus > outro,1,local_00db930e5d96,十年,陈奕迅,8.0
+intro > verse > pre_chorus > chorus > interlude > verse > pre_chorus > bridge > chorus > outro,1,local_1f6e3c43a3a7,一天,鹿晗、队长,10.0
+intro > verse > pre_chorus > chorus > interlude > verse > pre_chorus > chorus > bridge > interlude > pre_chorus > chorus > outro,1,local_674129e043b0,第一天,孙燕姿,13.0
+intro > verse > pre_chorus > chorus > interlude > verse > pre_chorus > chorus > bridge > outro,1,local_8533434fedaf,从前那个女孩 (Live),王赫野,10.0
+intro > verse > pre_chorus > chorus > interlude > verse > pre_chorus > chorus > interlude > bridge > chorus > outro,1,local_5dcf400d29b1,来自天堂的魔鬼,G.E.M.邓紫棋,12.0
+intro > verse > pre_chorus > chorus > pre_chorus > chorus > interlude > chorus > outro,1,local_7435c20c7747,不将就,李荣浩,9.0
+intro > verse > pre_chorus > chorus > pre_chorus > chorus > outro,1,local_72613f77ee43,我只能离开,颜人中,7.0
+intro > verse > pre_chorus > chorus > verse > pre_chorus > chorus > bridge > pre_chorus > chorus > outro,1,local_105ab4011af8,倒数,G.E.M.邓紫棋,11.0
+intro > verse > pre_chorus > chorus > verse > pre_chorus > chorus > interlude > bridge > chorus > outro,1,local_23b8c1a97ca9,修炼爱情,林俊杰,11.0
+outro > verse > chorus > verse > chorus > bridge > chorus > outro,1,local_1e0b3f9bee7e,演员,薛之谦,8.0
+outro > verse > pre_chorus > chorus > interlude > verse > pre_chorus > chorus > interlude > bridge > interlude > outro,1,local_963a6186bd26,我怀念的,孙燕姿,12.0
+verse > chorus > interlude > verse > chorus > interlude > chorus > outro,1,local_3b8854dcdc3f,缘分一道桥,王力宏、谭维维,8.0
+verse > chorus > interlude > verse > chorus > outro,1,local_daa027563621,慢慢喜欢你,莫文蔚,6.0
+verse > pre_chorus > chorus > interlude > chorus > interlude > chorus > outro,1,local_065cd61136c6,泡沫,G.E.M.邓紫棋,8.0
+verse > pre_chorus > chorus > interlude > verse > pre_chorus > chorus > bridge > chorus > outro,1,local_bb71aef5a593,凄美地,郭顶,10.0
+verse > pre_chorus > chorus > verse > pre_chorus > chorus > bridge > chorus > outro,1,local_25be9001d74e,三人游,方大同,9.0
+verse > pre_chorus > chorus > verse > pre_chorus > chorus > interlude > chorus > outro,1,local_f125d0c81f42,小半,陈粒,9.0

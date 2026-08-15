@@ -1,0 +1,67 @@
+[
+  {
+    "path": "00_index/PACKAGE_SCOPE.json",
+    "top_level_type": "dict",
+    "keys": "package_id|created_at|purpose|corpus|song_count|section_count|frame_count|frame_hop_sec|primary_analysis_scope|not_included|teacher_models|supabase_tables|source_commit"
+  },
+  {
+    "path": "00_index/PACKAGE_SUMMARY.json",
+    "top_level_type": "dict",
+    "keys": "package_id|created_at|headline|recommended_start_files"
+  },
+  {
+    "path": "02_corpus_inventory/top60_quota_100_analysis_manifest.json",
+    "top_level_type": "dict",
+    "keys": "created_at|status|errors|input_manifest|input_annotations|songs|sections|unique_artists_by_quota|mean_sections_per_song|median_sections_per_song|section_type_counts|outputs|note"
+  },
+  {
+    "path": "02_corpus_inventory/top60_quota_100_boundaries.json",
+    "top_level_type": "list",
+    "keys": ""
+  },
+  {
+    "path": "02_corpus_inventory/top60_quota_100_continuity_issues.json",
+    "top_level_type": "list",
+    "keys": ""
+  },
+  {
+    "path": "02_corpus_inventory/top60_quota_100_protocol.json",
+    "top_level_type": "dict",
+    "keys": "created_at|protocol|songs|sections|source_song_manifest|source_section_manifest|source_song_manifest_sha256|source_section_manifest_sha256|manifest_sha256|manifest_canonical_sha256|boundaries_sha256|boundaries_canonical_sha256|section_types_frozen|human_emotion_answers_read|old_97_99_outputs_modified"
+  },
+  {
+    "path": "07_paper_statistics/paper_rank_section_type_association.json",
+    "top_level_type": "dict",
+    "keys": "chi_square|degrees_of_freedom|p_value|cramers_v|rank_bands|section_types"
+  },
+  {
+    "path": "07_paper_statistics/paper_statistics_manifest.json",
+    "top_level_type": "dict",
+    "keys": "created_at|status|errors|songs|sections|rank_section_type_cramers_v|outputs|note"
+  },
+  {
+    "path": "10_protocols_and_audits/supabase_upload_receipt.json",
+    "top_level_type": "dict",
+    "keys": "created_at|dataset_version|run_label|run_id|frames_inserted|sections_inserted|songs_inserted|target_tables"
+  },
+  {
+    "path": "10_protocols_and_audits/top60_quota_100_alignment_manifest.json",
+    "top_level_type": "dict",
+    "keys": "created_at|protocol|status|errors|songs|sections|frames|assigned_frames|unassigned_frames|trailing_unassigned_frames_excluded|trailing_unassigned_max_overrun_sec|overlap_frames|sections_without_frames|final_boundary_frames_included|interval_rule|frozen_boundaries_canonical_sha256|frame_va_sha256|section_features_sha256|song_features_sha256|outputs"
+  },
+  {
+    "path": "10_protocols_and_audits/top60_quota_100_inference_manifest.json",
+    "top_level_type": "dict",
+    "keys": "created_at|protocol|songs|reused_full_corpus_99|new_inference|frames|elapsed_sec|source_manifest|source_manifest_sha256|teacher_hashes|model_ids|feature_backbone|frame_hop_sec|teacher_window_sec|teacher_stride_sec|teacher_window_blend|section_boundaries_read|human_va_answers_read|combined_output|combined_output_sha256|reuse_audit|completed"
+  },
+  {
+    "path": "10_protocols_and_audits/top60_quota_100_output_audit_summary.json",
+    "top_level_type": "dict",
+    "keys": "manifest_songs|audited_songs|passed_songs|failed_songs|collapse_warnings|combined_rows|rebuilt_rows|combined_matches_manifest_order_concat|combined_numeric_max_abs_diff|combined_numeric_tolerance|combined_sha256|audit_csv|audit_csv_sha256|overall_status"
+  },
+  {
+    "path": "10_protocols_and_audits/va_music_analysis_manifest.json",
+    "top_level_type": "dict",
+    "keys": "created_at|status|songs|sections|frames|outputs|report"
+  }
+]
