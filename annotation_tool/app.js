@@ -17,6 +17,8 @@ const AUTO_BOUNDARY_SYNC_COMMENT = "相邻 section 边界自动同步";
 const DELETE_BOUNDARY_SYNC_COMMENT = "删除 section 后边界自动连接";
 const SUBMIT_TIMEOUT_MS = 20000;
 const TIME_EPSILON = 0.01;
+const READ_ONLY_REVIEW_MODE = true;
+const READ_ONLY_MESSAGE = "只读抽查模式已开启：页面可浏览播放，但不会写入数据库";
 
 const state = {
   songs: [],
@@ -127,6 +129,62 @@ const els = {
   toast: document.getElementById("toast"),
 };
 
+function assertWritable(action = "当前操作") {
+  if (!READ_ONLY_REVIEW_MODE) return;
+  throw new Error(`${READ_ONLY_MESSAGE}，已阻止${action}`);
+}
+
+function blockReadOnlyAction(action = "该操作") {
+  if (!READ_ONLY_REVIEW_MODE) return false;
+  showToast(`${READ_ONLY_MESSAGE}，${action}已禁用`, true);
+  return true;
+}
+
+function applyReadOnlyMode() {
+  if (!READ_ONLY_REVIEW_MODE) return;
+  document.body.classList.add("read-only-review-mode");
+  const banner = document.createElement("div");
+  banner.className = "readonly-freeze-banner";
+  banner.textContent = "只读专家抽查版：可播放、切歌、查看 section 与歌词；提交、新增、删除、重置、歌词保存已冻结。";
+  Object.assign(banner.style, {
+    gridColumn: "1 / -1",
+    background: "#fff6cf",
+    borderBottom: "1px solid #e2c86d",
+    color: "#4b3b08",
+    fontWeight: "800",
+    lineHeight: "1.4",
+    padding: "10px 18px",
+    textAlign: "center",
+  });
+  document.querySelector(".app-shell")?.prepend(banner);
+  for (const button of [
+    els.saveEdit,
+    els.finishReview,
+    els.markPendingReview,
+    els.addSection,
+    els.deleteSection,
+    els.resetCurrentSection,
+    els.resetSong,
+    els.useModel,
+    els.lyricsBulkAdd,
+    els.lyricsBulkSave,
+  ].filter(Boolean)) {
+    button.disabled = true;
+    button.title = READ_ONLY_MESSAGE;
+  }
+  for (const input of [els.editType, els.editStart, els.editEnd].filter(Boolean)) {
+    input.disabled = true;
+    input.title = READ_ONLY_MESSAGE;
+  }
+  for (const button of els.typeQuickButtons.querySelectorAll("button")) {
+    button.disabled = true;
+    button.title = READ_ONLY_MESSAGE;
+  }
+  if (els.saveEdit) els.saveEdit.textContent = "只读冻结";
+  if (els.finishReview) els.finishReview.textContent = "只读冻结";
+  if (els.markPendingReview) els.markPendingReview.textContent = "只读冻结";
+}
+
 function renderTypeButtons() {
   els.typeQuickButtons.innerHTML = "";
   for (const type of sectionTypes) {
@@ -135,6 +193,7 @@ function renderTypeButtons() {
     button.textContent = type.replace("_", " ");
     button.dataset.type = type;
     button.addEventListener("click", () => {
+      if (blockReadOnlyAction("修改 section type")) return;
       rememberEditorState("修改 section type");
       els.editType.value = type;
       renderTypeButtonState();
@@ -779,6 +838,7 @@ function insertSectionAfter(section, afterSectionId) {
 }
 
 function moveSectionRelativeTo(sectionId, targetSectionId, position = "before") {
+  if (blockReadOnlyAction("调整 section 顺序")) return false;
   if (sectionId === targetSectionId) return false;
   const previousOrder = sectionOrderSnapshot();
   const slots = currentTimeSlots();
@@ -829,7 +889,7 @@ function renderSections() {
     const visualEffect = state.sectionVisualEffects.get(section.id) || "";
     row.className = `section-row ${section.isLocal ? "local-section" : ""} ${state.selectedSection?.id === section.id ? "active" : ""} ${visualEffect}`;
     row.dataset.sectionId = section.id;
-    row.draggable = true;
+    row.draggable = !READ_ONLY_REVIEW_MODE;
     row.tabIndex = 0;
     row.innerHTML = `
       <div class="section-move-tools">
@@ -853,10 +913,17 @@ function renderSections() {
           <time>${displayRange(final)}</time>
         </div>
       </div>
-      <button type="button" class="section-submit ${submitted ? "submitted" : ""} ${isSubmitting ? "submitting" : ""}" ${submitted || isSubmitting ? "disabled" : ""}>${isSubmitting ? "正在提交" : submitted ? "已提交" : "提交"}</button>
+      <button type="button" class="section-submit ${submitted ? "submitted" : ""} ${isSubmitting ? "submitting" : ""}" ${READ_ONLY_REVIEW_MODE || submitted || isSubmitting ? "disabled" : ""}>${isSubmitting ? "正在提交" : submitted ? "已提交" : READ_ONLY_REVIEW_MODE ? "只读" : "提交"}</button>
     `;
+    for (const button of row.querySelectorAll(".section-step, .section-drag-handle, .section-submit")) {
+      if (READ_ONLY_REVIEW_MODE) {
+        button.disabled = true;
+        button.title = READ_ONLY_MESSAGE;
+      }
+    }
     row.querySelector(".section-submit").addEventListener("click", (event) => {
       event.stopPropagation();
+      if (blockReadOnlyAction("提交 section")) return;
       selectSectionById(section.id, { scroll: false });
       saveAnnotation(annotation ? "edit" : "approve", {
         section,
@@ -865,6 +932,7 @@ function renderSections() {
     });
     row.querySelector(".section-step-up").addEventListener("click", (event) => {
       event.stopPropagation();
+      if (blockReadOnlyAction("调整 section 顺序")) return;
       if (moveSectionStep(section.id, -1)) {
         preserveSectionListScroll(() => selectSectionById(section.id, { scroll: false }));
         showToast("已上移 section，未写入数据库，请提交整首歌");
@@ -872,6 +940,7 @@ function renderSections() {
     });
     row.querySelector(".section-step-down").addEventListener("click", (event) => {
       event.stopPropagation();
+      if (blockReadOnlyAction("调整 section 顺序")) return;
       if (moveSectionStep(section.id, 1)) {
         preserveSectionListScroll(() => selectSectionById(section.id, { scroll: false }));
         showToast("已下移 section，未写入数据库，请提交整首歌");
@@ -1319,6 +1388,7 @@ function shouldPersistHumanAnnotation(section, values) {
 }
 
 async function upsertAnnotation(section, payload, action, context = null) {
+  assertWritable("section 标注写入");
   if (context) assertSubmitContext(context);
   const before = latestAnnotation(section) || section;
   const data = await persistHumanAnnotation(section, payload);
@@ -1507,6 +1577,7 @@ async function verifyDeletedSectionReview(context, autoSectionId) {
 }
 
 async function persistHumanAnnotation(section, payload) {
+  assertWritable("人工标注写入");
   const dbPayload = state.supportsQcStatus ? payload : withoutQcStatus(payload);
   let response;
   if (section.isLocal && section.saved_annotation_id) {
@@ -1544,6 +1615,7 @@ function withoutQcStatus(payload) {
 }
 
 async function saveAnnotation(action = "edit", options = {}) {
+  if (blockReadOnlyAction("提交 section")) return;
   const section = options.section || state.selectedSection;
   if (!section || !state.selectedSong || !state.run) return showToast("先选择一个 section", true);
   if (state.isSubmittingSong) return showToast("整首歌正在提交中");
@@ -1799,6 +1871,7 @@ function sectionCommentForAction(section, action, values = null) {
 }
 
 async function writeSections(sections, finalStatus, context = null) {
+  assertWritable("整首歌质检写入");
   if (!state.selectedSong || !state.run) throw new Error("先选择一首有模型结果的歌");
   if (finalStatus === "reviewed" && !state.manualWholeSongSubmitActive) {
     throw new Error("整首歌 reviewed 状态只能通过提交整首歌按钮写入");
@@ -1859,6 +1932,7 @@ async function finalizeWholeSongReview() {
 }
 
 async function finishReview() {
+  if (blockReadOnlyAction("提交整首歌")) return;
   if (state.isSubmittingSong) return;
   if (!state.selectedSong || !state.run) return showToast("先选择一首有模型结果的歌", true);
   if (!activeSections().length) return showToast("当前歌曲没有可提交的 section", true);
@@ -1887,6 +1961,7 @@ async function finishReview() {
 }
 
 async function resetCurrentSection() {
+  if (blockReadOnlyAction("重置当前 section")) return;
   const section = state.selectedSection;
   if (!section || !state.selectedSong) return showToast("先选择一个 section", true);
   const songId = state.selectedSong.id;
@@ -1929,6 +2004,7 @@ async function resetCurrentSection() {
 }
 
 async function resetWholeSong() {
+  if (blockReadOnlyAction("重置整首歌")) return;
   if (!state.selectedSong) return showToast("先选择一首歌", true);
   const songId = state.selectedSong.id;
   try {
@@ -1960,6 +2036,7 @@ async function resetWholeSong() {
 }
 
 async function markSongPendingReviewOnly() {
+  if (blockReadOnlyAction("标为未质检")) return;
   if (state.isSubmittingSong) return;
   if (!state.selectedSong) return showToast("先选择一首歌", true);
   const songId = state.selectedSong.id;
@@ -2005,6 +2082,7 @@ function setResetBusy(isBusy) {
 }
 
 async function deleteHumanAnnotationsByAutoSection(autoSectionId, songId = state.selectedSong?.id) {
+  assertWritable("删除人工标注");
   let query = client.from("human_annotations").delete().eq("source_auto_section_id", autoSectionId);
   if (songId) query = query.eq("song_id", songId);
   const { error } = await withSubmitTimeout(query, "删除标注提交");
@@ -2012,16 +2090,19 @@ async function deleteHumanAnnotationsByAutoSection(autoSectionId, songId = state
 }
 
 async function deleteHumanAnnotationById(id) {
+  assertWritable("删除人工标注");
   const { error } = await withSubmitTimeout(client.from("human_annotations").delete().eq("id", id), "删除标注提交");
   if (error) throw error;
 }
 
 async function deleteHumanAnnotationsBySong(songId) {
+  assertWritable("删除整首歌人工标注");
   const { error } = await withSubmitTimeout(client.from("human_annotations").delete().eq("song_id", songId), "删除标注提交");
   if (error) throw error;
 }
 
 async function deleteReviewsByAutoSection(autoSectionId, songId = state.selectedSong?.id) {
+  assertWritable("删除 section 质检记录");
   let query = client.from("section_reviews").delete().eq("auto_section_id", autoSectionId);
   if (songId) query = query.eq("song_id", songId);
   const { error } = await withSubmitTimeout(query, "删除质检记录提交");
@@ -2029,6 +2110,7 @@ async function deleteReviewsByAutoSection(autoSectionId, songId = state.selected
 }
 
 async function deleteReviewsByAutoSectionIds(autoSectionIds, songId = state.selectedSong?.id) {
+  assertWritable("删除 section 质检记录");
   if (!autoSectionIds.length) return;
   let query = client.from("section_reviews").delete().in("auto_section_id", autoSectionIds);
   if (songId) query = query.eq("song_id", songId);
@@ -2037,6 +2119,7 @@ async function deleteReviewsByAutoSectionIds(autoSectionIds, songId = state.sele
 }
 
 async function deleteReviewsByHumanAnnotationId(annotationId) {
+  assertWritable("删除质检记录");
   const { error } = await withSubmitTimeout(
     client.from("section_reviews").delete().eq("human_annotation_id", annotationId),
     "删除质检记录提交",
@@ -2045,6 +2128,7 @@ async function deleteReviewsByHumanAnnotationId(annotationId) {
 }
 
 async function deleteReviewsByHumanAnnotationIds(annotationIds) {
+  assertWritable("删除质检记录");
   if (!annotationIds.length) return;
   const { error } = await withSubmitTimeout(
     client.from("section_reviews").delete().in("human_annotation_id", annotationIds),
@@ -2054,11 +2138,13 @@ async function deleteReviewsByHumanAnnotationIds(annotationIds) {
 }
 
 async function deleteReviewsBySong(songId) {
+  assertWritable("删除整首歌质检记录");
   const { error } = await withSubmitTimeout(client.from("section_reviews").delete().eq("song_id", songId), "删除质检记录提交");
   if (error) throw error;
 }
 
 async function updateSongStatus(status, songId = state.selectedSong?.id) {
+  assertWritable("更新歌曲状态");
   if (!songId) throw new Error("缺少歌曲 id，无法更新歌曲状态");
   const { error } = await withSubmitTimeout(client.from("songs").update({ status }).eq("id", songId), "歌曲状态提交");
   if (error) throw error;
@@ -2073,6 +2159,7 @@ async function updateSongStatus(status, songId = state.selectedSong?.id) {
 }
 
 function restoreModelValues() {
+  if (blockReadOnlyAction("恢复机器值")) return;
   if (!state.selectedSection) return;
   const section = state.selectedSection;
   rememberEditorState("恢复机器");
@@ -2092,6 +2179,7 @@ function selectRelativeSection(delta) {
 }
 
 function localSectionMutationGuard() {
+  if (blockReadOnlyAction("修改 section")) return false;
   if (state.isSubmittingSong || state.submittingSectionIds.size) {
     showToast("正在提交中，不能修改 section", true);
     return false;
@@ -2100,6 +2188,7 @@ function localSectionMutationGuard() {
 }
 
 async function addSectionAfterCurrent() {
+  if (blockReadOnlyAction("新增 section")) return;
   if (!state.selectedSong || !state.run) return showToast("先选择一首歌", true);
   if (!localSectionMutationGuard()) return;
   const sections = visibleSections();
@@ -2172,6 +2261,7 @@ async function addSectionAfterCurrent() {
 }
 
 async function deleteCurrentSection() {
+  if (blockReadOnlyAction("删除 section")) return;
   const section = state.selectedSection;
   if (!section) return showToast("先选择一个 section", true);
   if (!localSectionMutationGuard()) return;
@@ -2228,6 +2318,10 @@ async function deleteCurrentSection() {
 }
 
 function startSectionDrag(event, sectionId) {
+  if (blockReadOnlyAction("拖动 section 排序")) {
+    event.preventDefault();
+    return;
+  }
   if (!event.target.closest(".section-drag-handle")) {
     event.preventDefault();
     return;
@@ -2239,6 +2333,7 @@ function startSectionDrag(event, sectionId) {
 }
 
 function moveSectionDragOver(event, targetSectionId) {
+  if (READ_ONLY_REVIEW_MODE) return;
   if (!state.draggedSectionId || state.draggedSectionId === targetSectionId) return;
   event.preventDefault();
   event.dataTransfer.dropEffect = "move";
@@ -2249,6 +2344,7 @@ function moveSectionDragOver(event, targetSectionId) {
 }
 
 function dropSectionOn(event, targetSectionId) {
+  if (READ_ONLY_REVIEW_MODE) return;
   if (!state.draggedSectionId || state.draggedSectionId === targetSectionId) return;
   event.preventDefault();
   const moved = moveSectionRelativeTo(state.draggedSectionId, targetSectionId, sectionDropPosition(event, event.currentTarget));
@@ -2268,6 +2364,11 @@ function endSectionDrag() {
 }
 
 function startSectionPointerDrag(event, sectionId) {
+  if (blockReadOnlyAction("拖动 section 排序")) {
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
   if (event.button !== 0) return;
   event.preventDefault();
   event.stopPropagation();
@@ -2352,6 +2453,7 @@ function renumberSections() {
 }
 
 async function deleteDeletedAnnotations(context = null) {
+  assertWritable("删除已移除 section 的数据库记录");
   if (context) assertSubmitContext(context);
   const songId = submitContextSongId(context);
   const ids = [...state.deletedSectionIds].filter((id) => !String(id).startsWith("local-"));
@@ -2393,6 +2495,7 @@ async function deleteDeletedAnnotations(context = null) {
 }
 
 async function recordDeletedSectionReviews(autoSectionIds, context) {
+  assertWritable("写入 section 删除记录");
   if (!autoSectionIds.length) return;
   const songId = submitContextSongId(context);
   const runId = submitContextRunId(context);
@@ -2531,6 +2634,7 @@ function renderLyricsViewport() {
 }
 
 function beginLyricEdit(index) {
+  if (blockReadOnlyAction("编辑歌词")) return;
   const line = state.lyrics[index];
   const node = els.lyricsViewport.querySelector(`[data-lyric-index="${index}"]`);
   if (!line || !node || node.classList.contains("editing")) return;
@@ -2584,6 +2688,7 @@ function beginLyricEdit(index) {
 }
 
 async function updateLyricLine(line, text) {
+  assertWritable("歌词单行更新");
   const query = client.from("lyric_lines").update({ text });
   const request = line.id
     ? query.eq("id", line.id)
@@ -2741,21 +2846,23 @@ function endLyricModalResize(event) {
 
 function renderLyricBulkRows(rows = state.lyrics) {
   if (!els.lyricsBulkList) return;
+  const readOnlyAttr = READ_ONLY_REVIEW_MODE ? "disabled title=\"只读抽查模式已开启，歌词编辑已冻结\"" : "";
   els.lyricsBulkList.innerHTML = rows
     .map(
       (line, index) => `
         <div class="lyric-bulk-row ${index === state.currentLyricIndex ? "active" : ""}" data-lyric-index="${index}">
           <span class="lyric-bulk-index">${index + 1}</span>
-          <input class="lyric-bulk-start" type="text" inputmode="numeric" value="${displayTime(line.start_time_sec, line.start_time_label)}" aria-label="歌词开始时间" />
-          <input class="lyric-bulk-end" type="text" inputmode="numeric" value="${displayTime(line.end_time_sec, line.end_time_label)}" aria-label="歌词结束时间" />
-          <input class="lyric-bulk-text" type="text" value="${escapeHtml(toSimplified(line.text))}" aria-label="歌词文本" />
-          <button type="button" class="lyric-bulk-delete" aria-label="删除歌词行">删除</button>
+          <input class="lyric-bulk-start" type="text" inputmode="numeric" value="${displayTime(line.start_time_sec, line.start_time_label)}" aria-label="歌词开始时间" ${readOnlyAttr} />
+          <input class="lyric-bulk-end" type="text" inputmode="numeric" value="${displayTime(line.end_time_sec, line.end_time_label)}" aria-label="歌词结束时间" ${readOnlyAttr} />
+          <input class="lyric-bulk-text" type="text" value="${escapeHtml(toSimplified(line.text))}" aria-label="歌词文本" ${readOnlyAttr} />
+          <button type="button" class="lyric-bulk-delete" aria-label="删除歌词行" ${readOnlyAttr}>删除</button>
         </div>
       `,
     )
     .join("");
   for (const button of els.lyricsBulkList.querySelectorAll(".lyric-bulk-delete")) {
     button.addEventListener("click", () => {
+      if (blockReadOnlyAction("删除歌词行")) return;
       rememberLyricState("删除歌词行");
       const row = button.closest(".lyric-bulk-row");
       const deletedIndex = Number(row?.dataset.lyricIndex || 0);
@@ -2842,6 +2949,7 @@ function renumberLyricBulkRows() {
 }
 
 function addLyricBulkRow() {
+  if (blockReadOnlyAction("新增歌词行")) return;
   rememberLyricState("新增歌词行");
   const rows = readLyricBulkRows({ allowEmptyText: true, skipValidation: true });
   const currentIndex = currentLyricBulkIndex(rows.length);
@@ -2972,6 +3080,7 @@ function updateLyricModalActive({ scroll = false } = {}) {
 }
 
 async function saveBulkLyrics() {
+  if (blockReadOnlyAction("保存歌词")) return;
   if (!state.selectedSong) return showToast("先选择一首歌", true);
   els.lyricsBulkSave.disabled = true;
   els.lyricsBulkSave.textContent = "提交中...";
@@ -2995,6 +3104,7 @@ async function saveBulkLyrics() {
 }
 
 async function replaceSongLyrics(rows) {
+  assertWritable("批量保存歌词");
   const source = state.lyrics.find((line) => line.source)?.source || "manual";
   const payload = rows.map((row, index) => ({
     song_id: state.selectedSong.id,
@@ -3484,6 +3594,7 @@ function handleSectionSubmitShortcut(event) {
   if (event.target === els.editStart || event.target === els.editEnd) return false;
   if (isEnter && !els.typeQuickButtons.contains(event.target) && event.target !== els.editType) return false;
   event.preventDefault();
+  if (blockReadOnlyAction("快捷提交 section")) return true;
   if (typeButton && els.typeQuickButtons.contains(typeButton)) {
     rememberEditorState("修改 section type");
     els.editType.value = typeButton.dataset.type;
@@ -3495,6 +3606,7 @@ function handleSectionSubmitShortcut(event) {
 
 els.editForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  if (blockReadOnlyAction("提交 section")) return;
   const section = state.selectedSection;
   if (!section) return;
   let start;
@@ -3514,4 +3626,5 @@ els.editForm.addEventListener("submit", (event) => {
 });
 
 renderTypeButtons();
+applyReadOnlyMode();
 loadSongs().catch((error) => showToast(error.message, true));
