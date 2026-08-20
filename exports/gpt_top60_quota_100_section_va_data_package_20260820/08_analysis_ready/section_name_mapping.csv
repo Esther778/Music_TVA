@@ -1,0 +1,8 @@
+raw_section_type,normalized_section_type,mapping_rule
+intro,intro,canonical
+verse,verse,canonical
+pre_chorus,pre_chorus,canonical
+chorus,chorus,canonical
+bridge,bridge,canonical
+interlude,interlude,canonical
+outro,outro,canonical

@@ -1,0 +1,21 @@
+{
+  "created_at": "2026-08-20T14:18:53+08:00",
+  "status": "pass",
+  "songs": 100,
+  "sections": 1046,
+  "frames": 51448,
+  "outputs": {
+    "va_section_type_summary.csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/tables/va_section_type_summary.csv",
+    "va_paired_section_tests.csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/tables/va_paired_section_tests.csv",
+    "va_adjacent_transitions.csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/tables/va_adjacent_transitions.csv",
+    "va_transition_summary.csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/tables/va_transition_summary.csv",
+    "va_verse_pre_chorus_chorus_events.csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/tables/va_verse_pre_chorus_chorus_events.csv",
+    "va_verse_pre_chorus_chorus_summary.csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/tables/va_verse_pre_chorus_chorus_summary.csv",
+    "va_repeated_section_detail.csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/tables/va_repeated_section_detail.csv",
+    "va_repeated_section_summary.csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/tables/va_repeated_section_summary.csv",
+    "va_arousal_peak_sections.csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/tables/va_arousal_peak_sections.csv",
+    "va_arousal_peak_summary.csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/tables/va_arousal_peak_summary.csv",
+    "va_average_normalized_trajectory.csv": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/tables/va_average_normalized_trajectory.csv"
+  },
+  "report": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/va_music/TOP60_QUOTA_100_VA_MUSIC_FINDINGS_ZH.md"
+}

@@ -1,0 +1,11 @@
+comparison,variable,test,statistic,p_value,n_rank_01_10,n_rank_11_30,n_rank_31_60
+rank_band,duration_sec,Kruskal-Wallis,4.95643568218229,0.08389260239480494,30,40,30
+rank_band,section_count,Kruskal-Wallis,1.3024608339510537,0.5214038377825827,30,40,30
+rank_band,unique_section_types,Kruskal-Wallis,1.3328822184266662,0.5135329371517878,30,40,30
+rank_band,chorus_count,Kruskal-Wallis,1.149638742298296,0.5628065187209543,30,40,30
+rank_band,verse_count,Kruskal-Wallis,3.1825481032377128,0.2036659654149855,30,40,30
+rank_band,bridge_count,Kruskal-Wallis,3.3002521860143488,0.19202569399692804,30,40,30
+rank_band,pre_chorus_count,Kruskal-Wallis,1.7075133766840676,0.42581227947441036,30,40,30
+rank_band,chorus_duration_share,Kruskal-Wallis,0.4148019801980354,0.8126937025128417,30,40,30
+rank_band,verse_duration_share,Kruskal-Wallis,0.9091881188118691,0.6347055684149464,30,40,30
+rank_band,interlude_duration_share,Kruskal-Wallis,2.098338250346233,0.35022862440161256,30,40,30

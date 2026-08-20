@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-08-20T14:18:49+08:00",
+  "status": "pass",
+  "errors": [],
+  "songs": 100,
+  "sections": 1046,
+  "rank_section_type_cramers_v": 0.05363452112613494,
+  "outputs": {
+    "song_level_features": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/paper_statistics/paper_song_level_features.csv",
+    "song_level_descriptives": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/paper_statistics/paper_song_level_descriptives.csv",
+    "section_type_distribution": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/paper_statistics/paper_section_type_distribution.csv",
+    "rank_band_descriptives": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/paper_statistics/paper_rank_band_descriptives.csv",
+    "rank_band_inferential_tests": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/paper_statistics/paper_rank_band_inferential_tests.csv",
+    "rank_band_pairwise_tests": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/paper_statistics/paper_rank_band_pairwise_tests.csv",
+    "transition_distribution": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/paper_statistics/paper_transition_distribution.csv",
+    "rank_section_type_association": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/paper_statistics/paper_rank_section_type_association.json",
+    "paper_summary_zh": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/analysis/top60_quota_100_20260813/paper_statistics/PAPER_STATISTICS_SUMMARY_ZH.md"
+  },
+  "note": "Statistics are based on reviewed section annotations only; frame-level VA inference must be run separately for emotion-trajectory claims."
+}

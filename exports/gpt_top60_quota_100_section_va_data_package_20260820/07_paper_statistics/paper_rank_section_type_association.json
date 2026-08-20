@@ -1,0 +1,20 @@
+{
+  "chi_square": 6.0179766036511735,
+  "degrees_of_freedom": 12,
+  "p_value": 0.9151731543754972,
+  "cramers_v": 0.05363452112613494,
+  "rank_bands": [
+    "rank_01_10",
+    "rank_11_30",
+    "rank_31_60"
+  ],
+  "section_types": [
+    "bridge",
+    "chorus",
+    "interlude",
+    "intro",
+    "outro",
+    "pre_chorus",
+    "verse"
+  ]
+}
