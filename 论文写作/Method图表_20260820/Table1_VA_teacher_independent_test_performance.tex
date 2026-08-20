@@ -1,0 +1,14 @@
+\begin{table}[htbp]
+\centering
+\caption{VA教师模型独立测试性能}
+\label{tab:teacher-performance}
+\begin{tabular}{llrrrr}
+\toprule
+维度 & 测试层级 & RMSE & MAE & PCC & CCC \\
+\midrule
+Valence & complete-clip & 0.1863 & 0.1529 & 0.8029 & 0.8002 \\
+Arousal & complete-clip & 0.1886 & 0.1469 & 0.8574 & 0.8548 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}\footnotesize 注：PMEmo独立锁定测试集，115首、5390个0.5 s标注帧；预测冻结后揭示测试标签。\end{flushleft}
+\end{table}

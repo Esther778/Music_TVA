@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-08-20T11:46:46.571614+08:00",
+  "corpus": {
+    "songs": 100,
+    "sections": 1046,
+    "frames": 51448,
+    "assigned_frames": 51444,
+    "excluded_trailing_frames": 4
+  },
+  "representative_song": {
+    "song_id": "life_should_face_light",
+    "title": "生活总该迎着光亮",
+    "artist": "周深",
+    "duration_sec": 242.25,
+    "automatic_sections": 11,
+    "final_sections": 11,
+    "documented_adjustments": [
+      "Bridge to Interlude",
+      "final boundary 229.0 s to 218.0 s and Outro relabel"
+    ]
+  },
+  "teacher_test": {
+    "songs": 115,
+    "frames": 5390,
+    "primary_level": "complete_clip",
+    "metrics": {
+      "valence": {
+        "rmse": 0.18629769672795934,
+        "mae": 0.15285486814036095,
+        "pcc": 0.8028522092042873,
+        "ccc": 0.800167674667449
+      },
+      "arousal": {
+        "rmse": 0.18857256877345396,
+        "mae": 0.14691214759832613,
+        "pcc": 0.8574414113478739,
+        "ccc": 0.8548029032724511
+      }
+    }
+  },
+  "method_provenance": {
+    "qq_music_singer_chart_snapshot_date": "2026-08-08",
+    "ranking_snapshot_evidence": {
+      "quota_file_created_local": "2026-08-08T18:21:30+08:00",
+      "first_git_commit": "5d5b1372a741aa0d8bb3e1e7f06d5ac004d96f44",
+      "first_git_commit_time": "2026-08-08T19:54:07+08:00"
+    },
+    "whisper": {
+      "backend": "faster-whisper",
+      "package_version": "1.2.1",
+      "model": "small",
+      "language": "zh",
+      "device": "cpu",
+      "compute_type": "int8",
+      "beam_size": 5,
+      "vad_filter": false
+    },
+    "demucs": {
+      "package_version": "4.0.1",
+      "model": "htdemucs",
+      "mode": "two-stems=vocals"
+    }
+  },
+  "source_sha256": {
+    "exports/gpt_top60_quota_100_section_va_data_package_20260815/02_corpus_inventory/top60_quota_100_manifest.csv": "92bca8224515b766289a53764113bc511535da88983158afb2d63a731e423503",
+    "exports/gpt_top60_quota_100_section_va_data_package_20260815/05_section_level/top60_quota_100_section_features.csv": "6773977bd1d0dd51bce2ca6ce2dd8e302a8c005ba486689e1fdddaa1d9d51cb8",
+    "exports/gpt_top60_quota_100_section_va_data_package_20260815/03_frame_level_va/top60_quota_100_frame_va.csv": "41ba2fed1785053f9c726d5808b3f55bae7496eb8836e372a1ca5d40b3d310e5",
+    "exports/gpt_top60_quota_100_section_va_data_package_20260815/04_frame_section_alignment/top60_quota_100_frame_section_alignment.csv": "b344d8de1a1299b949850ea0d04ddd1592853e241fc09588c702f9859dbf3231",
+    "exports/gpt_section_va_data_package_20260802/01_teacher_evaluation/FINAL_LOCKED_TEST_RESULTS.json": "e710473975131650b22465077909e937e44f5e8f7ffed3e841fb22d8f1297c35",
+    "outputs/functional_sections/life_should_face_light_agentic_sections.csv": "25aa3c583617369ff9994c62ea655c0c233ac754dc74bd7c5d69bf503edbf434",
+    "outputs/functional_sections/周深-生活总该迎着光亮_whisper_segments.csv": "ea7284e7919512f0dccfd392b66ae88881e126e34183989c0ecc9f596e63d34e"
+  }
+}
