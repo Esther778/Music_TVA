@@ -1,7 +1,7 @@
 comparison,variable,test,statistic,p_value,n_rank_01_10,n_rank_11_30,n_rank_31_60
 rank_band,duration_sec,Kruskal-Wallis,4.95643568218229,0.08389260239480494,30,40,30
 rank_band,section_count,Kruskal-Wallis,1.3024608339510537,0.5214038377825827,30,40,30
-rank_band,unique_section_types,Kruskal-Wallis,1.0283951271186764,0.5979802432867242,30,40,30
+rank_band,unique_section_types,Kruskal-Wallis,1.3328822184266662,0.5135329371517878,30,40,30
 rank_band,chorus_count,Kruskal-Wallis,1.149638742298296,0.5628065187209543,30,40,30
 rank_band,verse_count,Kruskal-Wallis,3.1825481032377128,0.2036659654149855,30,40,30
 rank_band,bridge_count,Kruskal-Wallis,3.3002521860143488,0.19202569399692804,30,40,30

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-08-13T22:50:41+08:00",
+  "created_at": "2026-08-20T14:18:47+08:00",
   "status": "pass",
   "errors": [],
   "input_manifest": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/manifests/top60_quota_100_reviewed_manifest_20260813.csv",
@@ -13,8 +13,8 @@
     "chorus": 362,
     "verse": 246,
     "interlude": 121,
-    "outro": 102,
-    "intro": 93,
+    "outro": 100,
+    "intro": 95,
     "pre_chorus": 77,
     "bridge": 45
   },

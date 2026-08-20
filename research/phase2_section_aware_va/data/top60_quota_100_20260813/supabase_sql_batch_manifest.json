@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-08-20T14:26:51+08:00",
+  "sql_dir": "/Users/esther/Desktop/New project/research/phase2_section_aware_va/data/top60_quota_100_20260813/supabase_sql_batches",
+  "run_id": "11111111-6010-4100-8000-202608140001",
+  "run_label": "top60_quota_100_teacher_v1_20260814",
+  "frame_rows": 51448,
+  "section_rows": 1046,
+  "song_rows": 100,
+  "sql_files": [
+    "000_run.sql",
+    "999_finalize_and_verify.sql",
+    "frames_001.sql",
+    "frames_002.sql",
+    "frames_003.sql",
+    "frames_004.sql",
+    "frames_005.sql",
+    "frames_006.sql",
+    "frames_007.sql",
+    "frames_008.sql",
+    "frames_009.sql",
+    "frames_010.sql",
+    "frames_011.sql",
+    "sections.sql",
+    "songs.sql"
+  ]
+}

@@ -5,9 +5,9 @@ duration_sec,rank_11_30,rank_31_60,Mann-Whitney U,676.0,0.37024200047087386,263.
 section_count,rank_01_10,rank_11_30,Mann-Whitney U,597.0,0.9758358901298045,10.5,11.0,0.9758358901298045
 section_count,rank_01_10,rank_31_60,Mann-Whitney U,508.0,0.3820208112283645,10.5,10.0,0.8224593713349807
 section_count,rank_11_30,rank_31_60,Mann-Whitney U,690.0,0.2741531237783269,11.0,10.0,0.8224593713349807
-unique_section_types,rank_01_10,rank_11_30,Mann-Whitney U,660.0,0.43911056007840166,6.0,5.0,1.0
-unique_section_types,rank_01_10,rank_31_60,Mann-Whitney U,438.0,0.8552902439911817,6.0,6.0,1.0
-unique_section_types,rank_11_30,rank_31_60,Mann-Whitney U,529.0,0.36162216145732007,5.0,6.0,1.0
+unique_section_types,rank_01_10,rank_11_30,Mann-Whitney U,680.0,0.3015113189133821,6.0,5.0,0.9045339567401464
+unique_section_types,rank_01_10,rank_31_60,Mann-Whitney U,453.0,0.9684331056511718,6.0,6.0,0.9684331056511718
+unique_section_types,rank_11_30,rank_31_60,Mann-Whitney U,529.0,0.36162216145732007,5.0,6.0,0.9045339567401464
 chorus_count,rank_01_10,rank_11_30,Mann-Whitney U,567.0,0.6823874457583898,3.0,3.0,1.0
 chorus_count,rank_01_10,rank_31_60,Mann-Whitney U,486.5,0.5665085647457395,3.0,3.0,1.0
 chorus_count,rank_11_30,rank_31_60,Mann-Whitney U,685.0,0.27723254024421895,3.0,3.0,0.8316976207326569

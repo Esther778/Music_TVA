@@ -2,7 +2,7 @@ transition,count
 verse->chorus,116
 chorus->interlude,111
 chorus->chorus,100
-intro->verse,92
+intro->verse,94
 chorus->outro,91
 pre_chorus->chorus,76
 verse->pre_chorus,68
@@ -19,7 +19,6 @@ bridge->interlude,4
 bridge->outro,4
 bridge->pre_chorus,3
 verse->outro,3
-outro->verse,2
 bridge->verse,2
 chorus->pre_chorus,2
 interlude->outro,2

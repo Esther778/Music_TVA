@@ -21,7 +21,7 @@ DATA = PHASE2 / "data/top60_quota_100_20260813"
 ANALYSIS = PHASE2 / "analysis/top60_quota_100_20260813"
 VA_MUSIC = ANALYSIS / "va_music"
 EXPORTS = ROOT / "exports"
-PACKAGE_ID = "gpt_top60_quota_100_section_va_data_package_20260815"
+PACKAGE_ID = "gpt_top60_quota_100_section_va_data_package_20260820"
 PACKAGE = EXPORTS / PACKAGE_ID
 ZIP_PATH = EXPORTS / f"{PACKAGE_ID}.zip"
 CHINA_TZ = timezone(timedelta(hours=8))
@@ -111,7 +111,7 @@ def add_core_files() -> None:
         (DATA / "stage2/inference_log.csv", "10_protocols_and_audits/inference_log.csv"),
         (DATA / "stage3/top60_quota_100_alignment_manifest.json", "10_protocols_and_audits/top60_quota_100_alignment_manifest.json"),
         (DATA / "stage3/top60_quota_100_alignment_audit.csv", "10_protocols_and_audits/top60_quota_100_alignment_audit.csv"),
-        (DATA / "supabase_upload_receipt.json", "10_protocols_and_audits/supabase_upload_receipt.json"),
+        (DATA / "supabase_sql_batch_manifest.json", "10_protocols_and_audits/supabase_sql_batch_manifest.json"),
         (VA_MUSIC / "va_music_analysis_manifest.json", "10_protocols_and_audits/va_music_analysis_manifest.json"),
     ]:
         if src.exists():

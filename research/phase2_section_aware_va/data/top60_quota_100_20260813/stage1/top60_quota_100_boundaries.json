@@ -1138,7 +1138,7 @@
     "artist": "薛之谦",
     "human_annotation_id": "89665e9b-27e3-4c43-8030-43e5940f1018",
     "section_order": 1,
-    "section_type": "outro",
+    "section_type": "intro",
     "start_time_sec": 0.0,
     "end_time_sec": 25.0,
     "duration_sec": 25.0
@@ -2766,7 +2766,7 @@
     "artist": "孙燕姿",
     "human_annotation_id": "e9046098-3e28-47f5-877c-bdf361477dd4",
     "section_order": 1,
-    "section_type": "outro",
+    "section_type": "intro",
     "start_time_sec": 0.0,
     "end_time_sec": 16.0,
     "duration_sec": 16.0

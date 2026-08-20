@@ -16,7 +16,7 @@
 - verse->chorus: 116 次，占全部相邻转移 12.26%
 - chorus->interlude: 111 次，占全部相邻转移 11.73%
 - chorus->chorus: 100 次，占全部相邻转移 10.57%
-- intro->verse: 92 次，占全部相邻转移 9.73%
+- intro->verse: 94 次，占全部相邻转移 9.94%
 - chorus->outro: 91 次，占全部相邻转移 9.62%
 - pre_chorus->chorus: 76 次，占全部相邻转移 8.03%
 - interlude->verse: 68 次，占全部相邻转移 7.19%
@@ -24,7 +24,7 @@
 
 ## 排名分层差异
 
-- Section type 与排名层的列联关系很弱：Cramer's V = 0.055，χ²(12) = 6.28，p = 0.901。
+- Section type 与排名层的列联关系很弱：Cramer's V = 0.054，χ²(12) = 6.02，p = 0.915。
 - 歌曲层结构指标的Kruskal-Wallis检验未发现p<.05的排名层差异。
 
 ## 写作边界
