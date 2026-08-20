@@ -1,0 +1,16 @@
+record_type,section_type,song_count,song_fraction,mean_position,metric,value
+arousal_peak_section_type,chorus,53.0,0.53,0.7744014066156689,,
+arousal_peak_section_type,interlude,19.0,0.19,0.7002888774741061,,
+arousal_peak_section_type,bridge,13.0,0.13,0.6776580351158601,,
+arousal_peak_section_type,outro,10.0,0.1,0.94677757935259,,
+arousal_peak_section_type,intro,4.0,0.04,0.0333376077720805,,
+arousal_peak_section_type,verse,1.0,0.01,0.5572000696500087,,
+last_chorus_peak_summary,,,,,chorus_peak_song_count,53.0
+last_chorus_peak_summary,,,,,last_chorus_peak_song_count,31.0
+last_chorus_peak_summary,,,,,last_chorus_share_among_chorus_peaks,0.5849056603773585
+largest_transition_target_type,outro,44.0,0.44,,,
+largest_transition_target_type,chorus,27.0,0.27,,,
+largest_transition_target_type,verse,13.0,0.13,,,
+largest_transition_target_type,pre_chorus,7.0,0.07,,,
+largest_transition_target_type,interlude,6.0,0.06,,,
+largest_transition_target_type,bridge,3.0,0.03,,,

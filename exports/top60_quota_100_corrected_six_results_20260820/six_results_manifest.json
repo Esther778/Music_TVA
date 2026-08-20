@@ -1,0 +1,61 @@
+{
+  "run_id": "top60_quota_100_corrected_20260820",
+  "created_at": "2026-08-20",
+  "source_package": "exports/gpt_top60_quota_100_section_va_data_package_20260820",
+  "source_commit": "0cb93ad96f076ebe06149bd29458e0193db90da8",
+  "correction": {
+    "songs": 100,
+    "sections": 1046,
+    "frames": 51448,
+    "intro_sections": 95,
+    "intro_songs": 94,
+    "outro_sections": 100,
+    "outro_songs": 100,
+    "human_annotation_ids": [
+      "89665e9b-27e3-4c43-8030-43e5940f1018",
+      "e9046098-3e28-47f5-877c-bdf361477dd4"
+    ]
+  },
+  "sequence_summary": {
+    "unique_raw_sequences": 76,
+    "unique_collapsed_sequences": 49,
+    "adjacent_transition_total": 946
+  },
+  "peak_summary": {
+    "chorus_peak_songs": 53,
+    "last_chorus_peak_songs": 31
+  },
+  "bootstrap": {
+    "unit": "quota_artist",
+    "clusters": 60,
+    "draws": 5000,
+    "seed_base": 20260820,
+    "retain_all_songs_for_sampled_artist": true
+  },
+  "files": {
+    "01_section_type_statistics_corrected.csv": {
+      "sha256": "e2cff2843d490720a0782ca68c4408e4a6826b1d3e897ed34ddcb444ca222713",
+      "rows": 7
+    },
+    "02_sequence_and_transition_frequencies_corrected.csv": {
+      "sha256": "3ac46c7448bd31ecb6115176ad038b73e9c3b28765b3dec7234ed0ee4543688d",
+      "rows": 157
+    },
+    "03_section_type_paired_tests_corrected.csv": {
+      "sha256": "747a4e8b8229b1ffc0ec149053cfc10ebf930427ce98d0035f15dd7d48971fe3",
+      "rows": 10
+    },
+    "04_adjacent_transition_va_changes_corrected.csv": {
+      "sha256": "ddf93416854b8b43a6a61bcf6a9bf93fb2648498306432c0c15a3dfe5df70fd1",
+      "rows": 56
+    },
+    "05_peak_and_largest_transition_distributions_corrected.csv": {
+      "sha256": "a6828a73596a5c523881d4067fe7c44bdc800922662e8956e6559af73495b939",
+      "rows": 15
+    },
+    "06_robustness_artist_cluster_and_rank_tests_corrected.csv": {
+      "sha256": "2051476121302b48c915e4442dabd30e67d6651da1cee62e5b5681be1382a1ac",
+      "rows": 107
+    }
+  }
+}
