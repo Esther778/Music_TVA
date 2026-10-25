@@ -4,6 +4,7 @@
 
 # Python
 .venv/
+.venv_*/
 __pycache__/
 .pycache/
 *.py[cod]
@@ -23,9 +24,18 @@ lyrics_only/
 
 # Pipeline outputs and generated artifacts
 outputs/
+netlify_publish/
 *.wav
 *.mp3
 *.npy
 *.npz
 *.pkl
 *.log
+*.zip
+*.patch
+
+# Historical generated exports superseded by the corrected 2026-08-20 baseline
+exports/gpt_section_va_data_package_20260802/
+
+# Local Netlify folder
+.netlify

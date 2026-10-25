@@ -6,6 +6,23 @@ phase1_va_prediction/openl3_va_baseline/outputs/
 # Phase 2 generated experiment products.
 phase2_section_aware_va/data/
 phase2_section_aware_va/outputs/
+phase1c_spectral_feature_fusion_va/data/
+phase1c_spectral_feature_fusion_va/outputs/
+phase1d_deam_evaluation/outputs/
+phase1e_teacher_optimization/outputs/
+phase1e_teacher_optimization/data/
+phase1f_external_va_datasets/**/data/
+phase1f_external_va_datasets/**/outputs/
+phase1c_spectral_feature_fusion_va/data/
+phase1c_spectral_feature_fusion_va/outputs/
+phase1e_teacher_optimization/data/
+phase1e_teacher_optimization/outputs/
+phase1g_valence_data_pretraining/data/
+phase1g_valence_data_pretraining/outputs/
+phase1g_valence_data_pretraining/models/
+phase1g_valence_data_pretraining/musav_public/
+phase2_section_aware_va/analysis/full_corpus_97/
+third_party/
 
 # Common local generated files.
 *.pt

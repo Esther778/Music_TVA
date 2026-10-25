@@ -1,6 +1,6 @@
 # 当前音乐情绪组织结论记录
 
-最后更新：2026-08-15
+最后更新：2026-10-25
 
 用途：这个文档专门记录 section-aware VA / MIR / MER 分析目前已经形成的论文结论。以后发现新结论、需要修正旧结论，统一往这里追加。新增内容必须同时满足：
 
@@ -11,7 +11,7 @@
 ## 证据边界
 
 - 旧版对照数据：`exports/gpt_section_va_data_package_20260802` 中的 97 首中文主分析语料。
-- 当前新版数据：`exports/gpt_top60_quota_100_section_va_data_package_20260815` 中的 QQ 音乐歌手榜 top60 配额 100 首语料。
+- 当前最终数据：`exports/gpt_top60_quota_100_section_va_data_package_20260820` 中的 QQ 音乐歌手榜 top60 配额 100 首语料。
 - 当前 teacher 输出：100 首歌、1046 个经人工质检的 section、51448 行 frame-level VA。
 - 模型边界：VA 数值是 teacher 模型生成的 pseudo-label，适合做音乐情绪结构分析，但不能写成直接的人类情绪真值。
 - 抽样边界：100 首是榜单配额样本，不是严格随机样本。论文中应写“在本样本中支持”或“提示中文流行歌曲可能存在……机制”，不要写成对所有中文流行歌曲的总体证明。
@@ -38,8 +38,8 @@ Verse 很可能是整首歌真正的低能量叙事基底。很多歌不是从 I
 
 统计证据：
 
-- 100 首：Intro->Verse 的 Arousal 变化为 `-0.058`，95% CI `[-0.084, -0.032]`。
-- 100 首：Intro->Verse 的 Valence 变化为 `-0.004`，95% CI `[-0.021, +0.012]`。
+- 100 首：Intro->Verse 的 Arousal 变化为 `-0.056`，95% CI `[-0.082, -0.032]`。
+- 100 首：Intro->Verse 的 Valence 变化为 `-0.004`，95% CI `[-0.020, +0.012]`。
 
 解释边界：
 
@@ -90,7 +90,7 @@ Pre-chorus 可以被解释为“可选但高度稳定的张力准备段”。它
 统计证据：
 
 - 97 首：78 种 raw section sequence，53 种 collapsed sequence。
-- 100 首：76 种 raw section sequence，50 种 collapsed sequence。
+- 100 首：76 种 raw section sequence，49 种 collapsed sequence。
 - 100 首 repeated section 首末 Arousal 变化：
   - Chorus `+0.225`，`90.0%` 正向。
   - Verse `+0.165`，`82.4%` 正向。

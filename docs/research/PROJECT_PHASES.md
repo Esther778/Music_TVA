@@ -49,6 +49,10 @@ Initial data rule:
 
 Research use:
 
-- Compare human music and AIGC music in emotional progression, climax
-  organization, section contrast, and related section-aware emotion structure
-  measures.
+- Characterize emotional progression, climax organization, section contrast,
+  and related section-aware emotion structure measures in human-created Chinese
+  popular music.
+- Provide the audio-side baseline for later lyric-audio VA alignment in the
+  graduation thesis.
+- Do not perform human/AIGC migration comparison; that historical direction was
+  removed from the graduation-thesis scope on 2026-10-25.
