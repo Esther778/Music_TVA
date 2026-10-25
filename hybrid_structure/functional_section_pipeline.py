@@ -70,6 +70,10 @@ def has_cjk(text: str) -> bool:
     return bool(re.search(r"[\u4e00-\u9fff]", text))
 
 
+def has_lyric_text(text: str) -> bool:
+    return bool(re.search(r"[\u4e00-\u9fffA-Za-z]", text))
+
+
 def is_metadata_line(text: str) -> bool:
     compact = base.normalize_text(text)
     metadata_terms = (
@@ -108,7 +112,7 @@ def read_transcript(path: Path) -> list[LyricLine]:
     with path.open(newline="", encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
             text = clean_text(row.get("text", ""))
-            if not text or not has_cjk(text) or is_metadata_line(text):
+            if not text or not has_lyric_text(text) or is_metadata_line(text):
                 continue
             start = base.parse_timestamp(row["start_time"])
             end = base.parse_timestamp(row["end_time"])
@@ -730,9 +734,9 @@ def make_role_blocks(lines: list[LyricLine], roles: list[str], min_instrumental_
                     SectionCandidate(
                         start=lines[index - 1].end,
                         end=lines[index].start,
-                        section_type="bridge",
+                        section_type="interlude",
                         text="",
-                        lyric_evidence="长时间无完整歌词",
+                        lyric_evidence="长时间无完整歌词，按间奏处理",
                         vocal_evidence="主唱退出",
                         acoustic_evidence="",
                         boundary_confidence=0.0,
@@ -824,14 +828,14 @@ def refine_instrumental_labels(sections: list[SectionCandidate], duration: float
         previous_type = sections[index - 1].section_type if index > 0 else ""
         next_type = sections[index + 1].section_type if index + 1 < len(sections) else ""
         if section.duration >= 8.0:
-            section.section_type = "bridge"
-            section.lyric_evidence = "长时间无主唱/无完整歌词，作为桥段或器乐桥段候选"
+            section.section_type = "interlude"
+            section.lyric_evidence = "长时间无主唱/无完整歌词，作为间奏候选"
         elif position >= 0.72 and next_type == "chorus":
-            section.section_type = "bridge"
-            section.lyric_evidence = "中后段无歌词对比段"
+            section.section_type = "interlude"
+            section.lyric_evidence = "中后段无歌词器乐过渡，按间奏处理"
         elif previous_type == "chorus" and next_type in {"verse", "pre-chorus", "chorus"}:
-            section.section_type = "bridge"
-            section.lyric_evidence = "副歌后短器乐过渡，按中段连接功能标为 bridge"
+            section.section_type = "interlude"
+            section.lyric_evidence = "副歌后短器乐过渡，按间奏处理"
 
 
 def merge_adjacent_same_type(sections: list[SectionCandidate], max_duration: float = 52.0) -> list[SectionCandidate]:
@@ -1103,12 +1107,17 @@ def structure_label(section_type: str) -> str:
         "pre_chorus": "C",
         "chorus": "D",
         "bridge": "E",
+        "interlude": "I",
         "outro": "A'",
     }.get(section_type, "")
 
 
 def public_section_type(section_type: str) -> str:
-    return "pre_chorus" if section_type == "pre-chorus" else section_type
+    if section_type == "pre-chorus":
+        return "pre_chorus"
+    if section_type in {"intern", "instrumental", "instrumental_bridge"}:
+        return "interlude"
+    return section_type
 
 
 def build_sections(lines: list[LyricLine], title: str, features: dict[str, object], min_instrumental_gap: float) -> list[SectionCandidate]:
@@ -1135,8 +1144,8 @@ def section_from_low_vocal(start: float, end: float, duration: float) -> Section
         lyric_evidence = "分离人声轨显示尾部长时间低人声/收束"
         vocal_evidence = "Demucs vocals stem 低能量"
     else:
-        section_type = "bridge"
-        lyric_evidence = "分离人声轨显示中间长时间无主唱/弱主唱"
+        section_type = "interlude"
+        lyric_evidence = "分离人声轨显示中间长时间无主唱/弱主唱，按间奏处理"
         vocal_evidence = "Demucs vocals stem 低能量"
     return SectionCandidate(
         start=start,
@@ -1147,8 +1156,8 @@ def section_from_low_vocal(start: float, end: float, duration: float) -> Section
         vocal_evidence=vocal_evidence,
         acoustic_evidence="人声分离后低 vocal RMS 区间",
         boundary_confidence=0.82,
-        type_confidence=0.78 if section_type != "bridge" else 0.72,
-        need_human_review=section_type == "bridge",
+        type_confidence=0.78 if section_type != "interlude" else 0.72,
+        need_human_review=section_type == "interlude",
     )
 
 
@@ -1230,7 +1239,7 @@ def close_tiny_gaps(sections: list[SectionCandidate], max_gap: float = 1.0) -> l
         following = sections[index + 1]
         gap = following.start - current.end
         if 0 < gap <= max_gap:
-            if following.section_type in {"bridge", "outro"}:
+            if following.section_type in {"bridge", "interlude", "outro"}:
                 following.start = current.end
             else:
                 current.end = following.start

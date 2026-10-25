@@ -1,0 +1,26 @@
+{
+  "trial_id": "dual_scale_full_song_va",
+  "seed": 2026,
+  "projection_dim": 128,
+  "attention_heads": 4,
+  "local_window_frames": 10,
+  "global_pool_frames": 20,
+  "local_layers": 2,
+  "global_layers": 2,
+  "ffn_dim": 256,
+  "dropout": 0.30,
+  "learning_rate": 0.0002,
+  "weight_decay": 0.0005,
+  "batch_size": 16,
+  "epochs": 40,
+  "patience": 8,
+  "grad_clip": 1.0,
+  "selection_valence_weight": 0.65,
+  "selection_arousal_weight": 0.35,
+  "loss": {
+    "huber": 0.60,
+    "mse": 0.20,
+    "ccc": 0.20,
+    "trend": 0.05
+  }
+}

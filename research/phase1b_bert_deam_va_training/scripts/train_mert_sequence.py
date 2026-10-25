@@ -14,7 +14,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 
-from training_utils import ROOT, assert_finite_array, count_parameters, load_json, metrics_np, select_device, set_seed
+from training_utils import ROOT, assert_finite_array, count_parameters, load_json, metrics_np, prefixed_metrics, select_device, set_seed
 
 
 class SequenceDataset(Dataset):
@@ -88,10 +88,22 @@ class TransformerRegressor(nn.Module):
         return self.out(y)
 
 
-def masked_mse(pred: torch.Tensor, target: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
+def masked_mse(pred: torch.Tensor, target: torch.Tensor, mask: torch.Tensor, weights: torch.Tensor | None = None) -> torch.Tensor:
     diff = (pred - target) ** 2
+    if weights is not None:
+        diff = diff * weights
     diff = diff[mask]
     return diff.mean()
+
+
+def temporal_smoothness(pred: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
+    if pred.shape[1] < 2:
+        return pred.new_tensor(0.0)
+    pair_mask = mask[:, 1:] & mask[:, :-1]
+    if not bool(pair_mask.any()):
+        return pred.new_tensor(0.0)
+    diff = pred[:, 1:, :] - pred[:, :-1, :]
+    return (diff[pair_mask] ** 2).mean()
 
 
 @torch.no_grad()
@@ -139,8 +151,15 @@ def run_trial(model_family: str, trial: dict[str, Any], datasets: dict[str, Sequ
 
     model = make_model(model_family, input_dim, trial).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=float(trial["lr"]), weight_decay=float(trial["weight_decay"]))
+    loss_weights = torch.tensor(trial.get("loss_weights", [1.0, 1.0]), dtype=torch.float32, device=device)
+    grad_clip = float(trial.get("grad_clip", 0.0))
+    smooth_lambda = float(trial.get("smooth_lambda", 0.0))
     loaders = {
         split: DataLoader(datasets[split], batch_size=int(trial["batch_size"]), shuffle=(split == "train"), collate_fn=collate)
+        for split in ["train", "val", "test"]
+    }
+    eval_loaders = {
+        split: DataLoader(datasets[split], batch_size=int(trial["batch_size"]), shuffle=False, collate_fn=collate)
         for split in ["train", "val", "test"]
     }
     history = []
@@ -158,11 +177,15 @@ def run_trial(model_family: str, trial: dict[str, Any], datasets: dict[str, Sequ
             mask = mask.to(device)
             optimizer.zero_grad()
             pred = model(X, mask)
-            loss = masked_mse(pred, Y, mask)
+            loss = masked_mse(pred, Y, mask, loss_weights)
+            if smooth_lambda > 0:
+                loss = loss + smooth_lambda * temporal_smoothness(pred, mask)
             loss.backward()
+            if grad_clip > 0:
+                torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
             optimizer.step()
             losses.append(float(loss.detach().cpu()))
-        _, val_metrics, _, _ = evaluate(model, loaders["val"], device)
+        _, val_metrics, _, _ = evaluate(model, eval_loaders["val"], device)
         row = {
             "trial_id": trial_id,
             "epoch": epoch,
@@ -200,7 +223,7 @@ def run_trial(model_family: str, trial: dict[str, Any], datasets: dict[str, Sequ
     model.load_state_dict(checkpoint["model_state"])
     split_metrics: dict[str, dict[str, float]] = {}
     for split in ["train", "val", "test"]:
-        _, m, pred, _ = evaluate(model, loaders[split], device)
+        _, m, pred, _ = evaluate(model, eval_loaders[split], device)
         split_metrics[split] = m
         np.save(pred_dir / f"{trial_id}_{split}_pred.npy", pred.astype(np.float32))
 
@@ -210,14 +233,12 @@ def run_trial(model_family: str, trial: dict[str, Any], datasets: dict[str, Sequ
         "best_epoch": best_epoch,
         "best_val_rmse": best_val_rmse,
         "parameters": count_parameters(model),
-        "train_rmse": split_metrics["train"]["rmse"],
-        "val_rmse": split_metrics["val"]["rmse"],
-        "test_rmse": split_metrics["test"]["rmse"],
-        "test_pearson_valence": split_metrics["test"]["pearson_valence"],
-        "test_pearson_arousal": split_metrics["test"]["pearson_arousal"],
         "config_json": json.dumps(trial, ensure_ascii=False),
         "checkpoint": str(best_path),
     }
+    for split in ["train", "val", "test"]:
+        summary.update(prefixed_metrics(split, split_metrics[split]))
+    summary["train_val_rmse_gap"] = summary["val_rmse"] - summary["train_rmse"]
     with (metric_dir / f"{trial_id}_summary.json").open("w", encoding="utf-8") as handle:
         json.dump(summary, handle, ensure_ascii=False, indent=2)
     return summary

@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+"""Song-level mean correction on the current guarded Valence best.
+
+This is a wrapper around `search_pmemo_valence_song_mean_fusion.py` that points
+the generic experiment at the current metric-best Valence predictions. The
+underlying experiment remains validation-selected and includes no-change as a
+candidate.
+"""
+
+from __future__ import annotations
+
+import json
+
+import pandas as pd
+
+import search_pmemo_valence_song_mean_fusion as song_mean
+from train_pmemo_mert_valence_baseline import ROOT, threshold_rows
+
+
+INPUT_DIR = ROOT / "outputs" / "valence_parsimony_output_guarded_20260707"
+OUT_DIR = ROOT / "outputs" / "valence_current_best_song_mean_fusion_20260707"
+CURRENT_BEST = {
+    "model_id": "pmemo_valence_parsimony_output_guarded_20260707",
+    "rmse": 0.19127265472577384,
+    "mae": 0.14892050958155043,
+    "pcc": 0.8060728304873086,
+    "ccc": 0.7915010047864408,
+}
+
+
+def main() -> None:
+    song_mean.INPUT_DIR = INPUT_DIR
+    song_mean.OUT_DIR = OUT_DIR
+    song_mean.CURRENT_BEST = CURRENT_BEST
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    rows = []
+    all_results = []
+    for split_dir in sorted(p for p in INPUT_DIR.glob("split_*") if p.is_dir()):
+        summary, result_df = song_mean.evaluate_split(split_dir)
+        rows.append(summary)
+        all_results.append(result_df)
+    pd.concat(all_results, ignore_index=True).to_csv(OUT_DIR / "all_song_mean_fusion_results.csv", index=False)
+    aggregate = {
+        "created_at": "2026-07-07",
+        "model_id": "pmemo_valence_current_best_song_mean_fusion_20260707",
+        "input_model": CURRENT_BEST,
+        "purpose": "Validation-selected song-level Valence mean correction on top of the current guarded metric-best model.",
+        "selection_rule": "per split, select by validation composite pass-gap score; baseline/no-change is included as a candidate; test labels not used.",
+        "num_splits": len(rows),
+        "per_split": rows,
+        **song_mean.aggregate_metrics(rows, "baseline"),
+        **song_mean.aggregate_metrics(rows, "selected"),
+    }
+    selected_mean = {metric: aggregate[f"selected_test_{metric}_mean"] for metric in ["rmse", "mae", "pcc", "ccc"]}
+    baseline_mean = {metric: aggregate[f"baseline_test_{metric}_mean"] for metric in ["rmse", "mae", "pcc", "ccc"]}
+    aggregate["selected_mean_test_gap_rows"] = threshold_rows(selected_mean)
+    aggregate["delta_vs_input_test_mean"] = {
+        metric: float(selected_mean[metric] - baseline_mean[metric]) for metric in ["rmse", "mae", "pcc", "ccc"]
+    }
+    (OUT_DIR / "summary.json").write_text(json.dumps(aggregate, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(json.dumps(aggregate, ensure_ascii=False, indent=2), flush=True)
+
+
+if __name__ == "__main__":
+    main()

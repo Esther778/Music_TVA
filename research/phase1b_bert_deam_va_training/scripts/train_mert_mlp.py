@@ -12,7 +12,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
-from training_utils import ROOT, assert_finite_array, count_parameters, load_json, metrics_np, select_device, set_seed
+from training_utils import ROOT, assert_finite_array, count_parameters, load_json, metrics_np, prefixed_metrics, select_device, set_seed
 
 
 class MLPRegressor(nn.Module):
@@ -28,6 +28,10 @@ class MLPRegressor(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.net(x)
+
+
+def weighted_mse(pred: torch.Tensor, target: torch.Tensor, weights: torch.Tensor) -> torch.Tensor:
+    return torch.mean(((pred - target) ** 2) * weights)
 
 
 def load_frame_data(data_dir: Path) -> tuple[dict[str, np.ndarray], dict[str, np.ndarray], np.ndarray, np.ndarray]:
@@ -75,7 +79,8 @@ def run_trial(trial: dict[str, Any], X: dict[str, np.ndarray], Y: dict[str, np.n
 
     model = MLPRegressor(X["train"].shape[1], list(trial["hidden"]), float(trial["dropout"])).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=float(trial["lr"]), weight_decay=float(trial["weight_decay"]))
-    criterion = nn.MSELoss()
+    loss_weights = torch.tensor(trial.get("loss_weights", [1.0, 1.0]), dtype=torch.float32, device=device)
+    grad_clip = float(trial.get("grad_clip", 0.0))
     train_loader = DataLoader(
         TensorDataset(torch.from_numpy(X["train"]).float(), torch.from_numpy(Y["train"]).float()),
         batch_size=int(trial["batch_size"]),
@@ -97,8 +102,10 @@ def run_trial(trial: dict[str, Any], X: dict[str, np.ndarray], Y: dict[str, np.n
             yb = yb.to(device)
             optimizer.zero_grad()
             pred = model(xb)
-            loss = criterion(pred, yb)
+            loss = weighted_mse(pred, yb, loss_weights)
             loss.backward()
+            if grad_clip > 0:
+                torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
             optimizer.step()
             train_loss += float(loss.detach().cpu()) * len(xb)
             total += len(xb)
@@ -150,14 +157,12 @@ def run_trial(trial: dict[str, Any], X: dict[str, np.ndarray], Y: dict[str, np.n
         "best_epoch": best_epoch,
         "best_val_rmse": best_val_rmse,
         "parameters": count_parameters(model),
-        "train_rmse": split_metrics["train"]["rmse"],
-        "val_rmse": split_metrics["val"]["rmse"],
-        "test_rmse": split_metrics["test"]["rmse"],
-        "test_pearson_valence": split_metrics["test"]["pearson_valence"],
-        "test_pearson_arousal": split_metrics["test"]["pearson_arousal"],
         "config_json": json.dumps(trial, ensure_ascii=False),
         "checkpoint": str(best_path),
     }
+    for split in ["train", "val", "test"]:
+        summary.update(prefixed_metrics(split, split_metrics[split]))
+    summary["train_val_rmse_gap"] = summary["val_rmse"] - summary["train_rmse"]
     with (metric_dir / f"{trial_id}_summary.json").open("w", encoding="utf-8") as handle:
         json.dump(summary, handle, ensure_ascii=False, indent=2)
     return summary

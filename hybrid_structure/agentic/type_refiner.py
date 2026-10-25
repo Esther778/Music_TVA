@@ -101,10 +101,10 @@ def choose_type(
             return "intro", "早段主歌前无完整歌词器乐，按 intro 处理"
         if position >= 0.82 or old_type == "outro":
             return "outro", "无完整歌词且在结尾，标 outro"
-        return "bridge", "中段无完整歌词，标 bridge"
+        return "interlude", "中段无完整歌词器乐/弱主唱，标 interlude"
 
     if old_type == "pre_chorus" and next_type != "chorus":
-        if previous_type == "chorus" and next_sung_type == "bridge":
+        if previous_type == "chorus" and next_sung_type in {"bridge", "interlude"}:
             return "bridge", "副歌后复现/延展材料不导向 chorus，且后续进入 bridge，按连接/转折功能标 bridge"
         if position >= 0.45:
             return "bridge", "pre_chorus 未导向 chorus 且位于中后段，更像 bridge/transition"
@@ -144,21 +144,25 @@ def score_type(
     if section_type == "chorus":
         lyric += 0.15 * float(any(word in evidence for word in ("hook", "副歌", "final", "coda", "祝福")))
         repetition += 0.25 * float(any(word in evidence for word in ("复现", "重复", "周期", "变体")))
-        neighbor += 0.10 * float(previous_type in {"verse", "pre_chorus", "bridge", "chorus"})
+        neighbor += 0.10 * float(previous_type in {"verse", "pre_chorus", "bridge", "interlude", "chorus"})
         template += 0.10 * float(position >= 0.2)
     elif section_type == "pre_chorus":
         lyric += 0.15 * float(any(word in evidence for word in ("蓄力", "连接", "转向", "铺垫")))
         neighbor += 0.25 * float(next_type == "chorus")
-        template += 0.15 * float(next_type == "chorus" and previous_type in {"verse", "chorus", "bridge"})
+        template += 0.15 * float(next_type == "chorus" and previous_type in {"verse", "chorus", "bridge", "interlude"})
     elif section_type == "bridge":
-        lyric += 0.15 * float(any(word in evidence for word in ("转折", "连接", "新材料", "对比", "器乐")))
+        lyric += 0.15 * float(any(word in evidence for word in ("转折", "连接", "新材料", "对比")))
         position_score += 0.15 * float(position >= 0.35)
         neighbor += 0.20 * float(next_type in {"chorus", "outro"})
-        acoustic += 0.15 * float("无歌词" in section.lyric_evidence or "主唱退出" in section.vocal_evidence)
+    elif section_type == "interlude":
+        lyric += 0.20 * float(not has_lyrics or "无歌词" in section.lyric_evidence)
+        position_score += 0.12 * float(0.15 <= position <= 0.82)
+        neighbor += 0.12 * float(next_type in {"verse", "pre_chorus", "chorus", "bridge"})
+        acoustic += 0.18 * float("无歌词" in section.lyric_evidence or "主唱退出" in section.vocal_evidence or "低人声" in section.acoustic_evidence)
     elif section_type == "verse":
         lyric += 0.15 * float(any(word in evidence for word in ("叙事", "背景", "开场")))
         position_score += 0.10 * float(position < 0.45)
-        neighbor += 0.10 * float(next_type in {"chorus", "pre_chorus", "bridge"})
+        neighbor += 0.10 * float(next_type in {"chorus", "pre_chorus", "bridge", "interlude"})
     elif section_type in {"intro", "outro"}:
         lyric += 0.20 * float(not has_lyrics)
         acoustic += 0.15 * float("主唱退出" in section.vocal_evidence or "低人声" in section.acoustic_evidence)

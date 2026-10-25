@@ -1,0 +1,8 @@
+[build]
+command = "python3 annotation_tool/build_netlify_publish.py"
+publish = "netlify_publish"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

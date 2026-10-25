@@ -1,0 +1,29 @@
+{
+  "sample_rate": 22050,
+  "label_start_sec": 15.0,
+  "label_hop_sec": 0.5,
+  "n_fft": 1024,
+  "spectrogram_hop_length": 512,
+  "n_mels": 64,
+  "fmin": 30.0,
+  "fmax": 11025.0,
+  "handcrafted_context_sec": 2.0,
+  "n_mfcc": 20,
+  "tempogram_bpms": [40, 60, 80, 100, 120, 160, 200, 240],
+  "model": {
+    "spectral_frames_per_target": 4,
+    "cnn_channels": 16,
+    "handcrafted_projection": 64,
+    "bilstm_hidden": 96,
+    "dropout": 0.3
+  },
+  "training": {
+    "seed": 2026,
+    "batch_size": 4,
+    "epochs": 60,
+    "patience": 10,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "grad_clip": 1.0
+  }
+}

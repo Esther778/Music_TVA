@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VA 参照片段候选确认</title>
+  <style>
+    :root {
+      --ink: #17232e;
+      --muted: #64717d;
+      --navy: #17324d;
+      --blue: #2f75b5;
+      --blue-soft: #e8f2f9;
+      --line: #c8d4dd;
+      --paper: #fff;
+      --canvas: #edf1f4;
+      --input: #fff8df;
+      --ok: #deefda;
+      --warn: #f8e5ce;
+      --radius: 6px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font: 14px/1.5 Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
+    }
+    button, select, input { font: inherit; }
+    button, select { cursor: pointer; }
+    .topbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      padding: 18px 24px;
+      color: #fff;
+      background: var(--navy);
+    }
+    h1 { margin: 0; font-size: 22px; }
+    .subtitle { margin: 3px 0 0; color: #cedce7; font-size: 13px; }
+    .actions { display: flex; gap: 9px; }
+    .actions button {
+      min-height: 36px;
+      padding: 0 14px;
+      border: 1px solid rgba(255,255,255,.38);
+      border-radius: var(--radius);
+      color: #fff;
+      background: var(--blue);
+      font-weight: 700;
+    }
+    .actions .secondary { background: transparent; }
+    main { width: min(1180px, 100%); margin: 0 auto; padding: 18px; }
+    .notice {
+      padding: 13px 15px;
+      border: 1px solid #deb16a;
+      border-left: 5px solid #cf8617;
+      border-radius: var(--radius);
+      background: var(--input);
+    }
+    .notice strong { color: #684308; }
+    .protocol {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .protocol section {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+    .protocol h2 { margin: 0 0 5px; color: var(--navy); font-size: 15px; }
+    .protocol p { margin: 0; color: var(--muted); }
+    .progress {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 16px 0 8px;
+      color: var(--muted);
+    }
+    .progress strong { color: var(--navy); }
+    .dimension { margin-top: 18px; }
+    .dimension-title {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 19px;
+    }
+    .dimension-title span { color: var(--muted); font-size: 13px; font-weight: 400; }
+    .candidate-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .candidate {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr);
+      gap: 12px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+    .candidate.complete { border-left: 5px solid #4f9945; background: #fbfefb; }
+    .level {
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      min-height: 72px;
+      padding: 8px;
+      border-radius: 4px;
+      color: var(--navy);
+      background: var(--blue-soft);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .level small { display: block; color: var(--muted); font-weight: 400; text-transform: none; }
+    .identity { display: flex; justify-content: space-between; gap: 12px; }
+    .identity strong { font-size: 16px; }
+    .identity span { color: var(--muted); white-space: nowrap; }
+    .meta { margin: 2px 0 8px; color: var(--muted); font-size: 12px; }
+    audio { display: block; width: 100%; height: 36px; margin: 6px 0 10px; }
+    .review {
+      display: grid;
+      grid-template-columns: 140px 140px minmax(120px, 1fr);
+      gap: 8px;
+    }
+    .field { min-width: 0; }
+    .field label { display: block; margin-bottom: 3px; color: var(--muted); font-size: 11px; font-weight: 700; }
+    select, input {
+      width: 100%;
+      min-width: 0;
+      height: 34px;
+      border: 1px solid #aebec9;
+      border-radius: 4px;
+      background: #fff;
+    }
+    select { padding: 0 28px 0 8px; }
+    input { padding: 0 8px; }
+    .footnote { margin: 18px 0 0; color: var(--muted); font-size: 12px; }
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      padding: 10px 13px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: #263b4c;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: 160ms ease;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 900px) {
+      .candidate-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 650px) {
+      .topbar { grid-template-columns: 1fr; padding: 15px; }
+      main { padding: 12px; }
+      .protocol { grid-template-columns: 1fr; }
+      .candidate { grid-template-columns: 58px minmax(0, 1fr); padding: 10px; }
+      .review { grid-template-columns: 1fr 1fr; }
+      .field.notes { grid-column: 1 / -1; }
+      .identity { display: block; }
+      .identity span { display: block; white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>VA 参照片段候选确认</h1>
+      <p class="subtitle">12 个候选片段 · 来自正式 15 首盲测样本之外 · 不包含 Teacher 预测</p>
+    </div>
+    <div class="actions">
+      <button id="exportButton" type="button">导出确认 CSV</button>
+      <button class="secondary" id="clearButton" type="button">清空本页</button>
+    </div>
+  </header>
+  <main>
+    <div class="notice">
+      <strong>当前只是候选审核，不是重新标注。</strong>
+      请先横向听完同一维度的 low / mid / high，再判断每段是否足够典型。原来的人工标注文件保持不变；候选确认后才会生成带正式参照的新标注版本。
+    </div>
+    <div class="protocol">
+      <section>
+        <h2>Valence：跨歌曲统一比较</h2>
+        <p>low＝明显偏消极；mid＝中性或正负混合；high＝明显偏积极。只判断积极—消极，不用音量和节奏代替 Valence。</p>
+      </section>
+      <section>
+        <h2>Arousal：跨歌曲统一比较</h2>
+        <p>low＝平静、低激活；mid＝中等激活；high＝激烈、高激活。关注能量、速度、力度与紧张程度，不判断歌词正负。</p>
+      </section>
+    </div>
+    <div class="progress">
+      <span>审核进度：<strong id="progress">0 / 12</strong></span>
+      <span>建议：同一维度全部试听后再确认</span>
+    </div>
+    <div id="reviewRoot"></div>
+    <p class="footnote">页面自动保存在当前浏览器本地；完成后点击“导出确认 CSV”。只有经人工确认的片段才会进入正式标注指引。</p>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+    const DATA = __DATA_JSON__;
+    const STORAGE_KEY = "va_anchor_candidate_review_v1";
+    const DIMENSION_LABEL = { valence: "Valence", arousal: "Arousal" };
+    const LEVEL_LABEL = { low: "低", mid: "中", high: "高" };
+    let state = loadState();
+
+    function loadState() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+      catch (_) { return {}; }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      renderProgress();
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#039;"
+      })[char]);
+    }
+
+    function card(row) {
+      const saved = state[row.candidate_id] || {};
+      const complete = saved.judgment ? " complete" : "";
+      return `<article class="candidate${complete}" data-id="${row.candidate_id}">
+        <div class="level">${row.proposed_level}<small>${LEVEL_LABEL[row.proposed_level]}</small></div>
+        <div>
+          <div class="identity"><strong>${escapeHtml(row.title)}</strong><span>${escapeHtml(row.artist)}</span></div>
+          <div class="meta">${row.candidate_id} · 原曲 ${formatTime(row.start_sec)}–${formatTime(row.end_sec)} · ${row.duration_sec.toFixed(1)} 秒</div>
+          <audio controls preload="metadata" src="${encodeURI(row.clip_relative_path)}"></audio>
+          <div class="review">
+            <div class="field">
+              <label>是否符合 ${row.proposed_level}</label>
+              <select data-field="judgment">
+                <option value="">请选择</option>
+                <option value="符合" ${saved.judgment === "符合" ? "selected" : ""}>符合</option>
+                <option value="不符合" ${saved.judgment === "不符合" ? "selected" : ""}>不符合</option>
+                <option value="不确定" ${saved.judgment === "不确定" ? "selected" : ""}>不确定</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>若不符合，更像</label>
+              <select data-field="corrected_level">
+                <option value="">不修改</option>
+                <option value="low" ${saved.corrected_level === "low" ? "selected" : ""}>low</option>
+                <option value="mid" ${saved.corrected_level === "mid" ? "selected" : ""}>mid</option>
+                <option value="high" ${saved.corrected_level === "high" ? "selected" : ""}>high</option>
+              </select>
+            </div>
+            <div class="field notes">
+              <label>备注（可选）</label>
+              <input data-field="notes" value="${escapeHtml(saved.notes || "")}" placeholder="例如：能量偏中等">
+            </div>
+          </div>
+        </div>
+      </article>`;
+    }
+
+    function render() {
+      const root = document.getElementById("reviewRoot");
+      root.innerHTML = ["valence", "arousal"].map(dimension => {
+        const rows = DATA.filter(row => row.dimension === dimension);
+        return `<section class="dimension">
+          <h2 class="dimension-title">${DIMENSION_LABEL[dimension]} <span>请把 6 段作为同一把尺子横向比较</span></h2>
+          <div class="candidate-grid">${rows.map(card).join("")}</div>
+        </section>`;
+      }).join("");
+      root.querySelectorAll("select, input").forEach(input => {
+        input.addEventListener("change", handleChange);
+        input.addEventListener("input", handleChange);
+      });
+      document.querySelectorAll("audio").forEach(audio => {
+        audio.addEventListener("play", () => {
+          document.querySelectorAll("audio").forEach(other => {
+            if (other !== audio) other.pause();
+          });
+        });
+      });
+      renderProgress();
+    }
+
+    function handleChange(event) {
+      const cardElement = event.target.closest(".candidate");
+      const id = cardElement.dataset.id;
+      state[id] = state[id] || {};
+      state[id][event.target.dataset.field] = event.target.value;
+      cardElement.classList.toggle("complete", Boolean(state[id].judgment));
+      saveState();
+    }
+
+    function renderProgress() {
+      const count = DATA.filter(row => state[row.candidate_id]?.judgment).length;
+      document.getElementById("progress").textContent = `${count} / ${DATA.length}`;
+    }
+
+    function formatTime(seconds) {
+      const whole = Math.round(Number(seconds));
+      return `${Math.floor(whole / 60)}:${String(whole % 60).padStart(2, "0")}`;
+    }
+
+    function csvCell(value) {
+      return `"${String(value ?? "").replaceAll('"', '""')}"`;
+    }
+
+    function exportCsv() {
+      const columns = ["candidate_id", "dimension", "proposed_level", "song_id", "title", "artist", "start_sec", "end_sec", "judgment", "corrected_level", "notes"];
+      const lines = [columns.join(",")];
+      DATA.forEach(row => {
+        const saved = state[row.candidate_id] || {};
+        lines.push(columns.map(column => csvCell(saved[column] ?? row[column] ?? "")).join(","));
+      });
+      const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "va_anchor_candidate_review.csv";
+      link.click();
+      URL.revokeObjectURL(link.href);
+      toast("确认结果已导出");
+    }
+
+    function toast(message) {
+      const element = document.getElementById("toast");
+      element.textContent = message;
+      element.classList.add("show");
+      window.setTimeout(() => element.classList.remove("show"), 1800);
+    }
+
+    document.getElementById("exportButton").addEventListener("click", exportCsv);
+    document.getElementById("clearButton").addEventListener("click", () => {
+      if (!window.confirm("只清空本候选确认页的记录，是否继续？")) return;
+      state = {};
+      localStorage.removeItem(STORAGE_KEY);
+      render();
+      toast("本页记录已清空");
+    });
+    render();
+  </script>
+</body>
+</html>

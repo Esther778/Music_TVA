@@ -49,6 +49,24 @@ def rmse_np(pred: np.ndarray, target: np.ndarray) -> float:
     return float(np.sqrt(np.mean((pred - target) ** 2)))
 
 
+def ccc_np(pred: np.ndarray, target: np.ndarray) -> tuple[float, float]:
+    values = []
+    for idx in range(2):
+        x = pred[:, idx]
+        y = target[:, idx]
+        if len(x) < 2:
+            values.append(0.0)
+            continue
+        mean_x = float(np.mean(x))
+        mean_y = float(np.mean(y))
+        var_x = float(np.var(x))
+        var_y = float(np.var(y))
+        cov_xy = float(np.mean((x - mean_x) * (y - mean_y)))
+        denominator = var_x + var_y + (mean_x - mean_y) ** 2
+        values.append(float(2 * cov_xy / denominator) if denominator > 1e-12 else 0.0)
+    return values[0], values[1]
+
+
 def pearson_np(pred: np.ndarray, target: np.ndarray) -> tuple[float, float]:
     values = []
     for idx in range(2):
@@ -66,14 +84,31 @@ def metrics_np(pred: np.ndarray, target: np.ndarray) -> dict[str, float]:
         raise ValueError("Prediction array contains NaN or Inf values.")
     if not np.isfinite(target).all():
         raise ValueError("Target array contains NaN or Inf values.")
-    mse = float(np.mean((pred - target) ** 2))
+    error = pred - target
+    squared_error = error ** 2
+    absolute_error = np.abs(error)
+    mse = float(np.mean(squared_error))
     rmse = float(np.sqrt(mse))
+    mae = float(np.mean(absolute_error))
+    valence_rmse = float(np.sqrt(np.mean(squared_error[:, 0])))
+    arousal_rmse = float(np.sqrt(np.mean(squared_error[:, 1])))
+    valence_mae = float(np.mean(absolute_error[:, 0]))
+    arousal_mae = float(np.mean(absolute_error[:, 1]))
     rv, ra = pearson_np(pred, target)
+    cv, ca = ccc_np(pred, target)
     return {
         "mse": mse,
         "rmse": rmse,
+        "mae": mae,
+        "rmse_valence": valence_rmse,
+        "rmse_arousal": arousal_rmse,
+        "mae_valence": valence_mae,
+        "mae_arousal": arousal_mae,
         "pearson_valence": rv,
         "pearson_arousal": ra,
+        "ccc_valence": cv,
+        "ccc_arousal": ca,
+        "mean_ccc": float((cv + ca) / 2),
     }
 
 
@@ -87,3 +122,7 @@ def assert_finite_array(name: str, array: np.ndarray) -> None:
     total = int(array.size)
     invalid = int(total - np.isfinite(array).sum())
     raise ValueError(f"{name} contains {invalid}/{total} NaN or Inf values.")
+
+
+def prefixed_metrics(prefix: str, metrics: dict[str, float]) -> dict[str, float]:
+    return {f"{prefix}_{key}": value for key, value in metrics.items()}

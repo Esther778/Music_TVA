@@ -1,0 +1,201 @@
+{
+  "teacher_model_id": "openl3_mlp_w512_v1",
+  "frozen_at_utc": "2026-06-21T01:13:14.783366+00:00",
+  "status": "frozen_for_phase2_pseudo_va",
+  "selection_rule": "Select architecture and deployment mode by validation RMSE only; test metrics are final reporting metrics.",
+  "selected_mode": "mean_ensemble",
+  "feature_backbone": {
+    "name": "OpenL3",
+    "input_repr": "mel256",
+    "content_type": "music",
+    "embedding_size": 512,
+    "hop_size_sec": 0.5,
+    "sample_rate": 44100
+  },
+  "head": {
+    "family": "MLP",
+    "hidden": [
+      512,
+      256
+    ],
+    "dropout": 0.1,
+    "output_order": [
+      "valence",
+      "arousal"
+    ],
+    "parameter_count": 394498
+  },
+  "normalization": {
+    "path": "research/phase1_va_prediction/openl3_va_baseline/outputs/models/mlp/mlp_input_norm.npz",
+    "sha256": "eeda33bca49af3ade9b5364d1ae2209bfc6f31614660c1b0f9882a1a267e1433",
+    "source": "OpenL3 MLP training split statistics"
+  },
+  "ensemble": {
+    "aggregation": "arithmetic_mean_of_frame_predictions",
+    "members": [
+      {
+        "seed": 2026,
+        "best_epoch": 119,
+        "checkpoint": "research/phase1_va_prediction/openl3_va_baseline/outputs/models/mlp_tuning/mlp_tune_w512_d010_lr2e4_e120_seed2026_best.pt",
+        "checkpoint_sha256": "75204b4e0ca002ae0b882ba63cb9e0a3c0f6bd4c4241a277979bf72ac9110bfc",
+        "val": {
+          "rmse": 0.10914622992277145,
+          "mae": 0.08236892521381378,
+          "rmse_valence": 0.10913215577602386,
+          "rmse_arousal": 0.10916029661893845,
+          "mae_valence": 0.081886425614357,
+          "mae_arousal": 0.08285141736268997,
+          "pearson_valence": 0.8997671604156494,
+          "pearson_arousal": 0.922305703163147,
+          "ccc_valence": 0.8874187469482422,
+          "ccc_arousal": 0.9148794412612915,
+          "mean_ccc": 0.9011490941047668
+        },
+        "test": {
+          "rmse": 0.10812003910541534,
+          "mae": 0.08131380379199982,
+          "rmse_valence": 0.10878722369670868,
+          "rmse_arousal": 0.10744871199131012,
+          "mae_valence": 0.08168328553438187,
+          "mae_arousal": 0.08094433695077896,
+          "pearson_valence": 0.903410792350769,
+          "pearson_arousal": 0.9256888628005981,
+          "ccc_valence": 0.8920747637748718,
+          "ccc_arousal": 0.9192773103713989,
+          "mean_ccc": 0.905676007270813
+        }
+      },
+      {
+        "seed": 3407,
+        "best_epoch": 80,
+        "checkpoint": "research/phase1_va_prediction/openl3_va_baseline/outputs/models/mlp_tuning/mlp_tune_w512_d010_lr2e4_e120_seed3407_best.pt",
+        "checkpoint_sha256": "2f69e733e85fa4e7b3a79cb7e93c160a724491337c4266ab48825aa09ab294dd",
+        "val": {
+          "rmse": 0.10948707908391953,
+          "mae": 0.08262110501527786,
+          "rmse_valence": 0.10985066741704941,
+          "rmse_arousal": 0.10912227630615234,
+          "mae_valence": 0.0826142281293869,
+          "mae_arousal": 0.08262797445058823,
+          "pearson_valence": 0.8974257707595825,
+          "pearson_arousal": 0.9219992160797119,
+          "ccc_valence": 0.8871837258338928,
+          "ccc_arousal": 0.9157432913780212,
+          "mean_ccc": 0.901463508605957
+        },
+        "test": {
+          "rmse": 0.10859884321689606,
+          "mae": 0.08209550380706787,
+          "rmse_valence": 0.11004702746868134,
+          "rmse_arousal": 0.10713108628988266,
+          "mae_valence": 0.08312347531318665,
+          "mae_arousal": 0.0810675323009491,
+          "pearson_valence": 0.9004259705543518,
+          "pearson_arousal": 0.9259812831878662,
+          "ccc_valence": 0.8900264501571655,
+          "ccc_arousal": 0.9202612042427063,
+          "mean_ccc": 0.9051438570022583
+        }
+      },
+      {
+        "seed": 614,
+        "best_epoch": 119,
+        "checkpoint": "research/phase1_va_prediction/openl3_va_baseline/outputs/models/mlp_tuning/mlp_tune_w512_d010_lr2e4_e120_seed614_best.pt",
+        "checkpoint_sha256": "68754a46344bf0ef334765e301ec716f00c3cff730ee76ac5e90fc86c0503457",
+        "val": {
+          "rmse": 0.10932169109582901,
+          "mae": 0.08241350948810577,
+          "rmse_valence": 0.10980763286352158,
+          "rmse_arousal": 0.10883357375860214,
+          "mae_valence": 0.08239276707172394,
+          "mae_arousal": 0.08243425190448761,
+          "pearson_valence": 0.8978899717330933,
+          "pearson_arousal": 0.9227126240730286,
+          "ccc_valence": 0.8864427804946899,
+          "ccc_arousal": 0.9158708453178406,
+          "mean_ccc": 0.9011567831039429
+        },
+        "test": {
+          "rmse": 0.10769537836313248,
+          "mae": 0.08121044188737869,
+          "rmse_valence": 0.10885381698608398,
+          "rmse_arousal": 0.10652434825897217,
+          "mae_valence": 0.08157502859830856,
+          "mae_arousal": 0.08084585517644882,
+          "pearson_valence": 0.9029800891876221,
+          "pearson_arousal": 0.9271407127380371,
+          "ccc_valence": 0.892024576663971,
+          "ccc_arousal": 0.9206370115280151,
+          "mean_ccc": 0.9063308238983154
+        }
+      }
+    ],
+    "val": {
+      "rmse": 0.0995747521519661,
+      "mae": 0.07420837879180908,
+      "rmse_valence": 0.09982466697692871,
+      "rmse_arousal": 0.09932421892881393,
+      "mae_valence": 0.07408130913972855,
+      "mae_arousal": 0.07433545589447021,
+      "pearson_valence": 0.9195765256881714,
+      "pearson_arousal": 0.9377301931381226,
+      "ccc_valence": 0.9044267535209656,
+      "ccc_arousal": 0.9288636445999146,
+      "mean_ccc": 0.9166451692581177
+    },
+    "test": {
+      "rmse": 0.09842471778392792,
+      "mae": 0.0734129473567009,
+      "rmse_valence": 0.09948129951953888,
+      "rmse_arousal": 0.0973566547036171,
+      "mae_valence": 0.07407955080270767,
+      "mae_arousal": 0.07274633646011353,
+      "pearson_valence": 0.922681450843811,
+      "pearson_arousal": 0.940996527671814,
+      "ccc_valence": 0.9081979990005493,
+      "ccc_arousal": 0.9329394102096558,
+      "mean_ccc": 0.9205687046051025
+    }
+  },
+  "best_single_by_validation": {
+    "seed": 2026,
+    "best_epoch": 119,
+    "checkpoint": "research/phase1_va_prediction/openl3_va_baseline/outputs/models/mlp_tuning/mlp_tune_w512_d010_lr2e4_e120_seed2026_best.pt",
+    "checkpoint_sha256": "75204b4e0ca002ae0b882ba63cb9e0a3c0f6bd4c4241a277979bf72ac9110bfc",
+    "val": {
+      "rmse": 0.10914622992277145,
+      "mae": 0.08236892521381378,
+      "rmse_valence": 0.10913215577602386,
+      "rmse_arousal": 0.10916029661893845,
+      "mae_valence": 0.081886425614357,
+      "mae_arousal": 0.08285141736268997,
+      "pearson_valence": 0.8997671604156494,
+      "pearson_arousal": 0.922305703163147,
+      "ccc_valence": 0.8874187469482422,
+      "ccc_arousal": 0.9148794412612915,
+      "mean_ccc": 0.9011490941047668
+    },
+    "test": {
+      "rmse": 0.10812003910541534,
+      "mae": 0.08131380379199982,
+      "rmse_valence": 0.10878722369670868,
+      "rmse_arousal": 0.10744871199131012,
+      "mae_valence": 0.08168328553438187,
+      "mae_arousal": 0.08094433695077896,
+      "pearson_valence": 0.903410792350769,
+      "pearson_arousal": 0.9256888628005981,
+      "ccc_valence": 0.8920747637748718,
+      "ccc_arousal": 0.9192773103713989,
+      "mean_ccc": 0.905676007270813
+    }
+  },
+  "evaluation_protocol": {
+    "dataset": "DEAM dynamic VA annotations",
+    "split": "frame-level random 80/10/10 split, seed 42",
+    "critical_limitation": "Frames from the same song may occur in train, validation, and test. Reported metrics are not a song-level generalization estimate and must not be directly compared with the current song-level MERT split."
+  },
+  "phase2_usage": {
+    "purpose": "Generate 0.5-second pseudo-VA trajectories for reviewed complete songs.",
+    "claim_boundary": "Pseudo-VA is a model-derived estimate, not human ground truth."
+  }
+}

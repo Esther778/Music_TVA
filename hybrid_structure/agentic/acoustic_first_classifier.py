@@ -192,10 +192,10 @@ def choose_acoustic_type(
     if not sung and (position > 0.78 or index == total - 1):
         return "outro", "尾段低/无人声，按 outro", 0.82
     if not sung:
-        return "bridge", "中段低/无人声，按 bridge", 0.78
+        return "interlude", "中段低/无人声，按 interlude", 0.78
 
     if low_vocal and 0.18 <= position <= 0.78:
-        return "bridge", "主唱活动弱且处于中段，按 bridge", 0.72
+        return "interlude", "主唱活动弱且处于中段，按 interlude", 0.72
 
     if is_pre_chorus_candidate(
         section,
@@ -287,7 +287,9 @@ def lyric_support(section_type: str, section: pipeline.SectionCandidate) -> floa
     evidence = f"{section.lyric_evidence} {section.vocal_evidence} {section.acoustic_evidence}"
     if section_type == "chorus" and has_marker(section, ("hook", "副歌", "final", "主题")):
         return 0.78
-    if section_type == "bridge" and has_marker(section, ("转折", "连接", "新材料", "对比", "无歌词")):
+    if section_type == "bridge" and has_marker(section, ("转折", "连接", "新材料", "对比")):
+        return 0.76
+    if section_type == "interlude" and has_marker(section, ("无歌词", "低人声", "弱主唱", "主唱退出", "器乐")):
         return 0.76
     if section_type == "pre_chorus" and has_marker(section, ("蓄力", "铺垫", "进入副歌")):
         return 0.72
@@ -299,7 +301,8 @@ def lyric_support(section_type: str, section: pipeline.SectionCandidate) -> floa
 
 
 def normalize_type(value: str) -> str:
-    return value.replace("-", "_")
+    normalized = value.replace("-", "_")
+    return "interlude" if normalized in {"intern", "instrumental", "instrumental_bridge", "间奏"} else normalized
 
 
 def has_complete_vocal(section: pipeline.SectionCandidate) -> bool:
@@ -321,6 +324,7 @@ def structure_label(section_type: str) -> str:
         "pre_chorus": "C",
         "chorus": "D",
         "bridge": "E",
+        "interlude": "I",
         "outro": "A'",
     }.get(section_type, "X")
 

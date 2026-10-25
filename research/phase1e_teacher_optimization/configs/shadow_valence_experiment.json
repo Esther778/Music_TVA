@@ -1,0 +1,31 @@
+{
+  "seed": 2026,
+  "projection_dim": 128,
+  "hidden_dim": 96,
+  "dropout": 0.35,
+  "learning_rate": 0.0002,
+  "weight_decay": 0.0003,
+  "batch_size": 24,
+  "epochs": 60,
+  "patience": 10,
+  "grad_clip": 1.0,
+  "baseline_loss": {
+    "huber": 1.0,
+    "mse": 0.5,
+    "ccc": 0.05,
+    "pearson": 0.02
+  },
+  "trend_loss": {
+    "huber": 0.4,
+    "mse": 0.2,
+    "frame_ccc": 0.15,
+    "frame_pearson": 0.1,
+    "trend_5s": 0.15,
+    "trend_10s": 0.1,
+    "window_5s_ccc": 0.15,
+    "window_10s_ccc": 0.1,
+    "ranking": 0.05,
+    "variance": 0.05,
+    "residual": 0.1
+  }
+}

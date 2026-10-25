@@ -1,0 +1,20 @@
+{
+  "trial_id": "mert_layer6_final_handcrafted_valence_fusion",
+  "seed": 2026,
+  "projection_dim": 160,
+  "hidden_dim": 96,
+  "dropout": 0.35,
+  "learning_rate": 0.0002,
+  "weight_decay": 0.0003,
+  "batch_size": 24,
+  "epochs": 60,
+  "patience": 10,
+  "grad_clip": 1.0,
+  "loss": {
+    "mse": 1.0,
+    "ccc": 0.05,
+    "pearson": 0.02,
+    "derivative": 0.05,
+    "dimension_weights": [1.5, 1.0]
+  }
+}

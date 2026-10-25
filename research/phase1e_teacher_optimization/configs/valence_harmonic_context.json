@@ -1,0 +1,22 @@
+{
+  "trial_id": "valence_harmonic_context_tcn_bilstm",
+  "seed": 2026,
+  "projection_dim": 128,
+  "tcn_channels": 128,
+  "tcn_dilations": [1, 2, 4, 8],
+  "hidden_dim": 80,
+  "dropout": 0.4,
+  "learning_rate": 0.0002,
+  "weight_decay": 0.0005,
+  "batch_size": 24,
+  "epochs": 60,
+  "patience": 10,
+  "grad_clip": 1.0,
+  "loss": {
+    "huber_delta": 0.15,
+    "mse": 0.5,
+    "ccc": 0.05,
+    "pearson": 0.02,
+    "derivative": 0.02
+  }
+}

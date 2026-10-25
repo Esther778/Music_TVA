@@ -1,6 +1,6 @@
 # Phase 1B Pipeline
 
-Last updated: 2026-06-14
+Last updated: 2026-06-21
 
 ## Objective
 
@@ -151,8 +151,24 @@ Primary metrics:
 
 - RMSE,
 - MSE,
+- MAE,
+- CCC,
+- Valence RMSE / Arousal RMSE,
+- Valence MAE / Arousal MAE,
 - Pearson r for Valence,
 - Pearson r for Arousal.
+
+Current selection rule:
+
+```text
+train split: model fitting only
+validation split: model and hyperparameter selection
+test split: final reporting only, never used for tuning
+```
+
+Primary selection metric is validation RMSE. If validation RMSE is close, use
+validation CCC, Valence/Arousal balance, train-validation gap, and model
+complexity as secondary criteria.
 
 Stage 3 implementation:
 
@@ -193,6 +209,14 @@ BiLSTM: bilstm_baseline, bilstm_deep, bilstm_wide
 Transformer: transformer_baseline, transformer_deep, transformer_wide
 ```
 
+RMSE reduction trials are planned for all three families, not only BiLSTM:
+
+```text
+MLP: stronger dropout, smaller/wider heads, loss weighting, gradient clipping
+BiLSTM: hidden size 64/96/128, dropout 0.35, weight decay, lower LR, smoothing loss
+Transformer: stronger dropout/weight decay, smaller model, smoothing loss
+```
+
 Result aggregation command:
 
 ```bash
@@ -209,9 +233,11 @@ docs/STAGE3_RESULTS.md
 
 Selection priority:
 
-1. lowest test RMSE,
-2. stable Valence and Arousal Pearson r,
-3. smooth and musically plausible VA curves if numeric metrics are close.
+1. lowest validation RMSE,
+2. higher validation CCC,
+3. stable Valence and Arousal metrics,
+4. smaller train-validation gap,
+5. lower model complexity if metrics are close.
 
 Outputs:
 
@@ -233,6 +259,19 @@ test_pearson_valence=0.511522
 test_pearson_arousal=0.641069
 checkpoint=outputs/models/bilstm/bilstm_baseline_best.pt
 ```
+
+This candidate remains provisional until the RMSE-reduction trials and multi-seed
+stability checks are complete.
+
+The next RMSE improvement work is specified in:
+
+```text
+docs/RMSE_IMPROVEMENT_PLAN.md
+```
+
+The plan prioritizes annotation-lag calibration, multi-scale context,
+song-balanced loss, MERT layer selection, and limited encoder fine-tuning over
+another large round of head-only hyperparameter changes.
 
 ## Stage 5: Phase 2 Export
 

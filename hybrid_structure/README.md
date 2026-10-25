@@ -140,10 +140,12 @@ outputs/functional_sections/邓丽君-我只在乎你_whisper_segments.csv
   summary.
 - Lyric semantics and repetition create the draft sections before instrumental
   gaps or acoustic validation are applied.
+- The public section taxonomy is
+  `intro / verse / pre_chorus / chorus / bridge / interlude / outro`.
 - `intro` and `outro` are reserved for lyric-free or non-lexical vocal regions.
   Any section containing complete lyrical lines must be labeled by its sung
   function, such as verse, chorus, pre_chorus, or bridge.
-- Long instrumental gaps between lyric sections become bridge candidates.
+- Long instrumental gaps between lyric sections become `interlude` candidates.
 - Short instrumental gaps are absorbed into the previous or next section by
   acoustic similarity.
 - Acoustic features validate draft boundaries. They only override the lyric
@@ -153,12 +155,11 @@ outputs/functional_sections/邓丽君-我只在乎你_whisper_segments.csv
 - `pre_chorus` is inferred as a contiguous buildup between verse-like material
   and the chorus hook using lyric gaps, phrasing density, and structural
   position, not a fixed number of lines.
-- Mid-song low-vocal or one-off contrast passages after chorus cycles become
-  `bridge` candidates when they form a sustained connecting/turning section.
-- `bridge` can be instrumental or lyrical. For lyrical bridge candidates, the
-  deciding evidence is not "has no vocals" but mid/late structural position,
-  contrast against the surrounding chorus/verse cycle, acoustic profile change,
-  and connecting/turning function.
+- Mid-song low-vocal or no-vocal passages after chorus cycles become
+  `interlude` candidates when they are instrumental transitions or breathers.
+- `bridge` is reserved for a contrasting or turning section, usually lyrical or
+  carrying a clear new melodic/harmonic/emotional idea. Middle 8 is a bridge
+  subtype.
 - Repeated or highly similar lyric material increases the probability that two
   sections share the same functional type, but it is not a hard rule. Similar
   lyrics can still be labeled differently when position, neighboring sections,
@@ -174,15 +175,15 @@ outputs/functional_sections/邓丽君-我只在乎你_whisper_segments.csv
 - Overlong sung sections are split at internal lyric-cycle restarts when the
   section exceeds the song's own expected chorus scale. This prevents a final
   double chorus from collapsing into one unrealistic section.
-- Long lyric-free interior gaps become `bridge` candidates, because a long
+- Long lyric-free interior gaps become `interlude` candidates, because a long
   no-vocal span is a functional break rather than a normal sung section.
 - Final short repeated tail lines with complete lyrics are kept as sung coda
-  under the closest sung function, currently `chorus` in the six-label output.
+  under the closest sung function, currently `chorus`.
   Only lyric-free or non-lexical final material is labeled `outro`.
 - Acoustic features include RMS, onset strength, spectral centroid, chroma,
   MFCC, and a combined novelty curve.
 - Optional Demucs vocal separation detects low-vocal regions and forces them out
-  of adjacent sung sections as intro/bridge/outro candidates.
+  of adjacent sung sections as intro/interlude/outro candidates.
 - Boundaries can snap to nearby novelty peaks, but weak acoustic novelty does
   not erase a strong lyric/vocal functional boundary.
 - Pure acoustic changes without lyric/vocal or structural function are treated

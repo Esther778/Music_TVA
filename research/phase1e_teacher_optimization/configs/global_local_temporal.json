@@ -1,0 +1,22 @@
+{
+  "seed": 2026,
+  "projection_dim": 128,
+  "hidden_dim": 96,
+  "dropout": 0.35,
+  "learning_rate": 0.0002,
+  "weight_decay": 0.0003,
+  "batch_size": 24,
+  "epochs": 30,
+  "patience": 8,
+  "grad_clip": 1.0,
+  "loss": {
+    "frame_huber": 0.35,
+    "frame_mse": 0.25,
+    "global_mse": 0.25,
+    "local_mse": 0.25,
+    "local_pearson": 0.10,
+    "local_ccc": 0.05,
+    "derivative": 0.03,
+    "variance": 0.03
+  }
+}

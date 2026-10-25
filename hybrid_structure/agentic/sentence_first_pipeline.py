@@ -192,7 +192,7 @@ def resolve_instrumental_gaps(
                         "instrumental gap resolved before acoustic validation",
                         0.0,
                         0.0,
-                        decision.assigned_to == "bridge",
+                        decision.assigned_to in {"bridge", "interlude"},
                     )
                 )
             elif decision.assigned_to == "previous":
@@ -234,7 +234,7 @@ def resolve_one_gap(
     start = previous.end
     end = following.start
     if gap >= context.long_gap_seconds:
-        return GapDecision(start, end, gap, "new_section", "bridge", "中间长无歌词音乐，独立为 bridge", 0.0, 0.0)
+        return GapDecision(start, end, gap, "new_section", "interlude", "中间长无歌词音乐，独立为 interlude", 0.0, 0.0)
     previous_similarity = acoustic_similarity(features, start, end, previous.start, previous.end)
     next_similarity = acoustic_similarity(features, start, end, following.start, following.end)
     if next_similarity > previous_similarity + 0.04:
@@ -317,14 +317,14 @@ def validate_with_acoustics(
 def semantic_boundary_score(left: pipeline.SectionCandidate, right: pipeline.SectionCandidate) -> float:
     score = 0.45
     score += 0.20 * float(left.section_type != right.section_type)
-    score += 0.15 * float(left.section_type in {"intro", "bridge", "outro"} or right.section_type in {"intro", "bridge", "outro"})
+    score += 0.15 * float(left.section_type in {"intro", "bridge", "interlude", "outro"} or right.section_type in {"intro", "bridge", "interlude", "outro"})
     score += 0.10 * max(left.type_confidence, right.type_confidence)
     score += 0.10 * float("hook" in f"{left.lyric_evidence} {right.lyric_evidence}".lower())
     return round(min(0.95, score), 2)
 
 
 def lyric_boundary_confidence(left: pipeline.SectionCandidate, right: pipeline.SectionCandidate) -> float:
-    if left.section_type in {"intro", "bridge", "outro"} or right.section_type in {"intro", "bridge", "outro"}:
+    if left.section_type in {"intro", "bridge", "interlude", "outro"} or right.section_type in {"intro", "bridge", "interlude", "outro"}:
         return 0.78
     if left.section_type != right.section_type:
         return 0.72

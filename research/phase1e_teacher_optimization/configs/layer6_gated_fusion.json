@@ -1,0 +1,20 @@
+{
+  "trial_id": "mert_layer6_handcrafted_dual_gate_mse",
+  "seed": 2026,
+  "mert_projection": 160,
+  "handcrafted_projection": 160,
+  "hidden_dim": 96,
+  "dropout": 0.3,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.0001,
+  "batch_size": 24,
+  "epochs": 60,
+  "patience": 10,
+  "grad_clip": 1.0,
+  "loss": {
+    "mse": 1.0,
+    "ccc": 0.0,
+    "pearson": 0.0,
+    "derivative": 0.0
+  }
+}

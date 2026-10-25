@@ -1,0 +1,33 @@
+{
+  "trial_id": "valence_global_local_target_smooth",
+  "seed": 2026,
+  "projection_dim": 128,
+  "hidden_dim": 96,
+  "dropout": 0.3,
+  "pretrain": {
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0003,
+    "batch_size": 24,
+    "epochs": 30,
+    "patience": 7
+  },
+  "finetune": {
+    "learning_rate": 0.00005,
+    "weight_decay": 0.0003,
+    "batch_size": 4,
+    "epochs": 35,
+    "patience": 7
+  },
+  "grad_clip": 1.0,
+  "loss": {
+    "target_smoothing_frames": 61,
+    "frame_huber": 0.2,
+    "frame_mse": 0.2,
+    "frame_ccc": 0.15,
+    "global_mse": 0.55,
+    "local_mse": 0.08,
+    "local_pearson": 0.08,
+    "derivative": 0.05,
+    "variance": 0.02
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "trial_id": "mert_handcrafted_dual_gate_composite",
+  "seed": 2026,
+  "mert_projection": 160,
+  "handcrafted_projection": 160,
+  "hidden_dim": 96,
+  "dropout": 0.4,
+  "learning_rate": 0.0002,
+  "weight_decay": 0.0005,
+  "batch_size": 24,
+  "epochs": 70,
+  "patience": 12,
+  "grad_clip": 1.0,
+  "loss": {
+    "mse": 1.0,
+    "ccc": 0.05,
+    "pearson": 0.02,
+    "derivative": 0.02,
+    "dimension_weights": [1.15, 1.0]
+  }
+}

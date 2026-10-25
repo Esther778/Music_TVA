@@ -1,0 +1,95 @@
+{
+  "date": "2026-06-24",
+  "status": "preserved_before_pmemo_integration",
+  "final_teacher_selected": false,
+  "main_decision": "DEAM-only complete-song candidates are retained as ablations, not promoted as the final Teacher.",
+  "candidates": [
+    {
+      "candidate_id": "fold0_validation_global_local_plus_arousal_transfer",
+      "role": "validation_candidate_only",
+      "usable_as_final_teacher": false,
+      "feature_backbone": "MERT-derived local/global features plus current arousal transfer branch",
+      "valence_checkpoint": "research/phase1e_teacher_optimization/outputs/valence_global_local_full_song_fold0/finetune_best.pt",
+      "arousal_checkpoint": "research/phase1e_teacher_optimization/outputs/bilstm_full_song_transfer_fold0/finetune_best.pt",
+      "validation_postprocess_files": [
+        "research/phase1e_teacher_optimization/outputs/valence_global_local_full_song_fold0/validation_postprocess_v2_search.json",
+        "research/phase1e_teacher_optimization/outputs/valence_global_local_full_song_fold0/validation_postprocess_v2_no_isotonic_wide_search.json"
+      ],
+      "validation_metrics": {
+        "mean_rmse": 0.169705,
+        "mean_mae": 0.13228,
+        "mean_pcc": 0.837199,
+        "mean_ccc": 0.82415,
+        "valence_rmse": 0.181051,
+        "valence_mae": 0.136789,
+        "valence_pcc": 0.834619,
+        "valence_ccc": 0.821164,
+        "arousal_rmse": 0.157545,
+        "arousal_mae": 0.127771,
+        "arousal_pcc": 0.839779,
+        "arousal_ccc": 0.827136
+      },
+      "locked_test_metrics": {
+        "mean_rmse": 0.236773,
+        "mean_mae": 0.174319,
+        "mean_pcc": 0.400369,
+        "mean_ccc": 0.376076,
+        "valence_rmse": 0.285205,
+        "valence_mae": 0.203472,
+        "valence_pcc": 0.206967,
+        "valence_ccc": 0.198378,
+        "arousal_rmse": 0.175445,
+        "arousal_mae": 0.145165,
+        "arousal_pcc": 0.593771,
+        "arousal_ccc": 0.553774
+      },
+      "decision": "Rejected as final Teacher because validation-selected postprocessing did not generalize to the locked Fold-0 complete-song test."
+    },
+    {
+      "candidate_id": "five_fold_valence_global_local",
+      "role": "valence_ablation",
+      "usable_as_final_teacher": false,
+      "checkpoints": [
+        "research/phase1e_teacher_optimization/outputs/valence_global_local_full_song_fold0/finetune_best.pt",
+        "research/phase1e_teacher_optimization/outputs/valence_global_local_full_song_fold1/finetune_best.pt",
+        "research/phase1e_teacher_optimization/outputs/valence_global_local_full_song_fold2/finetune_best.pt",
+        "research/phase1e_teacher_optimization/outputs/valence_global_local_full_song_fold3/finetune_best.pt",
+        "research/phase1e_teacher_optimization/outputs/valence_global_local_full_song_fold4/finetune_best.pt"
+      ],
+      "evaluation_summary": "research/phase1e_teacher_optimization/outputs/valence_global_local_nested_cv/summary.json",
+      "outer_test_metrics": {
+        "valence_rmse": 0.267009,
+        "valence_mae": 0.205546,
+        "valence_pcc": 0.463024,
+        "valence_ccc": 0.430917
+      },
+      "decision": "Retain as ablation only; five-fold complete-song Valence generalization is weak."
+    },
+    {
+      "candidate_id": "complete_song_global_ridge_cv",
+      "role": "diagnostic_baseline",
+      "usable_as_final_teacher": false,
+      "evaluation_summary": "research/phase1e_teacher_optimization/outputs/full_song_global_ridge_cv/summary.json",
+      "outer_test_metrics": {
+        "mean_rmse": 0.242049,
+        "mean_mae": 0.193788,
+        "mean_pcc": 0.513339,
+        "mean_ccc": 0.393422,
+        "valence_rmse": 0.253628,
+        "valence_mae": 0.200424,
+        "valence_pcc": 0.490952,
+        "valence_ccc": 0.407597,
+        "arousal_rmse": 0.229888,
+        "arousal_mae": 0.187151,
+        "arousal_pcc": 0.535725,
+        "arousal_ccc": 0.379247
+      },
+      "decision": "Useful lower-complexity complete-song diagnostic; not dynamic, so not a final Teacher."
+    }
+  ],
+  "next_stage": {
+    "stage": "Phase 1F PMEmo integration",
+    "path": "research/phase1f_external_va_datasets/pmemo",
+    "first_step": "audit local PMEmo raw files before mixed DEAM+PMEmo training"
+  }
+}

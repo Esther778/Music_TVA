@@ -1,0 +1,16 @@
+{
+  "model_name": "m-a-p/MERT-v1-95M",
+  "trust_remote_code": true,
+  "target_sample_rate": 24000,
+  "label_start_ms": 15000,
+  "label_hop_ms": 500,
+  "label_frames": 1223,
+  "pool_window_sec": 0.5,
+  "chunk_sec": 60.0,
+  "chunk_overlap_sec": 0.0,
+  "layers": [6],
+  "truncate_at_max_layer": true,
+  "pooling": "mean",
+  "dtype": "float16",
+  "device": "auto"
+}

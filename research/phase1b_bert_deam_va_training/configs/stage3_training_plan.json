@@ -2,22 +2,36 @@
   "seed": 42,
   "target_columns": ["valence", "arousal"],
   "primary_metric": "val_rmse",
-  "selection_metric": "test_rmse",
+  "selection_metric": "val_rmse",
   "mlp_trials": [
     {"trial_id": "mlp_baseline", "hidden": [256, 128], "dropout": 0.2, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 80, "batch_size": 512},
     {"trial_id": "mlp_wide", "hidden": [512, 256], "dropout": 0.25, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 80, "batch_size": 512},
-    {"trial_id": "mlp_light_dropout", "hidden": [256, 128], "dropout": 0.1, "lr": 0.0005, "weight_decay": 0.00005, "epochs": 80, "batch_size": 512}
+    {"trial_id": "mlp_light_dropout", "hidden": [256, 128], "dropout": 0.1, "lr": 0.0005, "weight_decay": 0.00005, "epochs": 80, "batch_size": 512},
+    {"trial_id": "mlp_h128_d035", "hidden": [128, 64], "dropout": 0.35, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 90, "batch_size": 512, "grad_clip": 1.0},
+    {"trial_id": "mlp_h256_d035", "hidden": [256, 128], "dropout": 0.35, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 90, "batch_size": 512, "grad_clip": 1.0},
+    {"trial_id": "mlp_h512_d035_lr3e4", "hidden": [512, 256], "dropout": 0.35, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 90, "batch_size": 512, "grad_clip": 1.0},
+    {"trial_id": "mlp_h256_d05", "hidden": [256, 128], "dropout": 0.5, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 90, "batch_size": 512, "grad_clip": 1.0},
+    {"trial_id": "mlp_h256_valence_weight", "hidden": [256, 128], "dropout": 0.35, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 90, "batch_size": 512, "grad_clip": 1.0, "loss_weights": [1.2, 1.0]}
   ],
   "bilstm_trials": [
     {"trial_id": "bilstm_baseline", "hidden_dim": 128, "num_layers": 1, "dropout": 0.2, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 60, "batch_size": 32},
     {"trial_id": "bilstm_deep", "hidden_dim": 128, "num_layers": 2, "dropout": 0.25, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 60, "batch_size": 32},
-    {"trial_id": "bilstm_wide", "hidden_dim": 192, "num_layers": 1, "dropout": 0.25, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 60, "batch_size": 24}
+    {"trial_id": "bilstm_wide", "hidden_dim": 192, "num_layers": 1, "dropout": 0.25, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 60, "batch_size": 24},
+    {"trial_id": "bilstm_h64_d035", "hidden_dim": 64, "num_layers": 1, "dropout": 0.35, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 70, "batch_size": 32, "grad_clip": 1.0},
+    {"trial_id": "bilstm_h96_d035", "hidden_dim": 96, "num_layers": 1, "dropout": 0.35, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 70, "batch_size": 32, "grad_clip": 1.0},
+    {"trial_id": "bilstm_h128_d035", "hidden_dim": 128, "num_layers": 1, "dropout": 0.35, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 70, "batch_size": 32, "grad_clip": 1.0},
+    {"trial_id": "bilstm_h96_lr3e4", "hidden_dim": 96, "num_layers": 1, "dropout": 0.35, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 70, "batch_size": 32, "grad_clip": 1.0},
+    {"trial_id": "bilstm_h96_wd5e4", "hidden_dim": 96, "num_layers": 1, "dropout": 0.35, "lr": 0.0005, "weight_decay": 0.0005, "epochs": 70, "batch_size": 32, "grad_clip": 1.0},
+    {"trial_id": "bilstm_h96_smooth005", "hidden_dim": 96, "num_layers": 1, "dropout": 0.35, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 70, "batch_size": 32, "grad_clip": 1.0, "smooth_lambda": 0.005},
+    {"trial_id": "bilstm_h96_valence_weight", "hidden_dim": 96, "num_layers": 1, "dropout": 0.35, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 70, "batch_size": 32, "grad_clip": 1.0, "loss_weights": [1.2, 1.0]}
   ],
   "transformer_trials": [
     {"trial_id": "transformer_baseline", "d_model": 128, "nhead": 4, "num_layers": 2, "dim_feedforward": 256, "dropout": 0.2, "lr": 0.0005, "weight_decay": 0.0001, "epochs": 60, "batch_size": 32},
     {"trial_id": "transformer_deep", "d_model": 128, "nhead": 4, "num_layers": 3, "dim_feedforward": 384, "dropout": 0.2, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 60, "batch_size": 24},
-    {"trial_id": "transformer_wide", "d_model": 192, "nhead": 6, "num_layers": 2, "dim_feedforward": 384, "dropout": 0.25, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 60, "batch_size": 24}
+    {"trial_id": "transformer_wide", "d_model": 192, "nhead": 6, "num_layers": 2, "dim_feedforward": 384, "dropout": 0.25, "lr": 0.0003, "weight_decay": 0.0001, "epochs": 60, "batch_size": 24},
+    {"trial_id": "transformer_reg_d035_lr3e4", "d_model": 128, "nhead": 4, "num_layers": 2, "dim_feedforward": 256, "dropout": 0.35, "lr": 0.0003, "weight_decay": 0.0005, "epochs": 70, "batch_size": 32, "grad_clip": 1.0},
+    {"trial_id": "transformer_small_d035", "d_model": 96, "nhead": 4, "num_layers": 2, "dim_feedforward": 192, "dropout": 0.35, "lr": 0.0003, "weight_decay": 0.0005, "epochs": 70, "batch_size": 32, "grad_clip": 1.0},
+    {"trial_id": "transformer_smooth005", "d_model": 128, "nhead": 4, "num_layers": 2, "dim_feedforward": 256, "dropout": 0.3, "lr": 0.0003, "weight_decay": 0.0005, "epochs": 70, "batch_size": 32, "grad_clip": 1.0, "smooth_lambda": 0.005}
   ],
   "early_stopping_patience": 10
 }
-
